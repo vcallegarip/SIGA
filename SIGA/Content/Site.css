@@ -1,0 +1,278 @@
+﻿
+#viewport-sizes {
+    display:none;
+    /*margin: -15px;*/
+}
+
+/*a:hover, a:focus{
+    text-decoration: none;
+}*/
+
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    /*overflow-x:hidden;
+    overflow-y:hidden;*/
+}
+
+
+/*#mainContainer a {
+    color: #2f2b2b;
+}*/
+
+
+/*#mainContainer a:hover, 
+mainContainer a:focus{
+    text-decoration: none;
+    color: #a39a9a;
+}*/
+
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+/*input,
+select,
+textarea {
+    max-width: 280px;
+}*/
+
+.container{
+    max-width: 100% !important;
+}
+
+/*#menu-container{
+    background-color:lightcoral;
+}*/
+
+.navbar-inverse {
+  background-image: linear-gradient(to bottom, #f3f3f3, #BEC1C5);
+  border-color: #95A3B6;
+}
+
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+  color: #999999 !important;
+  background-color: transparent;
+}
+
+/*.fa {
+   display: inline !important; 
+}*/
+
+ /*.plus-collapse{
+     right:20px;
+     bottom:-15px;
+     position:relative;
+ }*/
+
+
+.table-header > .row {
+  background-color: #a3becc;
+  padding:5px;
+  font-weight:bold;
+}
+
+
+.table-content > .row:nth-child(odd) {
+  background-color: #F5F5F5;
+}
+
+.table-content > .row:hover {
+   background-color: #E3E8EA;
+}
+
+.filterUsuarioContainer{
+    padding:15px;
+    background-color:#84a1aa;
+}
+
+.dataUsuarioContainer{
+    padding:15px;
+    background-color:rgba(228, 228, 228, 0.77);
+}
+
+/*.menuMain {
+    color: #bbb;
+    font-size: 14px;
+    width: 190px;
+    z-index: 100;
+}*/
+
+/***************************************** Main Container ************************************/
+
+.body-content {
+    padding-left: 0;
+    padding-right: 0;
+    height:100%;
+}
+
+#connectedUser{
+    background-color:rgba(33, 34, 35, 0.31) !important;
+}
+
+#connectedUser:hover{
+    background-color:rgba(33, 34, 35, 0.31) !important;
+}
+
+#menuMain {
+    background-color: #3a3633;
+    height: 100%;
+    position:absolute;
+    width: 250px;
+    z-index: 101;
+}
+
+#menuMain ul {
+    padding:0;
+    color:rgba(242, 236, 236, 0.51);
+    text-decoration:none;
+}
+
+#menuMain li {
+    padding:13px;
+}
+
+#menuMain li:hover {
+    background-color:rgba(98, 93, 93, 0.33);
+}
+
+#menuMain li span {
+    font-size:16px;
+}
+
+#menuMain li:hover span{
+    color:white;
+    font-weight:300;
+}
+
+#menuMain li a i {
+    color:rgba(242, 236, 236, 0.51);
+    top:4px;
+    position:relative;
+}
+
+#menuMain li:hover i{
+    color:white;
+    font-weight:bold;
+}
+
+.menuMainHeaderItems{
+    margin-top:10px;
+}
+
+.menuMainHeaderItems ul{
+    margin-left: -37px !important;
+    margin-right: -13px !important;
+}
+
+
+.menuMainHeaderItems li{
+    padding:5px !important;
+    margin-left:25px;
+    padding-left: 40px !important;
+}
+
+.menuMainHeaderItems a{
+    color:rgba(242, 236, 236, 0.51);
+    cursor:pointer;
+}
+
+.menuMainHeaderItems li:hover a{
+    color:white;
+}
+
+
+#mainContainer{
+   width:100%;
+   height:100%;
+   float:right;
+   position: relative;
+   padding: 15px;
+}
+
+#breadCrumb{
+    height:100%;
+    float:right;
+    position: relative;
+    background-color:rgba(58, 54, 51, 0.67); 
+    padding:15px; 
+    color:whitesmoke;
+}
+
+
+#breadCrumb.withMenu{
+    width: calc(100% - 250px);
+}
+
+#mainContainer.withMenu {
+    width: calc(100% - 250px);
+   }
+
+
+
+
+/*****************/
+/* Usuario Page */
+/******************/
+
+.panel-heading{
+    background-color: #C3C6C9 !important;
+    font-weight:bold;
+    color:#706e6e !important;
+}
+
+.panel-body.filtrosContainer {
+    background-color:rgb(229, 230, 231);
+}
+
+
+/* Usuario Search Bar - Filtros */
+.btn-group, 
+.btn-group-vertical {
+     display: block; 
+}
+
+.filtrosContainer .form-group{
+    margin-bottom:0;
+}
+
+
+
+
+/* bootstrapDataGrid */
+
+.bootstrapDataGrid-Header{
+    background-color:#7c7a7a;
+    color:white;
+    padding:5px;
+}
+
+.wrapColumnData{
+    text-wrap:normal;
+    word-wrap: break-word;
+}
+
+
+.bootstrapDataGridData > .row:nth-child(even){
+    background-color: #f3f4f7;
+}
+.bootstrapDataGridData > .row:nth-child(odd){
+     background-color: #EFF0F0;
+}
+
+.bootstrapDataGridData > .row:hover {
+   background-color: #E3E8EA;
+}
+
+
+.opcionesButtomGroup{
+    position:relative;
+    top:2.5px;
+}

@@ -1,0 +1,121 @@
+﻿@model SIGA.Models.ViewModels.UsuarioViewModel
+
+<div id="UsuarioContainer">
+
+    <h1>Usuarios</h1>
+    <p>@Html.ActionLink("Create New", "Create")</p>
+    <div class="panel panel-default">
+        <div class="panel-heading">Filtros</div>
+        <div class="panel-body filtrosContainer">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-lg-3  col-md-3">
+                            <div class="form-group">
+                                <label for="txtPrimerNombre">Nombre</label>
+                                <input type="text" class="form-control" id="txtPrimerNombre" placeholder="Nombre">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <div class="form-group">
+                                <label for="txtApellidoPaterno">Paterno</label>
+                                <input type="text" class="form-control" id="txtApellidoPaterno" placeholder="Apellido Paterno">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <div class="form-group">
+                                <label for="txtEmail">Correo</label>
+                                <input type="text" class="form-control" id="txtEmail" placeholder="Correo Electronico">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <div class="form-group">
+                                <label for="cboTipoUsuario">Usuario</label>
+                                <select class="form-control" id="cboTipoUsuario">
+                                    <option>Todos</option>
+                                    <option>Alumno</option>
+                                    <option>Profesor</option>
+                                    <option>Administrador</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 hidden-md text-right">
+                    <div class="form-group">
+                        <label for="btnAction">&nbsp;</label>
+                        <div id="btnAction">
+                            <button id="btnSearch" type="button" onclick="searchInbox();" class="btn btn-primary"><i class="fa fa-search "></i> Buscar</button>
+                            <button id="btnReset" type="button" data-bind="click: resetFilter" class="btn btn-primary">Reset</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 visible-md  text-left">
+                    <div class="form-group">
+                        <label for="btnAction">&nbsp;</label>
+                        <div id="btnAction">
+                            <button id="btnSearch" type="button" onclick="searchInbox();" class="btn btn-primary"><i class="fa fa-search "></i> Buscar</button>
+                            <button id="btnReset" type="button" data-bind="click: resetFilter" class="btn btn-primary">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>         
+        </div>
+    </div>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Datos del Usuario</div>
+        <div class="panel-body dataContainer">
+            <div class="row noSideMarginInRow">
+                <div class="usuarioSubContainer" id="usuarioSubContainer">
+                    @Html.Partial("UsuarioListPartialView", Model)
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">Agregar paginacion</div>
+    </div>
+
+</div>
+      
+
+@*@Scripts.Render("~/bundles/mainInbox")*@
+<script src="~/Scripts/Siga/usuario.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        ko.applyBindings(loVM, $('#UsuarioContainer')[0]);
+
+        $("#txtPrimerNombre").keypress(function (e) {
+            if (e.which == 13) {
+                searchInbox();
+            }
+        });
+
+
+        $("#txtApellidoPaterno").keypress(function (e) {
+            if (e.which == 13) {
+                searchInbox();
+            }
+        });
+
+        $("#txtEmail").keypress(function (e) {
+            if (e.which == 13) {
+                searchInbox();
+            }
+        });
+
+        $("#cboTipoUsuario").keypress(function (e) {
+            if (e.which == 13) {
+                searchInbox();
+            }
+        });
+
+
+    });
+
+
+</script>
+

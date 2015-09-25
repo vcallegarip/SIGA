@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - SIGA V1</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/layout")
+    @RenderSection("scripts", required: false)
+
+</head>
+
+<body data-bind=" css: {xxs: layoutVM.viewport()=='xxs', xs:  layoutVM.viewport()=='xs', sm:  layoutVM.viewport()=='sm', md:  layoutVM.viewport()=='md', lg:  layoutVM.viewport()=='lg'}">
+    <div id="viewport-sizes">
+        <div class="viewport visible-xxs hidden-xs hidden-sm  hidden-md  hidden-lg ">xxs</div>
+        <div class="viewport hidden-xxs visible-xs hidden-sm  hidden-md  hidden-lg ">xs</div>
+        <div class="viewport hidden-xxs hidden-xs  visible-sm hidden-md  hidden-lg ">sm</div>
+        <div class="viewport hidden-xxs hidden-xs  hidden-sm  visible-md hidden-lg ">md</div>
+        <div class="viewport hidden-xxs hidden-xs  hidden-sm  hidden-md visible-lg ">lg</div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            layoutVM = new layoutViewModel();
+            ko.applyBindings(layoutVM);
+        });
+    </script>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Sistema Integrado de Gestion Academica", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            @*<div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        </ul>
+                    @Html.Partial("_LoginPartial")
+            </div>*@
+        </div>
+    </div>
+
+    <div id="menuMain" data-bind="template: 'menuMainTemplate'"></div>
+
+    <div id="breadCrumb" class="withMenu" data-bind="template: 'breadCrumTemplate'">
+    </div>
+
+    <div id="mainContainer" class="withMenu">
+        @RenderBody()
+    </div>
+
+</body>
+</html>
+
+<script type="text/html" id="menuMainTemplate">
+
+    <ul id="ul-menu">
+        <li id="connectedUser">
+            <a href="#">
+                <i class="fa fa-user fa-lg"></i>
+            </a>
+        </li>
+        <li class="menuMainHeader">
+            <span><i class="fa fa-wrench acordion-icon fa-lg"></i>&nbsp;&nbsp;Soporte</span>
+            <a href="#soporteMenuCollapse" data-toggle="collapse" aria-expanded="false" aria-controls="soporteMenuCollapse">
+                <i class="fa fa-plus-square-o pull-right plus-collapse"></i>
+            </a>
+            <div class="collapse menuMainHeaderItems" id="soporteMenuCollapse">
+                <ul data-bind="foreach: soporteMenuitems">
+                    <li>
+                        <a data-bind="text: name, click: $root.menuClick"></a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            <span><i class="fa fa-cogs fa-lg"></i>&nbsp;&nbsp;Procesos</span>
+            <a href="#procesoMenuCollapse" data-toggle="collapse" aria-expanded="false" aria-controls="procesoMenuCollapse">
+                <i class="fa fa-plus-square-o pull-right plus-collapse"></i>
+            </a>
+            <div class="collapse collapse-custom" id="procesoMenuCollapse">
+                <ul data-bind="foreach: procesoMenuitems">
+                    <li>
+                        <a data-bind="text: name, click: $root.menuClick"></a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            <span><i class="fa fa-calendar fa-lg"></i>&nbsp;&nbsp;Horarios</span>
+            <a href="#horarioMenuCollapse" data-toggle="collapse" aria-expanded="false" aria-controls="horarioMenuCollapse">
+                <i class="fa fa-plus-square-o pull-right plus-collapse"></i>
+            </a>
+            <div class="collapse collapse-custom" id="horarioMenuCollapse">
+                <ul data-bind="foreach: horarioMenuitems">
+                    <li>
+                        <a data-bind="text: name, click: $root.menuClick"></a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            <span><i class="fa fa-credit-card fa-lg"></i>&nbsp;&nbsp;Pagos</span>
+            <a href="#pagoMenuCollapse" data-toggle="collapse" aria-expanded="false" aria-controls="pagoMenuCollapse">
+                <i class="fa fa-plus-square-o pull-right plus-collapse"></i>
+            </a>
+            <div class="collapse collapse-custom" id="pagoMenuCollapse">
+                <ul data-bind="foreach: pagoMenuitems">
+                    <li>
+                        <a data-bind="text: name, click: $root.menuClick"></a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+
+</script>
+
+<script type="text/html" id="breadCrumTemplate">
+
+    <div class="row">
+        <div class="col-lg-12">
+            @*<div data-bind="foreach: loVM.breadCrumbs">
+                    <span data-bind="if: url != 'func'"><a data-bind="attr: {href: url}"><span data-bind="text:name">Home</span></a></span>
+                    <span data-bind="if: url == 'func'"><span data-bind="attr: {onclick: functionCall}"><span class="pointer breadcrumb-name" data-bind="text:name"></span></span></span>
+                </div>*@
+
+            Home
+            
+        </div>
+    </div>
+
+</script>

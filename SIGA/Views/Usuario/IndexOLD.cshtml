@@ -1,0 +1,42 @@
+﻿<div id="usuarioContainer">
+    <div class="container">
+        <h1>Usuarios</h1>
+        <div class="filterUsuarioContainer">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Buscar Usuario...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Buscar</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-default">Tipo de Usuario</button>
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul id="tipoUsuarioDDL" class="dropdown-menu" data-bind="foreach: tipoUsuarioItems">
+                            <li>
+                                <a data-bind="text: name, click: $root.tipoUsuarioClick"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <div class="well well-sm">Seleccionar el tipo de usuario antes de hace una busqueda</div>
+
+        <div id="dataUsuarioContainer">
+           
+        </div>
+
+    </div>
+</div>
+
+<script src="@Url.Content("/Scripts/SIGA/usuario.js")" type="text/javascript"></script>
+

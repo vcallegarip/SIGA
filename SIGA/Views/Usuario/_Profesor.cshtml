@@ -1,0 +1,45 @@
+﻿@model SIGA.Models.ViewModels.UsuarioViewModel
+
+
+
+<div id="profesorMainPage">
+    
+    <div class="container">
+
+        @*<h2 style="text-align: center"><span data-bind="text: Name"</span></h2>*@
+        <table class="table table-bordered table-striped table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre test</th>
+                    <th>Paterno</th>
+                    <th>Materno</th>
+                    <th>Nombre Usuario</th>
+                    <th>Celular</th>
+                    <th>Email</th>
+                    <th>Especialidad</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: Profesores">
+                <tr>
+                    <td data-bind="text: Per_Nombre"></td>
+                    <td data-bind="text: Per_ApePaterno"></td>
+                    <td data-bind="text: Per_ApeMaterno"></td>
+                    <td data-bind="text: User_Nombre"></td>
+                    <td data-bind="text: Per_Cel"></td>
+                    <td data-bind="text: Per_Email"></td>
+                    <td data-bind="text: Prof_Especialidad"></td>
+                    <td>
+                        <a href="#" data-bind="click: $root.edit" class="btn btn-primary btn-xs">Edit</a>
+                        <a href="#" data-bind="click: $root.remove" class="btn btn-primary btn-xs">Remove</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        @*<a href="#" data-bind="click: add" class="btn btn-primary btn-xs">Add New Book</a>*@
+
+    </div>
+       
+</div>
+

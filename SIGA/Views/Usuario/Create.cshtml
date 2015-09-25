@@ -1,0 +1,139 @@
+﻿@model SIGA_Model.UsuarioViewModel
+@using SIGA.Helpers;
+
+@{
+    var isCreating = Model.UsuarioItem.User_Id == 0;
+    ViewBag.Title = (isCreating) ? "Create" : "Edit";
+}
+
+<h2>Create</h2>
+
+
+<div data-bind="visible: !saveCompleted()">
+
+    @using (Html.BeginForm("Create", "Usuario", FormMethod.Post, new { data_bind = "submit: validateAndSave" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UsuarioItem.Per_Nombre, "Nombre", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UsuarioItem.Per_Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Nombre, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UsuarioItem.Per_ApePaterno, "Apellido Paterno", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UsuarioItem.Per_ApePaterno, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UsuarioItem.Per_ApePaterno, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UsuarioItem.Per_ApeMaterno, "Apellido Materno", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UsuarioItem.Per_ApeMaterno, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UsuarioItem.Per_ApeMaterno, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UsuarioItem.User_Nombre, "Nombre de Usuario", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UsuarioItem.User_Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UsuarioItem.User_Nombre, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UsuarioItem.Per_Sexo, "Sexo", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UsuarioItem.Per_Sexo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Sexo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UsuarioItem.Per_Dni, "DNI", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UsuarioItem.Per_Dni, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Dni, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UsuarioItem.Per_Dir, "Direccion", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UsuarioItem.Per_Dir, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Dir, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UsuarioItem.Per_Cel, "Celular", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UsuarioItem.Per_Cel, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Cel, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UsuarioItem.Per_Tel, "Telefono", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UsuarioItem.Per_Tel, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Tel, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UsuarioItem.Per_Email, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UsuarioItem.Per_Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10" data-bind="visible: !sending()">
+                    <input type="submit" value="@if (isCreating) { @Html.Raw("Create") } else { @Html.Raw("Update") }" class="btn btn-default" />
+                </div>
+
+                <div class="progress" data-bind="visible: sending">
+                    <div class="progress-bar progress-bar-info progress-bar-striped active"
+                         role="progressbar" aria-valuenow="100"
+                         aria-valuemin="0" aria-valuemax="100"
+                         style="width: 100%">
+                        <span class="sr-only"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+    }
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/Siga/usuario.js"></script>
+
+<script>
+    var viewModel = new usuarioViewModel(@Html.HtmlConvertToJson(Model));
+    ko.applyBindings(viewModel);
+</script>
+
+
+
+}

@@ -1,0 +1,99 @@
+﻿<div id="UsuarioContainer">
+    
+    <h1>Usuarios</h1>
+
+    <a href="#" id="lnkGetData" data-bind="click: getUsuariosFromServer">Get clients from server</a>
+
+    <div class="panel panel-default">
+            <div class="panel-heading">Filtros</div>
+            <div class="panel-body filtrosContainer">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="primerNombreInput">Primer Nombre</label>
+                                <input type="text" class="form-control" id="primerNombreInput" placeholder="Primer Nombre" data-bind="value: search_PrimerNombre, valueUpdate: 'afterkeydown'">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="apellidoPaternoInput">Apellido Paterno</label>
+                                <input type="text" class="form-control" id="apellidoPaternoInput" placeholder="Apellido Paterno" data-bind="value: search_ApellidoPaterno, valueUpdate: 'afterkeydown'">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="emailInput">Correo</label>
+                                <input type="text" class="form-control" id="emailInput" placeholder="Correo Electronico" data-bind="value: search_Email, valueUpdate: 'afterkeydown'"> 
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="cboTipoUsuario">Tipo Usuario</label>
+                                <select class="form-control" id="cboTipoUsuario">
+                                    <option>Todos</option>
+                                    <option>Alumno</option>
+                                    <option>Profesor</option>
+                                    <option>Administrador</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 text-right">
+                            <div class="form-group">
+                                <label for="cboTipoUsuario">&nbsp;</label>
+                                <div id="cboTipoUsuario">
+                                    <button id="btnSearch" type="button" class="btn btn-primary" onclick="inboxPafSearch('#UsuarioForm')"><i class="fa fa-search "></i> Buscar</button>
+                                    <button id="btnReset" type="button" class="btn btn-primary">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>         
+            </div>
+        </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Datos del Usuario</div>
+        <div class="panel-body dataContainer">
+            <div class="row noSideMarginInRow">
+                    <div class="col-lg-12">
+                        @*@if (Model.UsuarioDetails.Count == 0)
+                        {
+                        <div class="row">
+                            <div class="col-xs-12 text-center">No matching search results found</div>
+                        </div>
+                        }*@
+                       
+
+                        <div class="bootstrapDataGrid" data-bind="foreach: filteredRecords">
+                            <div class="row">
+                                @*<div class="col-xs-1 col-md-1 pointer" onclick="usuarioGetDetail(@item.Usuario.User_Id)">@item.Usuario.User_Id</div>*@
+                                <div class="col-lg-1 col-md-1 noPaddingInColumn" data-bind="text: TipoUser_Descrip"></div>
+                                <div class="col-lg-1 col-md-1" data-bind="text: User_Nombre"></div>
+                                <div class="col-lg-1 col-md-1" data-bind="text: Per_Nombre"></div>
+                                <div class="col-lg-1 col-md-1" data-bind="text: Per_ApePaterno"></div>
+                                <div class="col-lg-1 col-md-1" data-bind="text: Per_ApeMaterno"></div>
+                                <div class="col-lg-3 col-md-3" data-bind="text: Per_Email"></div>
+                                <div class="col-lg-1 col-md-1" data-bind="text: Per_Cel"></div>
+                                <div class="col-lg-1 col-md-1" data-bind="text: Per_Tel"></div>
+                                @*<div class="col-lg-2 col-md-2 pull-right">
+                    <div class="row">
+                        <div class="btn-group pull-right" role="group" aria-label="...">
+                            <button type="button" class="btn-group btn-group-xs fa fa-list" role="group" aria-label="..." onclick="pafCenterGetRequestDetails(@item.Usuario.User_Id)"></button>
+                            <button type="button" class="btn-group btn-group-xs fa fa-edit" role="group" aria-label="..." onclick="pafCenterGetRequestDetails(@item.Usuario.User_Id)"></button>
+                            <button type="button" class="btn-group btn-group-xs fa fa-trash-o" role="group" aria-label="..." onclick="pafCenterGetRequestDetails(@item.Usuario.User_Id)"></button>
+                        </div>
+                    </div>
+                </div>*@
+                            </div>
+                        </div>
+</div>
+                </div>
+        </div>
+        <div class="panel-footer">Agregar paginacion</div>
+    </div>
+
+</div>
+      
+<script src="//cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.js"></script>
+<script src="~/Scripts/Siga_V1/usuario.js"></script>

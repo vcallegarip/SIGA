@@ -1,0 +1,64 @@
+﻿@model SIGA.Models.Profesor
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Profesor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Prof_Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prof_Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prof_Rpm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prof_Rpm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prof_Nextel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prof_Nextel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prof_Especialidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prof_Especialidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Curso.Cur_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Curso.Cur_Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

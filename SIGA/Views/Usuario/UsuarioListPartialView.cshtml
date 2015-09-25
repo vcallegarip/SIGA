@@ -1,0 +1,56 @@
+﻿@model SIGA.Models.ViewModels.UsuarioViewModel
+@using SIGA.Helpers;
+
+
+<div class="row noSideMarginInRow">
+    <div class="col-lg-12">
+        @if (Model.UsuarioInformationItems.Count == 0)
+        {
+            <div class="row">
+                <div class="col-xs-12 text-center">No matching search results found 2</div>
+            </div>
+        }
+        else if (Model.UsuarioInformationItems.Count > 0)
+	    {
+            <div id="bootstrapDataGrid">
+                <div class="row bootstrapDataGrid-Header marginBottomp5px">
+                    <div class="col-lg-1 col-md-1 noPaddingInColumn"><span>Codigo</span></div>
+                    <div class="col-lg-1 col-md-1"><span>Usuario</span></div>
+                    <div class="col-lg-1 col-md-1"><span>Nombre</span></div>
+                    <div class="col-lg-1 col-md-1"><span>Paterno</span></div>
+                    <div class="col-lg-1 col-md-1"><span>Materno</span></div>
+                    <div class="col-lg-3 col-md-3"><span>Email</span></div>
+                    <div class="col-lg-1 col-md-1"><span>Celular</span></div>
+                    <div class="col-lg-1 col-md-1"><span>Telefono</span></div>
+                    <div class="col-lg-2 col-md-2"><span></span></div>
+                </div>
+                @foreach (var item in Model.UsuarioInformationItems)
+                {
+                    <div class="bootstrapDataGridData">
+                        <div class="row paddingBottom5px">
+                            <div class="col-lg-1 col-md-1 alignDataWithButton noPaddingInColumn"><span>@item.User_Id</span></div>
+                            <div class="col-lg-1 col-md-1 alignDataWithButton"><span>@item.User_Nombre</span></div>
+                            <div class="col-lg-1 col-md-1 alignDataWithButton"><span>@item.Per_Nombre</span></div>
+                            <div class="col-lg-1 col-md-1 alignDataWithButton"><span>@item.Per_ApePaterno</span></div>
+                            <div class="col-lg-1 col-md-1 alignDataWithButton"><span>@item.Per_ApeMaterno</span></div>
+                            <div class="col-lg-3 col-md-3 alignDataWithButton wrapColumnData"><span>@item.Per_Email</span></div>
+                            <div class="col-lg-1 col-md-1 alignDataWithButton"><span>@item.Per_Cel</span></div>
+                            <div class="col-lg-1 col-md-1 alignDataWithButton"><span>@item.Per_Tel</span></div>
+                            <div class="col-lg-2 col-md-2 noPaddingInColumn">
+                                <div class="opcionesButtomGroup">
+                                    <a class="btn btn-md btn-default fa fa-trash-o dangerColor pull-right"></a>
+                                    <a class="btn btn-md btn-default fa fa-pencil-square-o warningColor pull-right"></a>
+                                    <a class="btn btn-md btn-default fa fa-info-circle infoColor pull-right"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                
+                }
+                           
+            </div>
+	    }
+                        
+    </div>
+</div>
+

@@ -1,0 +1,63 @@
+﻿.noSideMarginInRow{
+    margin:0 !important;
+}
+
+.noPaddingInRow{
+    padding:0 !important;
+}
+
+.noPaddingInColumn{
+    padding:0 !important;
+}
+
+.alignDataWithButton{
+    position:relative;
+    top:7px;
+}
+
+.marginTop5px{
+    margin-top:5px;
+}
+
+.marginBottomp5px{
+    margin-bottom:5px
+}
+
+.paddingTop5px{
+    padding-top:5px;
+}
+
+.paddingBottom5px{
+    padding-bottom:5px
+}
+
+
+.dangerColor{
+    color: #d9534f;
+}
+
+.dangerColor:hover{
+    color: #fff;
+    background-color: #d9534f;
+    border-color:#d9534f;
+}
+
+.infoColor{
+    color: #5bc0de;
+}
+
+.infoColor:hover{
+    color: #fff;
+    background-color: #5bc0de;
+    border-color:#5bc0de;
+}
+
+.warningColor{
+    color: #f0ad4e;
+}
+
+.warningColor:hover{
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color:#f0ad4e;
+}
