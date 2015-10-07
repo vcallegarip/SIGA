@@ -1,7 +1,6 @@
 ﻿
 var usuarioVM = null;
-var usuarioViewModel = function (usuario) {
-
+var usuarioViewModel = function(usuario) {
     usuarioVM = this;
 
     usuarioVM.saveCompleted = ko.observable(false);
@@ -33,26 +32,25 @@ var usuarioViewModel = function (usuario) {
 
         self.sending(true);
 
-        // include the anti forgery token
         self.author.__RequestVerificationToken = form[0].value;
-
+     
         $.ajax({
             url: '/api/Usuario',
-            type: (self.isCreating) ? 'post' : 'put',
+            type: (usuarioVM.isCreating) ? 'post' : 'put',
             contentType: 'application/json',
-            data: ko.toJSON(self.author)
+            data: ko.toJSON(usuarioVM.usuario)
         })
-        .success(self.successfulSave)
-        .error(self.errorSave)
-        .complete(function () { self.sending(false) });
+        .success(usuarioVM.successfulSave)
+        .error(usuarioVM.errorSave)
+        .complete(function () { usuarioVM.sending(false) });
     };
 
     usuarioVM.successfulSave = function () {
-        self.saveCompleted(true);
+        usuarioVM.saveCompleted(true);
 
         $('.body-content').prepend('<div class="alert alert-success"><strong>Success!</strong> The author has been saved.</div>');
         setTimeout(function () {
-            if (self.isCreating)
+            if (usuarioVM.isCreating)
                 location.href = './';
             else
                 location.href = '../';
@@ -62,16 +60,6 @@ var usuarioViewModel = function (usuario) {
     usuarioVM.errorSave = function () {
         $('.body-content').prepend('<div class="alert alert-danger"><strong>Error!</strong> There was an error saving the author.</div>');
     };
-
-    //usuarioVM.CurrentPageNumber = ko.observable();
-    //usuarioVM.PageSize = ko.observable();
-    //usuarioVM.User_ID = ko.observable();
-    //usuarioVM.Per_Nombre = ko.observable();
-    //usuarioVM.Per_ApellidoPaterno = ko.observable();
-    //usuarioVM.Per_Email = ko.observable();
-    //usuarioVM.TipoUser_Descrip = ko.observable();
-    //usuarioVM.SortDirection = ko.observable();
-    //usuarioVM.SortExpression = ko.observable();
 
     usuarioVM.ReturnStatus = ko.observable();
     
@@ -89,52 +77,6 @@ var usuarioViewModel = function (usuario) {
 
     //usuarioVM.resetFilters();
 }
-
-function resetFilters () {
-    $("#txtPrimerNombre").val("");
-    $("#txtApellidoPaterno").val("");
-    $("#txtEmail").val("");
-    $("#cboTipoUsuario").val("All");
-    InitializeData();
-};
-
-
-function UsuarioRequest() {
-    this.CurrentPageNumber;
-    this.PageSize;
-    this.User_ID;
-    this.Per_Nombre;
-    this.Per_ApellidoPaterno;
-    this.Per_Email;
-    this.TipoUser_Descrip;
-    this.SortDirection;
-    this.SortExpression;
-    this.ReturnStatus;
-    this.usuarioList;
-};
-
-function getUsuarios() {
-    
-    var url = "/Usuario/Index";
-    
-    var usuarioRequest = new UsuarioRequest();
-
-    usuarioRequest.User_ID = "";
-    usuarioRequest.Per_Nombre = $("#txtPrimerNombre").val();
-    usuarioRequest.Per_ApellidoPaterno = $("#txtApellidoPaterno").val();
-    usuarioRequest.Per_Email = $("#txtEmail").val();
-    usuarioRequest.TipoUser_Descrip = $("#cboTipoUsuario").val();
-    usuarioRequest.CurrentPageNumber = 1;
-    usuarioRequest.PageSize = 15;
-
-    $.post(url, usuarioRequest, function (data, textStatus) {
-        GetUsuariosComplete(data);
-
-    });
-
-};
-
-
 
 var searchInbox = function () {
     var searchParam = ($(".paf-menu-item.active").attr('data-id') == null || $(".paf-menu-item.active").attr('data-id') == "")
@@ -164,23 +106,14 @@ var searchInbox = function () {
 }
 
 
-//function loadPartialList(pageNumber) {
-//    var pageNumber = pageNumber || 1;
-//    var pageSize = $('#selectListPageSize option:selected').text();
-//    var showOption = ($('#chkIncludeClosedItem').is(':checked')) ? "Closed" : "Open";
-//    var params = new Array();
-//    params.push("?filterDesc=" + encodeURIComponent(searchParams));//searchParams comes from ViewBag declared in the script of razor
-//    params.push("pageNumber=" + pageNumber);
-//    params.push("pageSize=" + pageSize);
-//    params.push("showOption=" + showOption);
-//    loadBusyImageTab("inboxMain");
-//    $("#inboxSubContainer").load('/Inbox/MainInboxList' + params.join('&'), function (response, status, xhr) {
-//        unloadBusyImageTab("inboxMain");
-//    });
-//}
 
 //$(document).ready(function () {
-//    getUsuarios();
 //    usuarioVM = new usuarioViewModel();
 //    ko.applyBindings(usuarioVM, $('#UsuarioContainer')[0]);
+//});
+
+
+//$(document).ready(function () {
+//    viewModel = new usuarioViewModel(@Html.HtmlConvertToJson(Model));
+//    ko.applyBindings(viewModel, $('#UsuarioCreateContainer')[0]);
 //});

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Newtonsoft.Json;
 using SIGA_Model.StoredProcContexts;
 using SIGA.Models.ViewModels;
+using SIGA_Model;
 
 namespace SIGA.Controllers
 {
@@ -48,6 +49,11 @@ namespace SIGA.Controllers
 
             return usuarioViewModel;
 
+        }
+
+        public ActionResult CreateUsuario()
+        {
+            return View("Form", new UsuarioViewModel());
         }
 
     }

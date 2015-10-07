@@ -31,9 +31,50 @@
     padding-bottom:5px
 }
 
-
 .dangerColor{
     color: #d9534f;
+}
+
+.noPadding{
+    padding:0px;
+}
+
+.noPaddingTop{
+    padding-top:0px;
+}
+
+.noPaddingBottom{
+    padding-bottom:0px;
+}
+
+.noPaddingLeft{
+    padding-left:0px;
+}
+
+.noPaddingRight{
+    padding-right:0px;
+}
+
+
+
+.noMargin{
+    margin:0px;
+}
+
+.noMarginTop{
+    margin-top:0px;
+}
+
+.noMarginBottom{
+    margin-bottom:0px;
+}
+
+.noMarginLeft{
+    margin-left:0px;
+}
+
+.noMarginRight{
+    margin-right:0px;
 }
 
 .dangerColor:hover{

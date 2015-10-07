@@ -1,0 +1,1041 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SIGAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Administrador">
+          <Key>
+            <PropertyRef Name="Adm_ID" />
+          </Key>
+          <Property Name="Adm_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="Adm_Area" Type="varchar" MaxLength="50" />
+          <Property Name="Adm_Rpm" Type="char" MaxLength="12" />
+          <Property Name="Adm_Nextel" Type="char" MaxLength="12" Nullable="false" />
+          <Property Name="Per_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Alumno">
+          <Key>
+            <PropertyRef Name="Alu_Id" />
+          </Key>
+          <Property Name="Alu_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="Alu_FechNac" Type="date" />
+          <Property Name="Alu_Apoderado" Type="varchar" MaxLength="50" />
+          <Property Name="Alu_FechIngreso" Type="datetime" Nullable="false" />
+          <Property Name="Alu_Estado" Type="bit" Nullable="false" />
+          <Property Name="Alu_Foto" Type="varchar" MaxLength="200" />
+          <Property Name="Per_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Aula">
+          <Key>
+            <PropertyRef Name="Aul_Id" />
+          </Key>
+          <Property Name="Aul_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Aul_Capacidad" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Calificacion">
+          <Key>
+            <PropertyRef Name="User_Id" />
+            <PropertyRef Name="Cur_Id" />
+          </Key>
+          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="Cur_Id" Type="int" Nullable="false" />
+          <Property Name="Cal_Fech" Type="datetime" />
+          <Property Name="Cal_Condicion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cal_Practica" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Cal_Teorica" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Cal_Oral" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="Cal_Otros" Type="decimal" Precision="12" Scale="2" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="Cur_Id" />
+          </Key>
+          <Property Name="Cur_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Mod_Id" Type="int" Nullable="false" />
+          <Property Name="Prog_Id" Type="int" Nullable="false" />
+          <Property Name="Cur_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Cur_NumHoras" Type="int" />
+          <Property Name="Cur_Precio" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Horario">
+          <Key>
+            <PropertyRef Name="Hor_Id" />
+          </Key>
+          <Property Name="Hor_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Hor_Grupo" Type="varchar" MaxLength="50" />
+          <Property Name="Hor_Ini" Type="time" Precision="7" />
+          <Property Name="Hor_Dia" Type="varchar" MaxLength="50" />
+          <Property Name="Hor_Turno" Type="varchar" MaxLength="50" />
+          <Property Name="Hor_Fin" Type="time" Precision="7" />
+        </EntityType>
+        <EntityType Name="Matricula">
+          <Key>
+            <PropertyRef Name="Mat_Id" />
+          </Key>
+          <Property Name="Mat_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cur_Id" Type="int" Nullable="false" />
+          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="Rec_Id" Type="int" Nullable="false" />
+          <Property Name="Mat_Tipo" Type="varchar" MaxLength="50" />
+          <Property Name="Mat_Fecha" Type="date" Nullable="false" />
+          <Property Name="Mat_Estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Modulo">
+          <Key>
+            <PropertyRef Name="Mod_Id" />
+          </Key>
+          <Property Name="Mod_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Mod_Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mod_Tipo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mod_Unidad" Type="varchar" MaxLength="50" />
+          <Property Name="Mod_NumHoras" Type="varchar" MaxLength="50" />
+          <Property Name="Mod_NumMes" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mod_NumCursos" Type="nchar" MaxLength="10" />
+          <Property Name="Mod_Nivel" Type="int" />
+        </EntityType>
+        <EntityType Name="Pago">
+          <Key>
+            <PropertyRef Name="Pag_Id" />
+          </Key>
+          <Property Name="Pag_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Alu_Id" Type="int" />
+          <Property Name="Pag_Fech" Type="date" />
+        </EntityType>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="Per_Id" />
+          </Key>
+          <Property Name="Per_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Per_Dni" Type="int" Nullable="false" />
+          <Property Name="Per_Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Per_ApePaterno" Type="varchar" MaxLength="50" />
+          <Property Name="Per_ApeMaterno" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Per_Sexo" Type="char" MaxLength="1" />
+          <Property Name="Per_Dir" Type="varchar" MaxLength="100" />
+          <Property Name="Per_Cel" Type="varchar" MaxLength="20" />
+          <Property Name="Per_Tel" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Per_Email" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Profesor">
+          <Key>
+            <PropertyRef Name="Prof_Id" />
+          </Key>
+          <Property Name="Prof_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Per_Id" Type="int" />
+          <Property Name="Prof_Especialidad" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Programacion">
+          <Key>
+            <PropertyRef Name="Prog_Id" />
+          </Key>
+          <Property Name="Prog_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Aul_Id" Type="int" Nullable="false" />
+          <Property Name="Hor_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Recibo">
+          <Key>
+            <PropertyRef Name="Rec_Id" />
+          </Key>
+          <Property Name="Rec_Id" Type="int" Nullable="false" />
+          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="Pag_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TipoUsuario">
+          <Key>
+            <PropertyRef Name="TipoUser_Id" />
+          </Key>
+          <Property Name="TipoUser_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoUser_Descrip" Type="varchar" MaxLength="50" />
+          <Property Name="TipoUser_Nivel" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Per_Id" />
+            <PropertyRef Name="TipoUser_Id" />
+          </Key>
+          <Property Name="User_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Per_Id" Type="int" Nullable="false" />
+          <Property Name="TipoUser_Id" Type="int" Nullable="false" />
+          <Property Name="User_Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="User_Pass" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="User_Inactivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Administrador_Persona">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
+          <End Role="Administrador" Type="Self.Administrador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="Per_Id" />
+            </Principal>
+            <Dependent Role="Administrador">
+              <PropertyRef Name="Per_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Alumno_Persona">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
+          <End Role="Alumno" Type="Self.Alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="Per_Id" />
+            </Principal>
+            <Dependent Role="Alumno">
+              <PropertyRef Name="Per_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Calificacion_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="Calificacion" Type="Self.Calificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="Cur_Id" />
+            </Principal>
+            <Dependent Role="Calificacion">
+              <PropertyRef Name="Cur_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Curso_Modulo">
+          <End Role="Modulo" Type="Self.Modulo" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modulo">
+              <PropertyRef Name="Mod_Id" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="Mod_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Curso_Programacion">
+          <End Role="Programacion" Type="Self.Programacion" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Programacion">
+              <PropertyRef Name="Prog_Id" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="Prog_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matricula_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="Matricula" Type="Self.Matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="Cur_Id" />
+            </Principal>
+            <Dependent Role="Matricula">
+              <PropertyRef Name="Cur_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matricula_Recibo">
+          <End Role="Recibo" Type="Self.Recibo" Multiplicity="1" />
+          <End Role="Matricula" Type="Self.Matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recibo">
+              <PropertyRef Name="Rec_Id" />
+            </Principal>
+            <Dependent Role="Matricula">
+              <PropertyRef Name="Rec_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profesor_Persona">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
+          <End Role="Profesor" Type="Self.Profesor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="Per_Id" />
+            </Principal>
+            <Dependent Role="Profesor">
+              <PropertyRef Name="Per_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Programacion_Aula">
+          <End Role="Aula" Type="Self.Aula" Multiplicity="1" />
+          <End Role="Programacion" Type="Self.Programacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aula">
+              <PropertyRef Name="Aul_Id" />
+            </Principal>
+            <Dependent Role="Programacion">
+              <PropertyRef Name="Aul_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Programacion_Horario">
+          <End Role="Horario" Type="Self.Horario" Multiplicity="1" />
+          <End Role="Programacion" Type="Self.Programacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Horario">
+              <PropertyRef Name="Hor_Id" />
+            </Principal>
+            <Dependent Role="Programacion">
+              <PropertyRef Name="Hor_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recibo_Pago">
+          <End Role="Pago" Type="Self.Pago" Multiplicity="1" />
+          <End Role="Recibo" Type="Self.Recibo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pago">
+              <PropertyRef Name="Pag_Id" />
+            </Principal>
+            <Dependent Role="Recibo">
+              <PropertyRef Name="Pag_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Persona">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="Per_Id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="Per_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Tipo_Usuario">
+          <End Role="TipoUsuario" Type="Self.TipoUsuario" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoUsuario">
+              <PropertyRef Name="TipoUser_Id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="TipoUser_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SIGAModelStoreContainer">
+          <EntitySet Name="Administrador" EntityType="Self.Administrador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Alumno" EntityType="Self.Alumno" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Aula" EntityType="Self.Aula" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Calificacion" EntityType="Self.Calificacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Horario" EntityType="Self.Horario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Matricula" EntityType="Self.Matricula" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Modulo" EntityType="Self.Modulo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pago" EntityType="Self.Pago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profesor" EntityType="Self.Profesor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Programacion" EntityType="Self.Programacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recibo" EntityType="Self.Recibo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Administrador_Persona" Association="Self.FK_Administrador_Persona">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Administrador" EntitySet="Administrador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Alumno_Persona" Association="Self.FK_Alumno_Persona">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Alumno" EntitySet="Alumno" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Calificacion_Curso" Association="Self.FK_Calificacion_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="Calificacion" EntitySet="Calificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Curso_Modulo" Association="Self.FK_Curso_Modulo">
+            <End Role="Modulo" EntitySet="Modulo" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Curso_Programacion" Association="Self.FK_Curso_Programacion">
+            <End Role="Programacion" EntitySet="Programacion" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Curso" Association="Self.FK_Matricula_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="Matricula" EntitySet="Matricula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Recibo" Association="Self.FK_Matricula_Recibo">
+            <End Role="Recibo" EntitySet="Recibo" />
+            <End Role="Matricula" EntitySet="Matricula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profesor_Persona" Association="Self.FK_Profesor_Persona">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Profesor" EntitySet="Profesor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Programacion_Aula" Association="Self.FK_Programacion_Aula">
+            <End Role="Aula" EntitySet="Aula" />
+            <End Role="Programacion" EntitySet="Programacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Programacion_Horario" Association="Self.FK_Programacion_Horario">
+            <End Role="Horario" EntitySet="Horario" />
+            <End Role="Programacion" EntitySet="Programacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recibo_Pago" Association="Self.FK_Recibo_Pago">
+            <End Role="Pago" EntitySet="Pago" />
+            <End Role="Recibo" EntitySet="Recibo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Persona" Association="Self.FK_Usuario_Persona">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Tipo_Usuario" Association="Self.FK_Usuario_Tipo_Usuario">
+            <End Role="TipoUsuario" EntitySet="TipoUsuario" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SIGAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Administrador">
+          <Key>
+            <PropertyRef Name="Adm_ID" />
+          </Key>
+          <Property Name="Adm_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Adm_Area" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Adm_Rpm" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+          <Property Name="Adm_Nextel" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Per_Id" Type="Int32" />
+          <NavigationProperty Name="Persona" Relationship="Self.FK_Administrador_Persona" FromRole="Administrador" ToRole="Persona" />
+        </EntityType>
+        <EntityType Name="Alumno">
+          <Key>
+            <PropertyRef Name="Alu_Id" />
+          </Key>
+          <Property Name="Alu_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Alu_FechNac" Type="DateTime" Precision="0" />
+          <Property Name="Alu_Apoderado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Alu_FechIngreso" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Alu_Estado" Type="Boolean" Nullable="false" />
+          <Property Name="Alu_Foto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Per_Id" Type="Int32" />
+          <NavigationProperty Name="Persona" Relationship="Self.FK_Alumno_Persona" FromRole="Alumno" ToRole="Persona" />
+        </EntityType>
+        <EntityType Name="Aula">
+          <Key>
+            <PropertyRef Name="Aul_Id" />
+          </Key>
+          <Property Name="Aul_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Aul_Capacidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Programacion" Relationship="Self.FK_Programacion_Aula" FromRole="Aula" ToRole="Programacion" />
+        </EntityType>
+        <EntityType Name="Calificacion">
+          <Key>
+            <PropertyRef Name="User_Id" />
+            <PropertyRef Name="Cur_Id" />
+          </Key>
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Cur_Id" Type="Int32" Nullable="false" />
+          <Property Name="Cal_Fech" Type="DateTime" Precision="3" />
+          <Property Name="Cal_Condicion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cal_Practica" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Cal_Teorica" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Cal_Oral" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Cal_Otros" Type="Decimal" Precision="12" Scale="2" />
+          <NavigationProperty Name="Curso" Relationship="Self.FK_Calificacion_Curso" FromRole="Calificacion" ToRole="Curso" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="Cur_Id" />
+          </Key>
+          <Property Name="Cur_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mod_Id" Type="Int32" Nullable="false" />
+          <Property Name="Prog_Id" Type="Int32" Nullable="false" />
+          <Property Name="Cur_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Cur_NumHoras" Type="Int32" />
+          <Property Name="Cur_Precio" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Calificacion" Relationship="Self.FK_Calificacion_Curso" FromRole="Curso" ToRole="Calificacion" />
+          <NavigationProperty Name="Modulo" Relationship="Self.FK_Curso_Modulo" FromRole="Curso" ToRole="Modulo" />
+          <NavigationProperty Name="Programacion" Relationship="Self.FK_Curso_Programacion" FromRole="Curso" ToRole="Programacion" />
+          <NavigationProperty Name="Matricula" Relationship="Self.FK_Matricula_Curso" FromRole="Curso" ToRole="Matricula" />
+        </EntityType>
+        <EntityType Name="Horario">
+          <Key>
+            <PropertyRef Name="Hor_Id" />
+          </Key>
+          <Property Name="Hor_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Hor_Grupo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Hor_Ini" Type="Time" Precision="7" />
+          <Property Name="Hor_Dia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Hor_Turno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Hor_Fin" Type="Time" Precision="7" />
+          <NavigationProperty Name="Programacion" Relationship="Self.FK_Programacion_Horario" FromRole="Horario" ToRole="Programacion" />
+        </EntityType>
+        <EntityType Name="Matricula">
+          <Key>
+            <PropertyRef Name="Mat_Id" />
+          </Key>
+          <Property Name="Mat_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cur_Id" Type="Int32" Nullable="false" />
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Rec_Id" Type="Int32" Nullable="false" />
+          <Property Name="Mat_Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mat_Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Mat_Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Curso" Relationship="Self.FK_Matricula_Curso" FromRole="Matricula" ToRole="Curso" />
+          <NavigationProperty Name="Recibo" Relationship="Self.FK_Matricula_Recibo" FromRole="Matricula" ToRole="Recibo" />
+        </EntityType>
+        <EntityType Name="Modulo">
+          <Key>
+            <PropertyRef Name="Mod_Id" />
+          </Key>
+          <Property Name="Mod_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mod_Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Mod_Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Mod_Unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mod_NumHoras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mod_NumMes" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Mod_NumCursos" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Mod_Nivel" Type="Int32" />
+          <NavigationProperty Name="Curso" Relationship="Self.FK_Curso_Modulo" FromRole="Modulo" ToRole="Curso" />
+        </EntityType>
+        <EntityType Name="Pago">
+          <Key>
+            <PropertyRef Name="Pag_Id" />
+          </Key>
+          <Property Name="Pag_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Alu_Id" Type="Int32" />
+          <Property Name="Pag_Fech" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Recibo" Relationship="Self.FK_Recibo_Pago" FromRole="Pago" ToRole="Recibo" />
+        </EntityType>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="Per_Id" />
+          </Key>
+          <Property Name="Per_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Per_Dni" Type="Int32" Nullable="false" />
+          <Property Name="Per_Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Per_ApePaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Per_ApeMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Per_Sexo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Per_Dir" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Per_Cel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Per_Tel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Per_Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Administrador" Relationship="Self.FK_Administrador_Persona" FromRole="Persona" ToRole="Administrador" />
+          <NavigationProperty Name="Alumno" Relationship="Self.FK_Alumno_Persona" FromRole="Persona" ToRole="Alumno" />
+          <NavigationProperty Name="Profesor" Relationship="Self.FK_Profesor_Persona" FromRole="Persona" ToRole="Profesor" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Persona" FromRole="Persona" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Profesor">
+          <Key>
+            <PropertyRef Name="Prof_Id" />
+          </Key>
+          <Property Name="Prof_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Per_Id" Type="Int32" />
+          <Property Name="Prof_Especialidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Persona" Relationship="Self.FK_Profesor_Persona" FromRole="Profesor" ToRole="Persona" />
+        </EntityType>
+        <EntityType Name="Programacion">
+          <Key>
+            <PropertyRef Name="Prog_Id" />
+          </Key>
+          <Property Name="Prog_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Aul_Id" Type="Int32" Nullable="false" />
+          <Property Name="Hor_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Aula" Relationship="Self.FK_Programacion_Aula" FromRole="Programacion" ToRole="Aula" />
+          <NavigationProperty Name="Curso" Relationship="Self.FK_Curso_Programacion" FromRole="Programacion" ToRole="Curso" />
+          <NavigationProperty Name="Horario" Relationship="Self.FK_Programacion_Horario" FromRole="Programacion" ToRole="Horario" />
+        </EntityType>
+        <EntityType Name="Recibo">
+          <Key>
+            <PropertyRef Name="Rec_Id" />
+          </Key>
+          <Property Name="Rec_Id" Type="Int32" Nullable="false" />
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Pag_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Matricula" Relationship="Self.FK_Matricula_Recibo" FromRole="Recibo" ToRole="Matricula" />
+          <NavigationProperty Name="Pago" Relationship="Self.FK_Recibo_Pago" FromRole="Recibo" ToRole="Pago" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TipoUsuario">
+          <Key>
+            <PropertyRef Name="TipoUser_Id" />
+          </Key>
+          <Property Name="TipoUser_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoUser_Descrip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TipoUser_Nivel" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Tipo_Usuario" FromRole="TipoUsuario" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Per_Id" />
+            <PropertyRef Name="TipoUser_Id" />
+          </Key>
+          <Property Name="User_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Per_Id" Type="Int32" Nullable="false" />
+          <Property Name="TipoUser_Id" Type="Int32" Nullable="false" />
+          <Property Name="User_Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="User_Pass" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="User_Inactivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Persona" Relationship="Self.FK_Usuario_Persona" FromRole="Usuario" ToRole="Persona" />
+          <NavigationProperty Name="TipoUsuario" Relationship="Self.FK_Usuario_Tipo_Usuario" FromRole="Usuario" ToRole="TipoUsuario" />
+        </EntityType>
+        <Association Name="FK_Administrador_Persona">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
+          <End Role="Administrador" Type="Self.Administrador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="Per_Id" />
+            </Principal>
+            <Dependent Role="Administrador">
+              <PropertyRef Name="Per_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Alumno_Persona">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
+          <End Role="Alumno" Type="Self.Alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="Per_Id" />
+            </Principal>
+            <Dependent Role="Alumno">
+              <PropertyRef Name="Per_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Programacion_Aula">
+          <End Role="Aula" Type="Self.Aula" Multiplicity="1" />
+          <End Role="Programacion" Type="Self.Programacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aula">
+              <PropertyRef Name="Aul_Id" />
+            </Principal>
+            <Dependent Role="Programacion">
+              <PropertyRef Name="Aul_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Calificacion_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="Calificacion" Type="Self.Calificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="Cur_Id" />
+            </Principal>
+            <Dependent Role="Calificacion">
+              <PropertyRef Name="Cur_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Curso_Modulo">
+          <End Role="Modulo" Type="Self.Modulo" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modulo">
+              <PropertyRef Name="Mod_Id" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="Mod_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Curso_Programacion">
+          <End Role="Programacion" Type="Self.Programacion" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Programacion">
+              <PropertyRef Name="Prog_Id" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="Prog_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matricula_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="Matricula" Type="Self.Matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="Cur_Id" />
+            </Principal>
+            <Dependent Role="Matricula">
+              <PropertyRef Name="Cur_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Programacion_Horario">
+          <End Role="Horario" Type="Self.Horario" Multiplicity="1" />
+          <End Role="Programacion" Type="Self.Programacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Horario">
+              <PropertyRef Name="Hor_Id" />
+            </Principal>
+            <Dependent Role="Programacion">
+              <PropertyRef Name="Hor_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matricula_Recibo">
+          <End Role="Recibo" Type="Self.Recibo" Multiplicity="1" />
+          <End Role="Matricula" Type="Self.Matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recibo">
+              <PropertyRef Name="Rec_Id" />
+            </Principal>
+            <Dependent Role="Matricula">
+              <PropertyRef Name="Rec_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recibo_Pago">
+          <End Role="Pago" Type="Self.Pago" Multiplicity="1" />
+          <End Role="Recibo" Type="Self.Recibo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pago">
+              <PropertyRef Name="Pag_Id" />
+            </Principal>
+            <Dependent Role="Recibo">
+              <PropertyRef Name="Pag_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profesor_Persona">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
+          <End Role="Profesor" Type="Self.Profesor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="Per_Id" />
+            </Principal>
+            <Dependent Role="Profesor">
+              <PropertyRef Name="Per_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Persona">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="Per_Id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="Per_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Tipo_Usuario">
+          <End Role="TipoUsuario" Type="Self.TipoUsuario" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoUsuario">
+              <PropertyRef Name="TipoUser_Id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="TipoUser_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SIGAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Administrador" EntityType="Self.Administrador" />
+          <EntitySet Name="Alumno" EntityType="Self.Alumno" />
+          <EntitySet Name="Aula" EntityType="Self.Aula" />
+          <EntitySet Name="Calificacion" EntityType="Self.Calificacion" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" />
+          <EntitySet Name="Horario" EntityType="Self.Horario" />
+          <EntitySet Name="Matricula" EntityType="Self.Matricula" />
+          <EntitySet Name="Modulo" EntityType="Self.Modulo" />
+          <EntitySet Name="Pago" EntityType="Self.Pago" />
+          <EntitySet Name="Persona" EntityType="Self.Persona" />
+          <EntitySet Name="Profesor" EntityType="Self.Profesor" />
+          <EntitySet Name="Programacion" EntityType="Self.Programacion" />
+          <EntitySet Name="Recibo" EntityType="Self.Recibo" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_Administrador_Persona" Association="Self.FK_Administrador_Persona">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Administrador" EntitySet="Administrador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Alumno_Persona" Association="Self.FK_Alumno_Persona">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Alumno" EntitySet="Alumno" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Programacion_Aula" Association="Self.FK_Programacion_Aula">
+            <End Role="Aula" EntitySet="Aula" />
+            <End Role="Programacion" EntitySet="Programacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Calificacion_Curso" Association="Self.FK_Calificacion_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="Calificacion" EntitySet="Calificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Curso_Modulo" Association="Self.FK_Curso_Modulo">
+            <End Role="Modulo" EntitySet="Modulo" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Curso_Programacion" Association="Self.FK_Curso_Programacion">
+            <End Role="Programacion" EntitySet="Programacion" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Curso" Association="Self.FK_Matricula_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="Matricula" EntitySet="Matricula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Programacion_Horario" Association="Self.FK_Programacion_Horario">
+            <End Role="Horario" EntitySet="Horario" />
+            <End Role="Programacion" EntitySet="Programacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Recibo" Association="Self.FK_Matricula_Recibo">
+            <End Role="Recibo" EntitySet="Recibo" />
+            <End Role="Matricula" EntitySet="Matricula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recibo_Pago" Association="Self.FK_Recibo_Pago">
+            <End Role="Pago" EntitySet="Pago" />
+            <End Role="Recibo" EntitySet="Recibo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profesor_Persona" Association="Self.FK_Profesor_Persona">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Profesor" EntitySet="Profesor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Persona" Association="Self.FK_Usuario_Persona">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Tipo_Usuario" Association="Self.FK_Usuario_Tipo_Usuario">
+            <End Role="TipoUsuario" EntitySet="TipoUsuario" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SIGAModelStoreContainer" CdmEntityContainer="SIGAEntities">
+          <EntitySetMapping Name="Administrador">
+            <EntityTypeMapping TypeName="SIGAModel.Administrador">
+              <MappingFragment StoreEntitySet="Administrador">
+                <ScalarProperty Name="Adm_ID" ColumnName="Adm_ID" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Adm_Area" ColumnName="Adm_Area" />
+                <ScalarProperty Name="Adm_Rpm" ColumnName="Adm_Rpm" />
+                <ScalarProperty Name="Adm_Nextel" ColumnName="Adm_Nextel" />
+                <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Alumno">
+            <EntityTypeMapping TypeName="SIGAModel.Alumno">
+              <MappingFragment StoreEntitySet="Alumno">
+                <ScalarProperty Name="Alu_Id" ColumnName="Alu_Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Alu_FechNac" ColumnName="Alu_FechNac" />
+                <ScalarProperty Name="Alu_Apoderado" ColumnName="Alu_Apoderado" />
+                <ScalarProperty Name="Alu_FechIngreso" ColumnName="Alu_FechIngreso" />
+                <ScalarProperty Name="Alu_Estado" ColumnName="Alu_Estado" />
+                <ScalarProperty Name="Alu_Foto" ColumnName="Alu_Foto" />
+                <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Aula">
+            <EntityTypeMapping TypeName="SIGAModel.Aula">
+              <MappingFragment StoreEntitySet="Aula">
+                <ScalarProperty Name="Aul_Id" ColumnName="Aul_Id" />
+                <ScalarProperty Name="Aul_Capacidad" ColumnName="Aul_Capacidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Calificacion">
+            <EntityTypeMapping TypeName="SIGAModel.Calificacion">
+              <MappingFragment StoreEntitySet="Calificacion">
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Cur_Id" ColumnName="Cur_Id" />
+                <ScalarProperty Name="Cal_Fech" ColumnName="Cal_Fech" />
+                <ScalarProperty Name="Cal_Condicion" ColumnName="Cal_Condicion" />
+                <ScalarProperty Name="Cal_Practica" ColumnName="Cal_Practica" />
+                <ScalarProperty Name="Cal_Teorica" ColumnName="Cal_Teorica" />
+                <ScalarProperty Name="Cal_Oral" ColumnName="Cal_Oral" />
+                <ScalarProperty Name="Cal_Otros" ColumnName="Cal_Otros" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Curso">
+            <EntityTypeMapping TypeName="SIGAModel.Curso">
+              <MappingFragment StoreEntitySet="Curso">
+                <ScalarProperty Name="Cur_Id" ColumnName="Cur_Id" />
+                <ScalarProperty Name="Mod_Id" ColumnName="Mod_Id" />
+                <ScalarProperty Name="Prog_Id" ColumnName="Prog_Id" />
+                <ScalarProperty Name="Cur_Name" ColumnName="Cur_Name" />
+                <ScalarProperty Name="Cur_NumHoras" ColumnName="Cur_NumHoras" />
+                <ScalarProperty Name="Cur_Precio" ColumnName="Cur_Precio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Horario">
+            <EntityTypeMapping TypeName="SIGAModel.Horario">
+              <MappingFragment StoreEntitySet="Horario">
+                <ScalarProperty Name="Hor_Id" ColumnName="Hor_Id" />
+                <ScalarProperty Name="Hor_Grupo" ColumnName="Hor_Grupo" />
+                <ScalarProperty Name="Hor_Ini" ColumnName="Hor_Ini" />
+                <ScalarProperty Name="Hor_Dia" ColumnName="Hor_Dia" />
+                <ScalarProperty Name="Hor_Turno" ColumnName="Hor_Turno" />
+                <ScalarProperty Name="Hor_Fin" ColumnName="Hor_Fin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Matricula">
+            <EntityTypeMapping TypeName="SIGAModel.Matricula">
+              <MappingFragment StoreEntitySet="Matricula">
+                <ScalarProperty Name="Mat_Id" ColumnName="Mat_Id" />
+                <ScalarProperty Name="Cur_Id" ColumnName="Cur_Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Rec_Id" ColumnName="Rec_Id" />
+                <ScalarProperty Name="Mat_Tipo" ColumnName="Mat_Tipo" />
+                <ScalarProperty Name="Mat_Fecha" ColumnName="Mat_Fecha" />
+                <ScalarProperty Name="Mat_Estado" ColumnName="Mat_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modulo">
+            <EntityTypeMapping TypeName="SIGAModel.Modulo">
+              <MappingFragment StoreEntitySet="Modulo">
+                <ScalarProperty Name="Mod_Id" ColumnName="Mod_Id" />
+                <ScalarProperty Name="Mod_Nombre" ColumnName="Mod_Nombre" />
+                <ScalarProperty Name="Mod_Tipo" ColumnName="Mod_Tipo" />
+                <ScalarProperty Name="Mod_Unidad" ColumnName="Mod_Unidad" />
+                <ScalarProperty Name="Mod_NumHoras" ColumnName="Mod_NumHoras" />
+                <ScalarProperty Name="Mod_NumMes" ColumnName="Mod_NumMes" />
+                <ScalarProperty Name="Mod_NumCursos" ColumnName="Mod_NumCursos" />
+                <ScalarProperty Name="Mod_Nivel" ColumnName="Mod_Nivel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pago">
+            <EntityTypeMapping TypeName="SIGAModel.Pago">
+              <MappingFragment StoreEntitySet="Pago">
+                <ScalarProperty Name="Pag_Id" ColumnName="Pag_Id" />
+                <ScalarProperty Name="Alu_Id" ColumnName="Alu_Id" />
+                <ScalarProperty Name="Pag_Fech" ColumnName="Pag_Fech" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Persona">
+            <EntityTypeMapping TypeName="SIGAModel.Persona">
+              <MappingFragment StoreEntitySet="Persona">
+                <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+                <ScalarProperty Name="Per_Dni" ColumnName="Per_Dni" />
+                <ScalarProperty Name="Per_Nombre" ColumnName="Per_Nombre" />
+                <ScalarProperty Name="Per_ApePaterno" ColumnName="Per_ApePaterno" />
+                <ScalarProperty Name="Per_ApeMaterno" ColumnName="Per_ApeMaterno" />
+                <ScalarProperty Name="Per_Sexo" ColumnName="Per_Sexo" />
+                <ScalarProperty Name="Per_Dir" ColumnName="Per_Dir" />
+                <ScalarProperty Name="Per_Cel" ColumnName="Per_Cel" />
+                <ScalarProperty Name="Per_Tel" ColumnName="Per_Tel" />
+                <ScalarProperty Name="Per_Email" ColumnName="Per_Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profesor">
+            <EntityTypeMapping TypeName="SIGAModel.Profesor">
+              <MappingFragment StoreEntitySet="Profesor">
+                <ScalarProperty Name="Prof_Id" ColumnName="Prof_Id" />
+                <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+                <ScalarProperty Name="Prof_Especialidad" ColumnName="Prof_Especialidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Programacion">
+            <EntityTypeMapping TypeName="SIGAModel.Programacion">
+              <MappingFragment StoreEntitySet="Programacion">
+                <ScalarProperty Name="Prog_Id" ColumnName="Prog_Id" />
+                <ScalarProperty Name="Aul_Id" ColumnName="Aul_Id" />
+                <ScalarProperty Name="Hor_Id" ColumnName="Hor_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recibo">
+            <EntityTypeMapping TypeName="SIGAModel.Recibo">
+              <MappingFragment StoreEntitySet="Recibo">
+                <ScalarProperty Name="Rec_Id" ColumnName="Rec_Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Pag_Id" ColumnName="Pag_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SIGAModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoUsuario">
+            <EntityTypeMapping TypeName="SIGAModel.TipoUsuario">
+              <MappingFragment StoreEntitySet="TipoUsuario">
+                <ScalarProperty Name="TipoUser_Id" ColumnName="TipoUser_Id" />
+                <ScalarProperty Name="TipoUser_Descrip" ColumnName="TipoUser_Descrip" />
+                <ScalarProperty Name="TipoUser_Nivel" ColumnName="TipoUser_Nivel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="SIGAModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+                <ScalarProperty Name="TipoUser_Id" ColumnName="TipoUser_Id" />
+                <ScalarProperty Name="User_Nombre" ColumnName="User_Nombre" />
+                <ScalarProperty Name="User_Pass" ColumnName="User_Pass" />
+                <ScalarProperty Name="User_Inactivo" ColumnName="User_Inactivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

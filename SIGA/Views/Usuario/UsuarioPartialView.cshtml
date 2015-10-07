@@ -1,9 +1,17 @@
 ﻿@model SIGA.Models.ViewModels.UsuarioViewModel
 
 <div id="UsuarioContainer">
+    @Html.ActionLink("Nuevo Usuario", "CreateUsuario")
+    <div class="row viewTitle">
+        <div class="col-lg-6 pull-left">
+            <h1 class="noMarginTop">Usuarios</h1>
+        </div>
+        <div class="col-lg-6 pull-right">
+            <button id="btnNewUsuario" type="button" class="btn btn-success pull-right"><i class="fa fa-search "></i>@Html.ActionLink("Nuevo Usuario", "CreateUsuario")</button>
+        </div>
 
-    <h1>Usuarios</h1>
-    <p>@Html.ActionLink("Create New", "Create")</p>
+    </div>
+
     <div class="panel panel-default">
         <div class="panel-heading">Filtros</div>
         <div class="panel-body filtrosContainer">
@@ -63,7 +71,6 @@
         </div>
     </div>
 
-
     <div class="panel panel-default">
         <div class="panel-heading">Datos del Usuario</div>
         <div class="panel-body dataContainer">
@@ -79,21 +86,19 @@
 </div>
       
 
-@*@Scripts.Render("~/bundles/mainInbox")*@
-<script src="~/Scripts/Siga/usuario.js"></script>
+<script src="~/Scripts/Siga/Usuario/usuario.js"></script>
 
 <script>
 
     $(document).ready(function () {
 
-        ko.applyBindings(loVM, $('#UsuarioContainer')[0]);
+        //ko.applyBindings(usuarioVM, $('#UsuarioContainer')[0]);
 
         $("#txtPrimerNombre").keypress(function (e) {
             if (e.which == 13) {
                 searchInbox();
             }
         });
-
 
         $("#txtApellidoPaterno").keypress(function (e) {
             if (e.which == 13) {
