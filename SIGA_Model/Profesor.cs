@@ -15,9 +15,11 @@ namespace SIGA_Model
     public partial class Profesor
     {
         public int Prof_Id { get; set; }
-        public Nullable<int> Per_Id { get; set; }
+        public int User_Id { get; set; }
+        public int Cur_Id { get; set; }
         public string Prof_Especialidad { get; set; }
     
-        public virtual Persona Persona { get; set; }
+        public virtual Curso Curso { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

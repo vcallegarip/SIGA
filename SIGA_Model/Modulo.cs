@@ -14,6 +14,7 @@ namespace SIGA_Model
     
     public partial class Modulo
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Modulo()
         {
             this.Curso = new HashSet<Curso>();
@@ -28,6 +29,7 @@ namespace SIGA_Model
         public string Mod_NumCursos { get; set; }
         public Nullable<int> Mod_Nivel { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Curso> Curso { get; set; }
     }
 }

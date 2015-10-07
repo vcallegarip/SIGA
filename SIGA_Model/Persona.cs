@@ -14,11 +14,9 @@ namespace SIGA_Model
     
     public partial class Persona
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Persona()
         {
-            this.Administrador = new HashSet<Administrador>();
-            this.Alumno = new HashSet<Alumno>();
-            this.Profesor = new HashSet<Profesor>();
             this.Usuario = new HashSet<Usuario>();
         }
     
@@ -33,9 +31,7 @@ namespace SIGA_Model
         public string Per_Tel { get; set; }
         public string Per_Email { get; set; }
     
-        public virtual ICollection<Administrador> Administrador { get; set; }
-        public virtual ICollection<Alumno> Alumno { get; set; }
-        public virtual ICollection<Profesor> Profesor { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usuario> Usuario { get; set; }
     }
 }

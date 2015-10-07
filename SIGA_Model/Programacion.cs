@@ -14,6 +14,7 @@ namespace SIGA_Model
     
     public partial class Programacion
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Programacion()
         {
             this.Curso = new HashSet<Curso>();
@@ -24,6 +25,7 @@ namespace SIGA_Model
         public int Hor_Id { get; set; }
     
         public virtual Aula Aula { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Curso> Curso { get; set; }
         public virtual Horario Horario { get; set; }
     }

@@ -12,7 +12,6 @@ var layoutViewModel = function () {
     layoutVM.selectMenuItemNumber = ko.observable(0);
     layoutVM.lastCall_setActiveItem = 0;
 
-
     layoutVM.togglePlus = function () {
         $(event.target).toggleClass('fa-plus-square-o fa-minus-square-o');
     }

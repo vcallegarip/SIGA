@@ -21,8 +21,7 @@ namespace SIGA_Model
         public System.DateTime Alu_FechIngreso { get; set; }
         public bool Alu_Estado { get; set; }
         public string Alu_Foto { get; set; }
-        public Nullable<int> Per_Id { get; set; }
     
-        public virtual Persona Persona { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

@@ -75,10 +75,21 @@ var usuarioViewModel = function(usuario) {
         getUsuarios();
     };
 
-    //usuarioVM.resetFilters();
+    usuarioVM.createUsuario = function () {
+        createUsuario();
+    };
+
+    usuarioVM.searchUsuario = function () {
+        searchUsuario();
+    };
+
+    usuarioVM.resetFilters = function () {
+        resetFilters();
+    };
+
 }
 
-var searchInbox = function () {
+function searchUsuario() {
     var searchParam = ($(".paf-menu-item.active").attr('data-id') == null || $(".paf-menu-item.active").attr('data-id') == "")
                         ? "" : "type:'" + $(".paf-menu-item.active").attr('data-id') + "'";
 
@@ -103,6 +114,20 @@ var searchInbox = function () {
 
     $("#usuarioSubContainer").load('/usuario/UsuarioList' + params.join('&'));
 
+}
+
+function createUsuario() {
+    $("#mainContainer").load('/usuario/CreateUsuario');
+    return;
+}
+
+function resetFilters() {
+    $('#txtPrimerNombre').val('');
+    $('#txtApellidoPaterno').val('');
+    $('#txtEmail').val('');
+    $('#cboTipoUsuario').val('Todos');
+    searchUsuario();
+    return;
 }
 
 

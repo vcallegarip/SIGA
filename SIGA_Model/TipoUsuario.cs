@@ -14,6 +14,7 @@ namespace SIGA_Model
     
     public partial class TipoUsuario
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TipoUsuario()
         {
             this.Usuario = new HashSet<Usuario>();
@@ -23,6 +24,7 @@ namespace SIGA_Model
         public string TipoUser_Descrip { get; set; }
         public byte TipoUser_Nivel { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usuario> Usuario { get; set; }
     }
 }

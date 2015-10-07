@@ -28,7 +28,6 @@ namespace SIGA.Controllers
             return PartialView("UsuarioListPartialView", GetUsuarios(primerNombre, apellidoPaterno, email, tipoUsuario));
         }
 
-
         public UsuarioViewModel GetUsuarios(string primerNombre, string apellidoPaterno, string email, string tipoUsuario)
         {
 
@@ -53,7 +52,7 @@ namespace SIGA.Controllers
 
         public ActionResult CreateUsuario()
         {
-            return View("Form", new UsuarioViewModel());
+            return PartialView("Form", new UsuarioViewModel());
         }
 
     }

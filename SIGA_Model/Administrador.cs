@@ -19,8 +19,7 @@ namespace SIGA_Model
         public string Adm_Area { get; set; }
         public string Adm_Rpm { get; set; }
         public string Adm_Nextel { get; set; }
-        public Nullable<int> Per_Id { get; set; }
     
-        public virtual Persona Persona { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

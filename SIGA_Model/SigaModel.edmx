@@ -14,7 +14,6 @@
           <Property Name="Adm_Area" Type="varchar" MaxLength="50" />
           <Property Name="Adm_Rpm" Type="char" MaxLength="12" />
           <Property Name="Adm_Nextel" Type="char" MaxLength="12" Nullable="false" />
-          <Property Name="Per_Id" Type="int" />
         </EntityType>
         <EntityType Name="Alumno">
           <Key>
@@ -27,7 +26,6 @@
           <Property Name="Alu_FechIngreso" Type="datetime" Nullable="false" />
           <Property Name="Alu_Estado" Type="bit" Nullable="false" />
           <Property Name="Alu_Foto" Type="varchar" MaxLength="200" />
-          <Property Name="Per_Id" Type="int" />
         </EntityType>
         <EntityType Name="Aula">
           <Key>
@@ -115,17 +113,18 @@
           <Property Name="Per_ApePaterno" Type="varchar" MaxLength="50" />
           <Property Name="Per_ApeMaterno" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Per_Sexo" Type="char" MaxLength="1" />
-          <Property Name="Per_Dir" Type="varchar" MaxLength="100" />
-          <Property Name="Per_Cel" Type="varchar" MaxLength="20" />
+          <Property Name="Per_Dir" Type="varchar" MaxLength="50" />
+          <Property Name="Per_Cel" Type="char" MaxLength="9" />
           <Property Name="Per_Tel" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Per_Email" Type="varchar" MaxLength="100" />
+          <Property Name="Per_Email" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Profesor">
           <Key>
             <PropertyRef Name="Prof_Id" />
           </Key>
           <Property Name="Prof_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Per_Id" Type="int" />
+          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="Cur_Id" Type="int" Nullable="false" />
           <Property Name="Prof_Especialidad" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Programacion">
@@ -164,8 +163,7 @@
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
-            <PropertyRef Name="Per_Id" />
-            <PropertyRef Name="TipoUser_Id" />
+            <PropertyRef Name="User_Id" />
           </Key>
           <Property Name="User_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Per_Id" Type="int" Nullable="false" />
@@ -174,27 +172,27 @@
           <Property Name="User_Pass" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="User_Inactivo" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Administrador_Persona">
-          <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
+        <Association Name="FK_Administrador_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Administrador" Type="Self.Administrador" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Persona">
-              <PropertyRef Name="Per_Id" />
+            <Principal Role="Usuario">
+              <PropertyRef Name="User_Id" />
             </Principal>
             <Dependent Role="Administrador">
-              <PropertyRef Name="Per_Id" />
+              <PropertyRef Name="User_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Alumno_Persona">
-          <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
+        <Association Name="FK_Alumno_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Alumno" Type="Self.Alumno" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Persona">
-              <PropertyRef Name="Per_Id" />
+            <Principal Role="Usuario">
+              <PropertyRef Name="User_Id" />
             </Principal>
             <Dependent Role="Alumno">
-              <PropertyRef Name="Per_Id" />
+              <PropertyRef Name="User_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -258,15 +256,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Profesor_Persona">
-          <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
+        <Association Name="FK_Profesor_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
           <End Role="Profesor" Type="Self.Profesor" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Persona">
-              <PropertyRef Name="Per_Id" />
+            <Principal Role="Curso">
+              <PropertyRef Name="Cur_Id" />
             </Principal>
             <Dependent Role="Profesor">
-              <PropertyRef Name="Per_Id" />
+              <PropertyRef Name="Cur_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profesor_Usuario1">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Profesor" Type="Self.Profesor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Profesor">
+              <PropertyRef Name="User_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -347,12 +357,12 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Administrador_Persona" Association="Self.FK_Administrador_Persona">
-            <End Role="Persona" EntitySet="Persona" />
+          <AssociationSet Name="FK_Administrador_Usuario" Association="Self.FK_Administrador_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Administrador" EntitySet="Administrador" />
           </AssociationSet>
-          <AssociationSet Name="FK_Alumno_Persona" Association="Self.FK_Alumno_Persona">
-            <End Role="Persona" EntitySet="Persona" />
+          <AssociationSet Name="FK_Alumno_Usuario" Association="Self.FK_Alumno_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Alumno" EntitySet="Alumno" />
           </AssociationSet>
           <AssociationSet Name="FK_Calificacion_Curso" Association="Self.FK_Calificacion_Curso">
@@ -375,8 +385,12 @@
             <End Role="Recibo" EntitySet="Recibo" />
             <End Role="Matricula" EntitySet="Matricula" />
           </AssociationSet>
-          <AssociationSet Name="FK_Profesor_Persona" Association="Self.FK_Profesor_Persona">
-            <End Role="Persona" EntitySet="Persona" />
+          <AssociationSet Name="FK_Profesor_Curso" Association="Self.FK_Profesor_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="Profesor" EntitySet="Profesor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profesor_Usuario1" Association="Self.FK_Profesor_Usuario1">
+            <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Profesor" EntitySet="Profesor" />
           </AssociationSet>
           <AssociationSet Name="FK_Programacion_Aula" Association="Self.FK_Programacion_Aula">
@@ -414,8 +428,7 @@
           <Property Name="Adm_Area" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Adm_Rpm" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
           <Property Name="Adm_Nextel" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Per_Id" Type="Int32" />
-          <NavigationProperty Name="Persona" Relationship="Self.FK_Administrador_Persona" FromRole="Administrador" ToRole="Persona" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Administrador_Usuario" FromRole="Administrador" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Alumno">
           <Key>
@@ -428,8 +441,7 @@
           <Property Name="Alu_FechIngreso" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Alu_Estado" Type="Boolean" Nullable="false" />
           <Property Name="Alu_Foto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Per_Id" Type="Int32" />
-          <NavigationProperty Name="Persona" Relationship="Self.FK_Alumno_Persona" FromRole="Alumno" ToRole="Persona" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Alumno_Usuario" FromRole="Alumno" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Aula">
           <Key>
@@ -468,6 +480,7 @@
           <NavigationProperty Name="Modulo" Relationship="Self.FK_Curso_Modulo" FromRole="Curso" ToRole="Modulo" />
           <NavigationProperty Name="Programacion" Relationship="Self.FK_Curso_Programacion" FromRole="Curso" ToRole="Programacion" />
           <NavigationProperty Name="Matricula" Relationship="Self.FK_Matricula_Curso" FromRole="Curso" ToRole="Matricula" />
+          <NavigationProperty Name="Profesor" Relationship="Self.FK_Profesor_Curso" FromRole="Curso" ToRole="Profesor" />
         </EntityType>
         <EntityType Name="Horario">
           <Key>
@@ -528,13 +541,10 @@
           <Property Name="Per_ApePaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Per_ApeMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Per_Sexo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="Per_Dir" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Per_Cel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Per_Dir" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Per_Cel" Type="String" MaxLength="9" FixedLength="true" Unicode="false" />
           <Property Name="Per_Tel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Per_Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Administrador" Relationship="Self.FK_Administrador_Persona" FromRole="Persona" ToRole="Administrador" />
-          <NavigationProperty Name="Alumno" Relationship="Self.FK_Alumno_Persona" FromRole="Persona" ToRole="Alumno" />
-          <NavigationProperty Name="Profesor" Relationship="Self.FK_Profesor_Persona" FromRole="Persona" ToRole="Profesor" />
+          <Property Name="Per_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Persona" FromRole="Persona" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Profesor">
@@ -542,9 +552,11 @@
             <PropertyRef Name="Prof_Id" />
           </Key>
           <Property Name="Prof_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Per_Id" Type="Int32" />
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Cur_Id" Type="Int32" Nullable="false" />
           <Property Name="Prof_Especialidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Persona" Relationship="Self.FK_Profesor_Persona" FromRole="Profesor" ToRole="Persona" />
+          <NavigationProperty Name="Curso" Relationship="Self.FK_Profesor_Curso" FromRole="Profesor" ToRole="Curso" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Profesor_Usuario1" FromRole="Profesor" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Programacion">
           <Key>
@@ -588,8 +600,7 @@
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
-            <PropertyRef Name="Per_Id" />
-            <PropertyRef Name="TipoUser_Id" />
+            <PropertyRef Name="User_Id" />
           </Key>
           <Property Name="User_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Per_Id" Type="Int32" Nullable="false" />
@@ -597,30 +608,33 @@
           <Property Name="User_Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="User_Pass" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="User_Inactivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Administrador" Relationship="Self.FK_Administrador_Usuario" FromRole="Usuario" ToRole="Administrador" />
+          <NavigationProperty Name="Alumno" Relationship="Self.FK_Alumno_Usuario" FromRole="Usuario" ToRole="Alumno" />
           <NavigationProperty Name="Persona" Relationship="Self.FK_Usuario_Persona" FromRole="Usuario" ToRole="Persona" />
+          <NavigationProperty Name="Profesor" Relationship="Self.FK_Profesor_Usuario1" FromRole="Usuario" ToRole="Profesor" />
           <NavigationProperty Name="TipoUsuario" Relationship="Self.FK_Usuario_Tipo_Usuario" FromRole="Usuario" ToRole="TipoUsuario" />
         </EntityType>
-        <Association Name="FK_Administrador_Persona">
-          <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
+        <Association Name="FK_Administrador_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Administrador" Type="Self.Administrador" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Persona">
-              <PropertyRef Name="Per_Id" />
+            <Principal Role="Usuario">
+              <PropertyRef Name="User_Id" />
             </Principal>
             <Dependent Role="Administrador">
-              <PropertyRef Name="Per_Id" />
+              <PropertyRef Name="User_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Alumno_Persona">
-          <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
+        <Association Name="FK_Alumno_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Alumno" Type="Self.Alumno" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Persona">
-              <PropertyRef Name="Per_Id" />
+            <Principal Role="Usuario">
+              <PropertyRef Name="User_Id" />
             </Principal>
             <Dependent Role="Alumno">
-              <PropertyRef Name="Per_Id" />
+              <PropertyRef Name="User_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -684,6 +698,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Profesor_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="Profesor" Type="Self.Profesor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="Cur_Id" />
+            </Principal>
+            <Dependent Role="Profesor">
+              <PropertyRef Name="Cur_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Programacion_Horario">
           <End Role="Horario" Type="Self.Horario" Multiplicity="1" />
           <End Role="Programacion" Type="Self.Programacion" Multiplicity="*" />
@@ -720,18 +746,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Profesor_Persona">
-          <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
-          <End Role="Profesor" Type="Self.Profesor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Persona">
-              <PropertyRef Name="Per_Id" />
-            </Principal>
-            <Dependent Role="Profesor">
-              <PropertyRef Name="Per_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Usuario_Persona">
           <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
@@ -741,6 +755,18 @@
             </Principal>
             <Dependent Role="Usuario">
               <PropertyRef Name="Per_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profesor_Usuario1">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Profesor" Type="Self.Profesor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Profesor">
+              <PropertyRef Name="User_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -773,12 +799,12 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" />
-          <AssociationSet Name="FK_Administrador_Persona" Association="Self.FK_Administrador_Persona">
-            <End Role="Persona" EntitySet="Persona" />
+          <AssociationSet Name="FK_Administrador_Usuario" Association="Self.FK_Administrador_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Administrador" EntitySet="Administrador" />
           </AssociationSet>
-          <AssociationSet Name="FK_Alumno_Persona" Association="Self.FK_Alumno_Persona">
-            <End Role="Persona" EntitySet="Persona" />
+          <AssociationSet Name="FK_Alumno_Usuario" Association="Self.FK_Alumno_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Alumno" EntitySet="Alumno" />
           </AssociationSet>
           <AssociationSet Name="FK_Programacion_Aula" Association="Self.FK_Programacion_Aula">
@@ -801,6 +827,10 @@
             <End Role="Curso" EntitySet="Curso" />
             <End Role="Matricula" EntitySet="Matricula" />
           </AssociationSet>
+          <AssociationSet Name="FK_Profesor_Curso" Association="Self.FK_Profesor_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="Profesor" EntitySet="Profesor" />
+          </AssociationSet>
           <AssociationSet Name="FK_Programacion_Horario" Association="Self.FK_Programacion_Horario">
             <End Role="Horario" EntitySet="Horario" />
             <End Role="Programacion" EntitySet="Programacion" />
@@ -813,13 +843,13 @@
             <End Role="Pago" EntitySet="Pago" />
             <End Role="Recibo" EntitySet="Recibo" />
           </AssociationSet>
-          <AssociationSet Name="FK_Profesor_Persona" Association="Self.FK_Profesor_Persona">
-            <End Role="Persona" EntitySet="Persona" />
-            <End Role="Profesor" EntitySet="Profesor" />
-          </AssociationSet>
           <AssociationSet Name="FK_Usuario_Persona" Association="Self.FK_Usuario_Persona">
             <End Role="Persona" EntitySet="Persona" />
             <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profesor_Usuario1" Association="Self.FK_Profesor_Usuario1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Profesor" EntitySet="Profesor" />
           </AssociationSet>
           <AssociationSet Name="FK_Usuario_Tipo_Usuario" Association="Self.FK_Usuario_Tipo_Usuario">
             <End Role="TipoUsuario" EntitySet="TipoUsuario" />
@@ -840,7 +870,6 @@
                 <ScalarProperty Name="Adm_Area" ColumnName="Adm_Area" />
                 <ScalarProperty Name="Adm_Rpm" ColumnName="Adm_Rpm" />
                 <ScalarProperty Name="Adm_Nextel" ColumnName="Adm_Nextel" />
-                <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -854,7 +883,6 @@
                 <ScalarProperty Name="Alu_FechIngreso" ColumnName="Alu_FechIngreso" />
                 <ScalarProperty Name="Alu_Estado" ColumnName="Alu_Estado" />
                 <ScalarProperty Name="Alu_Foto" ColumnName="Alu_Foto" />
-                <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -960,7 +988,8 @@
             <EntityTypeMapping TypeName="SIGAModel.Profesor">
               <MappingFragment StoreEntitySet="Profesor">
                 <ScalarProperty Name="Prof_Id" ColumnName="Prof_Id" />
-                <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Cur_Id" ColumnName="Cur_Id" />
                 <ScalarProperty Name="Prof_Especialidad" ColumnName="Prof_Especialidad" />
               </MappingFragment>
             </EntityTypeMapping>
