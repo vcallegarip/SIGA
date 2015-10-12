@@ -1,41 +1,66 @@
-﻿
-var usuarioVM = null;
-var usuarioViewModel = function(usuario) {
+﻿var usuarioVM = null;
+function usuarioViewModel(usuario) {
     usuarioVM = this;
+    
+    usuarioVM.ReturnStatus = ko.observable();
+    
+    usuarioVM.usuarioList = ko.observableArray([]);
+    usuarioVM.tipoUsuarioClick = ko.observable();
+    usuarioVM.tipoUsuarioItems = ko.observableArray([
+        { name: 'Alumno' },
+        { name: 'Profesor' },
+        { name: 'Administrador' }
+    ]);
+
+    usuarioVM.searchUsuario = function () {
+        searchUsuario();
+    };
+
+    usuarioVM.createUsuario = function () {
+        createUsuario();
+    };
+
 
     usuarioVM.saveCompleted = ko.observable(false);
     usuarioVM.sending = ko.observable(false);
-
-    usuarioVM.isCreating = usuario.User_Id == 0;
+    usuarioVM.isCreating = usuario.id == 0;
 
     usuarioVM.usuario = {
-        User_Id: usuario.User_Id,        
-        User_Nombre: ko.observable(usuario.User_Nombre),
-        Per_Nombre: ko.observable(usuario.Per_Nombre),
-        Per_ApePaterno: ko.observable(usuario.Per_ApePaterno),
-        Per_ApeMaterno : ko.observable(usuario.Per_ApeMaterno),
-        Per_Email: ko.observable(usuario.Per_Email),
-        Per_Cel: ko.observable(usuario.Per_Cel),
-        Per_Tel: ko.observable(usuario.Per_Tel),
-        TipoUser_Descrip: ko.observable(usuario.TipoUser_Descrip),
-        User_Pass: ko.observable(usuario.User_Pass),
-        Per_Dir: ko.observable(usuario.Per_Dir),
-        Per_Dni: ko.observable(usuario.Per_Dni),
-        Per_Id: ko.observable(usuario.Per_Id),
-        Per_Sexo: ko.observable(usuario.Per_Sexo),
+        id: usuario.id,
+        //per_nombre: ko.observable('Percy'),
+        //per_apepaterno: ko.observable('Magallanes'),
+        //per_apematerno: ko.observable('Garcia'),
+        //per_email: ko.observable('percym@gmail.com'),
+        //per_dni: ko.observable(978654),
+        //per_dir: ko.observable('Los Olivos'),
+        //per_cel: ko.observable(987654321),
+        //per_tel: ko.observable(987654321),
+        //per_sexo: ko.observable('M'),
+        //tipouser_descrip: ko.observable('Alumno'),
+
+        per_nombre: ko.observable(usuario.per_nombre),
+        per_apepaterno: ko.observable(usuario.per_apepaterno),
+        per_apematerno: ko.observable(usuario.per_apematerno),
+        per_email: ko.observable(usuario.per_email),
+        per_dni: ko.observable(usuario.per_dni),
+        per_dir: ko.observable(usuario.per_dir),
+        per_cel: ko.observable(usuario.per_cel),
+        per_tel: ko.observable(usuario.per_tel),
+        per_sexo: ko.observable(usuario.per_sexo),
+        tipouser_descrip: ko.observable(usuario.tipouser_descrip),
 
     };
-
+    
     usuarioVM.validateAndSave = function (form) {
+        
         if (!$(form).valid())
             return false;
 
-        self.sending(true);
+        usuarioVM.sending(true);
+        //usuarioVM.usuario.__RequestVerificationToken = form[0].value;
 
-        self.author.__RequestVerificationToken = form[0].value;
-     
         $.ajax({
-            url: '/api/Usuario',
+            url: '/api/usuario',
             type: (usuarioVM.isCreating) ? 'post' : 'put',
             contentType: 'application/json',
             data: ko.toJSON(usuarioVM.usuario)
@@ -61,30 +86,12 @@ var usuarioViewModel = function(usuario) {
         $('.body-content').prepend('<div class="alert alert-danger"><strong>Error!</strong> There was an error saving the author.</div>');
     };
 
-    usuarioVM.ReturnStatus = ko.observable();
-    
-    usuarioVM.usuarioList = ko.observableArray([]);
-    usuarioVM.tipoUsuarioClick = ko.observable();
-    usuarioVM.tipoUsuarioItems = ko.observableArray([
-        { name: 'Alumno' },
-        { name: 'Profesor' },
-        { name: 'Administrador' }
-    ]);
-
-    usuarioVM.getUsuarios = function () {
-        getUsuarios();
-    };
-
-    usuarioVM.createUsuario = function () {
-        createUsuario();
-    };
-
-    usuarioVM.searchUsuario = function () {
-        searchUsuario();
-    };
-
     usuarioVM.resetFilters = function () {
         resetFilters();
+    };
+
+    usuarioVM.editUsuario = function (userid) {
+        editUsuario(userid)
     };
 
 }
@@ -117,7 +124,7 @@ function searchUsuario() {
 }
 
 function createUsuario() {
-    $("#mainContainer").load('/usuario/CreateUsuario');
+    $("#mainContainer").load('/usuario/create');
     return;
 }
 
@@ -130,15 +137,7 @@ function resetFilters() {
     return;
 }
 
-
-
-//$(document).ready(function () {
-//    usuarioVM = new usuarioViewModel();
-//    ko.applyBindings(usuarioVM, $('#UsuarioContainer')[0]);
-//});
-
-
-//$(document).ready(function () {
-//    viewModel = new usuarioViewModel(@Html.HtmlConvertToJson(Model));
-//    ko.applyBindings(viewModel, $('#UsuarioCreateContainer')[0]);
-//});
+function editUsuario(userid) {
+    $("#mainContainer").load('/usuario/edit?userid=' + userid);
+    return;
+}

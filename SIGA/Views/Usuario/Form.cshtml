@@ -6,12 +6,14 @@
 }
 
 <div id="UsuarioCreateContainer">
+     
+    <span data-bind="text: isCreating">Test</span>
 
     <div data-bind="visible: !saveCompleted()">
 
         <h2>Create</h2>
 
-        @using (Html.BeginForm("CreateUsuario", "Usuario", FormMethod.Post, new { data_bind = "submit: valiadteAndSave" }))
+        @using (Html.BeginForm("Create", "Usuario", FormMethod.Post, new { data_bind = "submit: validateAndSave" }))
         {
             @Html.AntiForgeryToken()
 
@@ -22,7 +24,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Per_Nombre, "Nombre", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Per_Nombre, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.Per_Nombre" } })
+                        @Html.EditorFor(model => model.Per_Nombre, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.per_nombre" } })
                         @Html.ValidationMessageFor(model => model.Per_Nombre, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -30,7 +32,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Per_ApePaterno, "Apellido Paterno", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Per_ApePaterno, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.Per_ApePaterno" } })
+                        @Html.EditorFor(model => model.Per_ApePaterno, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.per_apepaterno" } })
                         @Html.ValidationMessageFor(model => model.Per_ApePaterno, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -38,23 +40,23 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Per_ApeMaterno, "Apellido Materno", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Per_ApeMaterno, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.Per_ApeMaterno" } })
+                        @Html.EditorFor(model => model.Per_ApeMaterno, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.per_apematerno" } })
                         @Html.ValidationMessageFor(model => model.Per_ApeMaterno, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Per_Sexo, "Sexo", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Per_Email, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Per_Sexo, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.Per_Sexo" } })
-                        @Html.ValidationMessageFor(model => model.Per_Sexo, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Per_Email, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.per_email" } })
+                        @Html.ValidationMessageFor(model => model.Per_Email, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Per_Dni, "DNI", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Per_Dni, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.Per_Dni" } })
+                        @Html.EditorFor(model => model.Per_Dni, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.per_dni" } })
                         @Html.ValidationMessageFor(model => model.Per_Dni, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -62,7 +64,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Per_Dir, "Direccion", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Per_Dir, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.Per_Dir" } })
+                        @Html.EditorFor(model => model.Per_Dir, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.per_dir" } })
                         @Html.ValidationMessageFor(model => model.Per_Dir, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -70,7 +72,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Per_Cel, "Celular", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Per_Cel, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.Per_Cel" } })
+                        @Html.EditorFor(model => model.Per_Cel, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.per_cel" } })
                         @Html.ValidationMessageFor(model => model.Per_Cel, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -78,30 +80,30 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Per_Tel, "Telefono", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Per_Tel, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.Per_Tel" } })
+                        @Html.EditorFor(model => model.Per_Tel, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.per_tel" } })
                         @Html.ValidationMessageFor(model => model.Per_Tel, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Per_Email, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Per_Sexo, "Sexo", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Per_Email, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.Per_Email" } })
-                        @Html.ValidationMessageFor(model => model.Per_Email, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Per_Sexo, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.per_sexo" } })
+                        @Html.ValidationMessageFor(model => model.Per_Sexo, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.User_Nombre, "Nombre de Usuario", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.TipoUser_Descrip, "Tipo de Usuario", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.User_Nombre, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.User_Nombre" } })
-                        @Html.ValidationMessageFor(model => model.User_Nombre, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.TipoUser_Descrip, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.tipouser_descrip" } })
+                        @Html.ValidationMessageFor(model => model.TipoUser_Descrip, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10" data-bind="visible: !sending()">
-                        <input type="submit" value="@if (isCreating) { @Html.Raw("CreateUsuario") } else { @Html.Raw("CreateUsuario") }" class="btn btn-default" />
+                        <input type="submit" value="@if (isCreating) { @Html.Raw("Guardar Usuario") } else { @Html.Raw("Actualizar Usuario") }" class="btn btn-default" />
                     </div>
 
                     <div class="progress" data-bind="visible: sending">
@@ -129,20 +131,13 @@
 
 
 
-@*<script src="~/Scripts/Siga/Usuario/usuario.js"></script>*@
+<script src="~/Scripts/Siga/Usuario/usuario.js"></script>
+<script src="~/Scripts/jquery-migrate-1.2.1.js"></script>
+<script src="~/Scripts/jquery.validate-vsdoc.js"></script>
 
-@*<script>
+<script>
     $(document).ready(function () {
         viewModel = new usuarioViewModel(@Html.HtmlConvertToJson(Model));
         ko.applyBindings(viewModel, $('#UsuarioCreateContainer')[0]);
     });
-</script>*@
-    
-@section Scripts {
-    @Scripts.Render("~/Scripts/Siga/Usuario/usuario.js")
-    <script>
-        debugger
-        var viewModel = new usuarioViewModel(@Html.HtmlConvertToJson(Model));
-        ko.applyBindings(viewModel);
-    </script>
-}
+</script>

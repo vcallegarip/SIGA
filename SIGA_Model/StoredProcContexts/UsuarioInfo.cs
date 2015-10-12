@@ -30,6 +30,8 @@ namespace SIGA_Model.StoredProcContexts
 
     public class UsuarioInfoInputParams
     {
+        [StoredProcAttributes.ParameterType(System.Data.SqlDbType.VarChar)]
+        public int UserID { get; set; }
 
         [StoredProcAttributes.ParameterType(System.Data.SqlDbType.VarChar)]
         [StoredProcAttributes.Size(50)]
