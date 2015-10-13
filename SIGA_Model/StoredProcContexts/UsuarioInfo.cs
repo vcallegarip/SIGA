@@ -13,7 +13,7 @@ namespace SIGA_Model.StoredProcContexts
         {
             using (UsuarioContext db = new UsuarioContext())
             {
-                CodeFirstStoredProcs.ResultsList resultSets = db.getUsuarios.CallStoredProc(inputParams);
+                ResultsList resultSets = db.getUsuarios.CallStoredProc(inputParams);
                 UsuarioInfoCollection resultSet = new UsuarioInfoCollection();
                 try
                 {

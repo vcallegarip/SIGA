@@ -11,10 +11,7 @@ namespace SIGA.Models.ViewModels
     public class UsuarioViewModel
     {
         public List<UsuarioInformation> UsuarioInformationItems { get; set; }
-
-        [JsonProperty(PropertyName = "id")]
-        public int Id { get; set; }
-
+        
         [JsonProperty(PropertyName = "user_id")]
         public int User_Id { get; set; }
 

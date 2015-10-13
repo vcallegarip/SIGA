@@ -20,24 +20,12 @@ function usuarioViewModel(usuario) {
         createUsuario();
     };
 
-
     usuarioVM.saveCompleted = ko.observable(false);
     usuarioVM.sending = ko.observable(false);
-    usuarioVM.isCreating = usuario.id == 0;
+    usuarioVM.isCreating = usuario.user_id == 0;
 
     usuarioVM.usuario = {
-        id: usuario.id,
-        //per_nombre: ko.observable('Percy'),
-        //per_apepaterno: ko.observable('Magallanes'),
-        //per_apematerno: ko.observable('Garcia'),
-        //per_email: ko.observable('percym@gmail.com'),
-        //per_dni: ko.observable(978654),
-        //per_dir: ko.observable('Los Olivos'),
-        //per_cel: ko.observable(987654321),
-        //per_tel: ko.observable(987654321),
-        //per_sexo: ko.observable('M'),
-        //tipouser_descrip: ko.observable('Alumno'),
-
+        user_id: usuario.user_id,
         per_nombre: ko.observable(usuario.per_nombre),
         per_apepaterno: ko.observable(usuario.per_apepaterno),
         per_apematerno: ko.observable(usuario.per_apematerno),
@@ -57,8 +45,9 @@ function usuarioViewModel(usuario) {
             return false;
 
         usuarioVM.sending(true);
-        //usuarioVM.usuario.__RequestVerificationToken = form[0].value;
 
+        //usuarioVM.usuario.__RequestVerificationToken = form[0].value;
+        debugger
         $.ajax({
             url: '/api/usuario',
             type: (usuarioVM.isCreating) ? 'post' : 'put',
@@ -91,7 +80,7 @@ function usuarioViewModel(usuario) {
     };
 
     usuarioVM.editUsuario = function (userid) {
-        editUsuario(userid)
+        editUsuario(userid);
     };
 
 }

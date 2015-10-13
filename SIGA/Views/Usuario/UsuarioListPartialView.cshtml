@@ -1,5 +1,5 @@
-﻿@model SIGA.Models.ViewModels.UsuarioViewModel
-@*@model SIGA_Model.StoredProcContexts.UsuarioInfoCollection*@
+﻿@*@model SIGA.Models.ViewModels.UsuarioViewModel*@
+@model SIGA_Model.StoredProcContexts.UsuarioInfoCollection
 @using SIGA.Helpers;
 
 
@@ -40,7 +40,9 @@
                             <div class="col-lg-2 col-md-2 noPaddingInColumn">
                                 <div class="opcionesButtomGroup">
                                     <a class="btn btn-md btn-default fa fa-trash-o dangerColor pull-right"></a>
-                                    <a class="btn btn-md btn-default fa fa-pencil-square-o warningColor pull-right" data-bind="click: editUsuario(@item.User_Id)"></a>
+                                    <a class="btn btn-md btn-default fa fa-pencil-square-o warningColor pull-right" data-bind="click: function() {  editUsuario(@item.User_Id); }"></a>
+                                    
+
                                     <a class="btn btn-md btn-default fa fa-info-circle infoColor pull-right"></a>
                                 </div>
                             </div>

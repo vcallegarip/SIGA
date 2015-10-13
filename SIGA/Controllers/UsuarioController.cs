@@ -28,7 +28,7 @@ namespace SIGA.Controllers
             return PartialView("UsuarioListPartialView", GetUsuarios(0, primerNombre, apellidoPaterno, email, tipoUsuario));
         }
 
-        public UsuarioViewModel GetUsuarios(int userid, string primerNombre, string apellidoPaterno, string email, string tipoUsuario)
+        public UsuarioInfoCollection GetUsuarios(int userid, string primerNombre, string apellidoPaterno, string email, string tipoUsuario)
         {
 
             UsuarioInfoInputParams usuarioInfoInputParams = new UsuarioInfoInputParams()
@@ -42,9 +42,29 @@ namespace SIGA.Controllers
 
             UsuarioInfoCollection usuarioInfoCollection = new UsuarioInfo().Execute(usuarioInfoInputParams);
 
-            UsuarioViewModel usuarioViewModel = new UsuarioViewModel
+            return usuarioInfoCollection;
+
+        }
+
+        public UsuarioViewModel GetUsuario(int userid)
+        {
+
+            //List<UsuarioInformation> singleUsuario = GetUsuarios(userid,"","","","");
+            UsuarioInfoCollection singleUsuario = GetUsuarios(userid,"","","","Todos");
+
+            UsuarioViewModel usuarioViewModel = new UsuarioViewModel()
             {
-                UsuarioInformationItems = usuarioInfoCollection.UsuarioInformationItems
+                User_Id = singleUsuario.UsuarioInformationItems[0].User_Id,
+                Per_Nombre = singleUsuario.UsuarioInformationItems[0].Per_Nombre.ToString(),
+                Per_ApePaterno = singleUsuario.UsuarioInformationItems[0].Per_ApePaterno.ToString(),
+                Per_ApeMaterno = singleUsuario.UsuarioInformationItems[0].Per_ApeMaterno.ToString(),
+                Per_Email = singleUsuario.UsuarioInformationItems[0].Per_Email.ToString(),
+                Per_Dni = singleUsuario.UsuarioInformationItems[0].Per_Dni,
+                Per_Dir = singleUsuario.UsuarioInformationItems[0].Per_Dir.ToString(),
+                Per_Cel = singleUsuario.UsuarioInformationItems[0].Per_Cel.ToString(),
+                Per_Tel = singleUsuario.UsuarioInformationItems[0].Per_Tel.ToString(),
+                Per_Sexo = singleUsuario.UsuarioInformationItems[0].Per_Sexo.ToString(),
+                TipoUser_Descrip = singleUsuario.UsuarioInformationItems[0].TipoUser_Descrip.ToString(),
             };
 
             return usuarioViewModel;
@@ -63,21 +83,7 @@ namespace SIGA.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            UsuarioViewModel usuarioViewModel = new UsuarioViewModel();
-            usuarioViewModel = GetUsuarios(2, "", "", "", "");
-
-            usuarioViewModel.Per_Nombre  = usuarioViewModel.UsuarioInformationItems[0].Per_Nombre.ToString();
-            usuarioViewModel.Per_ApePaterno = usuarioViewModel.UsuarioInformationItems[0].Per_ApePaterno.ToString();
-            usuarioViewModel.Per_ApeMaterno = usuarioViewModel.UsuarioInformationItems[0].Per_ApeMaterno.ToString();
-            usuarioViewModel.Per_Email = usuarioViewModel.UsuarioInformationItems[0].Per_Email.ToString();
-            usuarioViewModel.Per_Dni = usuarioViewModel.UsuarioInformationItems[0].Per_Dni;
-            usuarioViewModel.Per_Dir = usuarioViewModel.UsuarioInformationItems[0].Per_Dir.ToString();
-            usuarioViewModel.Per_Cel = usuarioViewModel.UsuarioInformationItems[0].Per_Cel.ToString();
-            usuarioViewModel.Per_Tel = usuarioViewModel.UsuarioInformationItems[0].Per_Tel.ToString();
-            usuarioViewModel.Per_Sexo = usuarioViewModel.UsuarioInformationItems[0].Per_Sexo.ToString();
-            usuarioViewModel.TipoUser_Descrip = usuarioViewModel.UsuarioInformationItems[0].TipoUser_Descrip.ToString();    
-
-            return PartialView("Form", usuarioViewModel);
+            return PartialView("Form", GetUsuario(userid.Value));
         }
 
         //public ActionResult Edit(int id, FormCollection collection)

@@ -2,12 +2,10 @@
 
 @{
     var isCreating = Model.User_Id == 0;
-    ViewBag.Title = (isCreating) ? "CreateUsuario" : "CreateUsuario";
+    ViewBag.Title = (isCreating) ? "Crear Usuario" : "Actualizar Usuario";
 }
 
 <div id="UsuarioCreateContainer">
-     
-    <span data-bind="text: isCreating">Test</span>
 
     <div data-bind="visible: !saveCompleted()">
 
