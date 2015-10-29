@@ -198,18 +198,21 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers_Api\UsuariodfController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\api\UsuarioController.cs" />
+    <Compile Include="Controllers\api\UsuarioApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="DTOs\EntityItemData.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CustomClassAttributes.cs" />
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Helpers\MvcHelpers.cs" />
     <Compile Include="Helpers\SIGADataGrid.cs" />
     <Compile Include="Helpers\SigaDataGridSystem.cs" />
+    <Compile Include="Helpers\Utils.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -306,12 +309,9 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Usuario\Form.cshtml" />
+    <Content Include="Views\Usuario\UsuarioEditPartialView.cshtml" />
     <Content Include="Views\Usuario\Delete.cshtml" />
     <Content Include="Views\Usuario\Details.cshtml" />
-    <Content Include="Views\Usuario\_Profesor.cshtml" />
-    <Content Include="Views\Usuario\Edit.cshtml" />
-    <Content Include="Views\Usuario\IndexOLD.cshtml" />
     <None Include="Views\Shared\_UsuarioPartial.cshtmltxt" />
     <Content Include="Web-Dev.config">
       <SubType>Designer</SubType>
@@ -326,7 +326,7 @@
     <Content Include="Views\Usuario\ProfesorGrid.cshtml" />
     <Content Include="Views\Usuario\UsuarioListPartialView.cshtml" />
     <Content Include="Views\Web-Dev.config" />
-    <Content Include="Views\Usuario\FormV2.cshtml" />
+    <Content Include="Views\Usuario\UsuarioDetailsPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -5,16 +5,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 
 namespace SIGA.Controllers.api
 {
-    public class UsuarioController : ApiController
+    public class UsuarioApiController : ApiController
     {
 
-        public UsuarioController()
+        SIGAEntities db = new SIGAEntities();
+
+        public UsuarioApiController()
         {
             AutoMapper.Mapper.CreateMap<Persona, UsuarioViewModel>();
             AutoMapper.Mapper.CreateMap<UsuarioViewModel, Persona>();
@@ -73,10 +76,10 @@ namespace SIGA.Controllers.api
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-
+        //[HttpPost]
         // POST: api/usuario
         [ResponseType(typeof(UsuarioViewModel))]
-        public IHttpActionResult Post(UsuarioViewModel usuarioViewModel)
+        public HttpResponseMessage Post(UsuarioViewModel usuarioViewModel)
         {
             var persona = AutoMapper.Mapper.Map<UsuarioViewModel, Persona>(usuarioViewModel);
             int personaIdentity = 0;
@@ -112,8 +115,8 @@ namespace SIGA.Controllers.api
                     throw;
                 }
             }
-
-            return CreatedAtRoute("DefaultApi", new { User_Id = usuarioViewModel.User_Id }, usuarioViewModel);
+            return Request.CreateResponse(HttpStatusCode.OK);
+            //return CreatedAtRoute("DefaultApi", new { User_Id = usuarioViewModel.User_Id }, usuarioViewModel);
         }
     }
 }

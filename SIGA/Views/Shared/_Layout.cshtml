@@ -15,7 +15,9 @@
 
 </head>
 
-<body data-bind=" css: {xxs: layoutVM.viewport()=='xxs', xs:  layoutVM.viewport()=='xs', sm:  layoutVM.viewport()=='sm', md:  layoutVM.viewport()=='md', lg:  layoutVM.viewport()=='lg'}">
+@*<body data-bind=" css: {xxs: layoutVM.viewport()=='xxs', xs:  layoutVM.viewport()=='xs', sm:  layoutVM.viewport()=='sm', md:  layoutVM.viewport()=='md', lg:  layoutVM.viewport()=='lg'}">*@
+<body>
+    
     <div id="viewport-sizes">
         <div class="viewport visible-xxs hidden-xs hidden-sm  hidden-md  hidden-lg ">xxs</div>
         <div class="viewport hidden-xxs visible-xs hidden-sm  hidden-md  hidden-lg ">xs</div>
@@ -132,13 +134,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            @*<div data-bind="foreach: loVM.breadCrumbs">
-                    <span data-bind="if: url != 'func'"><a data-bind="attr: {href: url}"><span data-bind="text:name">Home</span></a></span>
-                    <span data-bind="if: url == 'func'"><span data-bind="attr: {onclick: functionCall}"><span class="pointer breadcrumb-name" data-bind="text:name"></span></span></span>
-                </div>*@
-
             Home
-            
         </div>
     </div>
 

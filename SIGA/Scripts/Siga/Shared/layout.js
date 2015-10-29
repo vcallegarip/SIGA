@@ -69,26 +69,8 @@ function setActiveItem(target) {
 }
 
 window.onresize = function () {
-    // the core variable 'viewport' is contained in the _Layout.cshtml master page.
-    // but the onresize event must in a file that can pass to the ViewModel
-    // this code updates the observable so that dependent layout templates will upate
     evalViewport();
-    layoutVM.viewport(viewport); // Will set the observable with one of these text values: xs, sm, md, lg
-
-    //if (layoutVM.viewport() != 'xxs' && layoutVM.viewport() != 'xs') {
-    //    layoutVM.vMenuIn();
-    //}
-    //if (layoutVM.viewport() == 'xxs' || layoutVM.viewport() == 'xs') {
-    //    layoutVM.vMenuOut();
-    //}
-    //if (layoutVM.viewport() != 'xxs' && layoutVM.viewport() != 'xs') {
-    //    $('[data-toggle=tooltip]').tooltip('enable'); //Enable tooltips
-    //}
-    //if ((layoutVM.viewport() == 'xxs' || layoutVM.viewport() == 'xs')) {
-    //    $('[data-toggle=tooltip]').tooltip('disable'); // Disable tooltips
-
-    //}
-
+    layoutVM.viewport(viewport); 
 }
 
 var viewport = null;

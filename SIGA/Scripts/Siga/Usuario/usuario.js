@@ -26,6 +26,17 @@ function usuarioViewModel(usuario) {
 
     usuarioVM.usuario = {
         user_id: usuario.user_id,
+        //per_nombre: ko.observable("nombre"),
+        //per_apepaterno: ko.observable("per_apepaterno"),
+        //per_apematerno: ko.observable("per_apematerno"),
+        //per_email: ko.observable("per_email"),
+        //per_dni: ko.observable("per_dni"),
+        //per_dir: ko.observable("per_dir"),
+        //per_cel: ko.observable("per_cel"),
+        //per_tel: ko.observable("per_tel"),
+        //per_sexo: ko.observable("per_sexo"),
+        //tipouser_descrip: ko.observable("tipouser_descrip"),
+
         per_nombre: ko.observable(usuario.per_nombre),
         per_apepaterno: ko.observable(usuario.per_apepaterno),
         per_apematerno: ko.observable(usuario.per_apematerno),
@@ -46,11 +57,12 @@ function usuarioViewModel(usuario) {
 
         usuarioVM.sending(true);
 
-        //usuarioVM.usuario.__RequestVerificationToken = form[0].value;
+        usuarioVM.usuario.__RequestVerificationToken = form[0].value;
+
         debugger
         $.ajax({
-            url: '/api/usuario',
-            type: (usuarioVM.isCreating) ? 'post' : 'put',
+            url: '/api/usuarioapi',
+            type: (usuarioVM.isCreating) ? 'POST' : 'PUT',
             contentType: 'application/json',
             data: ko.toJSON(usuarioVM.usuario)
         })
@@ -127,6 +139,6 @@ function resetFilters() {
 }
 
 function editUsuario(userid) {
-    $("#mainContainer").load('/usuario/edit?userid=' + userid);
+    $("#mainContainer").load('/Usuario/Edit?userid=' + userid);
     return;
 }

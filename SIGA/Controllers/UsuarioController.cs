@@ -10,11 +10,18 @@ using Newtonsoft.Json;
 using SIGA_Model.StoredProcContexts;
 using SIGA.Models.ViewModels;
 using SIGA_Model;
+using SIGA.Helpers;
 
 namespace SIGA.Controllers
 {
+    [NoCache]
     public class UsuarioController : Controller
     {
+
+        public ActionResult Index()
+        {
+            return Content("There is no home page for this module.");
+        }
 
         public ActionResult Usuario([System.Web.Http.FromUri] string primerNombre, string apellidoPaterno, string email, string tipoUsuario)
         {
@@ -46,13 +53,15 @@ namespace SIGA.Controllers
 
         }
 
-        public UsuarioViewModel GetUsuario(int userid)
+        public UsuarioViewModel GetUsuario(int user_id)
         {
 
             //List<UsuarioInformation> singleUsuario = GetUsuarios(userid,"","","","");
-            UsuarioInfoCollection singleUsuario = GetUsuarios(userid,"","","","Todos");
+            UsuarioInfoCollection singleUsuario = GetUsuarios(user_id, "", "", "", "Todos");
 
-            UsuarioViewModel usuarioViewModel = new UsuarioViewModel()
+            UsuarioViewModel usuarioViewModel = new UsuarioViewModel();
+
+            usuarioViewModel.UsuarioItem = new UsuarioItem()
             {
                 User_Id = singleUsuario.UsuarioInformationItems[0].User_Id,
                 Per_Nombre = singleUsuario.UsuarioInformationItems[0].Per_Nombre.ToString(),
@@ -71,81 +80,79 @@ namespace SIGA.Controllers
 
         }
 
+        public ActionResult GetDetails(int userid)
+        {
+            return PartialView("UsuarioDetailsPartialView", GetUsuario(userid));
+        }
+
         public ActionResult Create()
         {
-            return PartialView("Form", new UsuarioViewModel());
+            return PartialView("UsuarioEditPartialView", new UsuarioViewModel());
         }
 
-        public ActionResult Edit(int? userid)
+        public ActionResult Edit(int userid)
         {
-            if (userid == null)
+            return PartialView("UsuarioEditPartialView", GetUsuario(userid));
+        }
+
+
+        // POST: UsuarioChange/Edit/5
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+
+            int userid = Convert.ToInt32(collection["User_Id"]);
+
+            using (var db = new SIGAEntities())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                try
+                {
+                    Persona persona = new Persona();
+                    persona.Per_Dni = Convert.ToInt32(collection["UsuarioItem.Per_Dni"]);
+                    persona.Per_Nombre = collection["UsuarioItem.Per_Nombre"];
+                    persona.Per_ApePaterno = collection["UsuarioItem.Per_ApePaterno"];
+                    persona.Per_ApeMaterno = collection["UsuarioItem.Per_ApeMaterno"];
+                    persona.Per_Sexo = collection["UsuarioItem.Per_Sexo"];
+                    persona.Per_Dir = collection["UsuarioItem.Per_Dir"];
+                    persona.Per_Cel = collection["UsuarioItem.Per_Cel"];
+                    persona.Per_Tel = collection["UsuarioItem.Per_Tel"];
+                    persona.Per_Email = collection["UsuarioItem.Per_Email"];
+
+                    TipoUsuario tipoUsuario = new TipoUsuario();
+                    string tipoUserValue = collection["UsuarioItem.TipoUser_Descrip"];
+                    var tipoUserId = db.TipoUsuario.Where(t => t.TipoUser_Descrip == tipoUserValue).FirstOrDefault();
+
+                    Usuario usuario = new Usuario();
+                    usuario.Per_Id = persona.Per_Id;
+                    usuario.TipoUser_Id = Convert.ToInt16(tipoUserId.TipoUser_Id);
+                    usuario.User_Nombre = collection["UsuarioItem.User_Nombre"];
+
+                    Alumno alumno = new Alumno();
+                    alumno.User_Id = usuario.User_Id;
+                    alumno.Alu_FechNac = Convert.ToDateTime(collection["UsuarioItem.Alu_FechNac"]);
+                    alumno.Alu_Apoderado = collection["UsuarioItem.Per_Dir"];
+                    alumno.Alu_FechIngreso = DateTime.UtcNow;
+                    alumno.Alu_Estado = true;
+
+                    db.SaveChanges();
+
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+
+                return RedirectToAction("GetDetails", new
+                {
+                    userid = id,
+                    //editable = true
+                });
+              
+
+                //return PartialView("UsuarioDetailsPartialView", GetUsuario(id));
             }
 
-            return PartialView("Form", GetUsuario(userid.Value));
         }
-
-        //public ActionResult Edit(int id, FormCollection collection)
-        //{
-            
-        //            // DateTime effectiveDate = Utils.ConvertToDate(collection["ModulePayChange.EffectiveDateForDisplay"], "dddd, MMMM d, yyyy");
-        //            pafModuleItem.PAF_Module_Item_Data.Add(createItemData("BonusPercent", collection["ModulePayChange.BonusPercent"], "percent"));
-
-        //            var bonusType = collection["ModulePayChange.BonusType"] == null ? "None" : collection["ModulePayChange.BonusType"];
-   
-        //            pafModuleItem.PAF_Module_Item_Data.Add(createItemData("BonusType", bonusTypeElements[0], "varchar"));
-
-        //            pafModuleItem.PAF_Module_Item_Data.Add(createItemData("EffectiveDate", collection["ModulePayChange.EffectiveDateForDisplay"], "varchar"));
-
-        //            var newPayCompPercent = collection["ModulePayChange.NewCompPercent"] == null ? "" : collection["ModulePayChange.NewCompPercent"];
-        //            pafModuleItem.PAF_Module_Item_Data.Add(createItemData("NewCompPercent", newPayCompPercent, "percent"));
-
-        //            pafModuleItem.PAF_Module_Item_Data.Add(createItemData("NewCompRate", collection["ModulePayChange.NewCompRate"], "money"));
-
-        //            var reason = collection["ModulePayChange.Reason"];
-        //            string[] reasonElements = reason.Split(',');
-        //            pafModuleItem.PAF_Module_Item_Data.Add(createItemData("Reason", reasonElements[0], "varchar"));
-
-        //            db.PAF_Request.Add(pafRequest);
-
-        //        }
-
-        //        try
-        //        {
-        //            db.SaveChanges();
-        //        }
-        //        catch (Exception ex)
-        //        {
-
-        //            ViewBag.Exception = ex.Message;
-        //            //TODO: Log it
-        //            return PartialView("PayChangeExceptionPartialView");
-        //        }
-        //    }
-
-        //    return RedirectToAction("Get", new
-        //    {
-        //        requestGuid = requestGuid,
-        //        requestModuleGuid = moduleGuid,
-        //        requestModuleItemGuid = moduleItemGuid,
-        //        clockId = clockId,
-        //        editable = true
-
-        //    });
-
-
-
-        //}
-
-        //private PAF_Module_Item_Data createItemData(string key, string value, string dataType)
-        //{
-        //    PAF_Module_Item_Data data = new PAF_Module_Item_Data();
-        //    data.Key = key;
-        //    data.Value = value;
-        //    data.ValueDataType = dataType;
-        //    return data;
-        //}
 
     }
 }
