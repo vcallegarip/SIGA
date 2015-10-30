@@ -27,6 +27,8 @@ namespace SIGA.Models.ViewModels
             {
                 this.TipoUsuario.Add(new SelectListItem { Text = tipoUsuario.TipoUser_Descrip, Value = tipoUsuario.TipoUser_Id.ToString() });
             }
+
+            
         }
     }
 

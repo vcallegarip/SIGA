@@ -95,19 +95,29 @@ namespace SIGA.Controllers
             return PartialView("UsuarioEditPartialView", GetUsuario(userid));
         }
 
-
         // POST: UsuarioChange/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
 
-            int userid = Convert.ToInt32(collection["User_Id"]);
+            //int userid = Convert.ToInt32(collection["User_Id"]);
 
             using (var db = new SIGAEntities())
             {
                 try
                 {
-                    Persona persona = new Persona();
+                    TipoUsuario tipoUsuario = new TipoUsuario();
+                    string tipoUserValue = "Alumno"; // collection["UsuarioItem.TipoUser_Descrip"];
+                    var tipoUserId = db.TipoUsuario.Where(t => t.TipoUser_Descrip == tipoUserValue).FirstOrDefault();
+
+                    Usuario usuario = db.Usuario.First(u => u.User_Id == id);
+                    usuario.TipoUser_Id = Convert.ToInt16(tipoUserId.TipoUser_Id);
+                    usuario.User_Nombre = "usename"; // persona.Per_Nombre.Substring(0, persona.Per_Nombre.Length) + " " + persona.Per_ApeMaterno.Substring(0, 0);
+                    usuario.User_Pass = "";
+
+                    //db.Usuario.Attach(usuario);
+
+                    Persona persona = db.Persona.First(p => p.Per_Id == usuario.Per_Id);
                     persona.Per_Dni = Convert.ToInt32(collection["UsuarioItem.Per_Dni"]);
                     persona.Per_Nombre = collection["UsuarioItem.Per_Nombre"];
                     persona.Per_ApePaterno = collection["UsuarioItem.Per_ApePaterno"];
@@ -118,26 +128,20 @@ namespace SIGA.Controllers
                     persona.Per_Tel = collection["UsuarioItem.Per_Tel"];
                     persona.Per_Email = collection["UsuarioItem.Per_Email"];
 
-                    TipoUsuario tipoUsuario = new TipoUsuario();
-                    string tipoUserValue = collection["UsuarioItem.TipoUser_Descrip"];
-                    var tipoUserId = db.TipoUsuario.Where(t => t.TipoUser_Descrip == tipoUserValue).FirstOrDefault();
+                    //db.Persona.Attach(persona);
 
-                    Usuario usuario = new Usuario();
-                    usuario.Per_Id = persona.Per_Id;
-                    usuario.TipoUser_Id = Convert.ToInt16(tipoUserId.TipoUser_Id);
-                    usuario.User_Nombre = collection["UsuarioItem.User_Nombre"];
-
-                    Alumno alumno = new Alumno();
-                    alumno.User_Id = usuario.User_Id;
+                    Alumno alumno = db.Alumno.First(a => a.User_Id == id);
                     alumno.Alu_FechNac = Convert.ToDateTime(collection["UsuarioItem.Alu_FechNac"]);
                     alumno.Alu_Apoderado = collection["UsuarioItem.Per_Dir"];
                     alumno.Alu_FechIngreso = DateTime.UtcNow;
                     alumno.Alu_Estado = true;
 
+                    //db.Alumno.Add(alumno);
+
                     db.SaveChanges();
 
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     throw;
                 }
@@ -147,9 +151,7 @@ namespace SIGA.Controllers
                     userid = id,
                     //editable = true
                 });
-              
 
-                //return PartialView("UsuarioDetailsPartialView", GetUsuario(id));
             }
 
         }

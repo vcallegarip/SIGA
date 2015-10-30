@@ -1,82 +1,104 @@
 ﻿@model SIGA.Models.ViewModels.UsuarioViewModel
 
 
-@using (Ajax.BeginForm("Edit", "UsuarioChange", new { id = Model.UsuarioItem.User_Id }, new AjaxOptions { UpdateTargetId = "module-pane" }, new { @id = "UsuarioForm" }))
+@using (Ajax.BeginForm("Edit", "UsuarioChange", new { id = Model.UsuarioItem.User_Id }, new AjaxOptions { UpdateTargetId = "mainContainer" }, new { @id = "UsuarioForm" }))
 {
 
     @Html.HiddenFor(m => m.UsuarioItem.User_Id);
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Datos Generales</div>
+        <div class="panel-body sectionPanelContainer">
+            <div class="row">
+                <div class="col-lg-4">
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioItem.Per_Nombre, "Nombre", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UsuarioItem.Per_Nombre, new { htmlAttributes = new { @class = "form-control", @id = "per_nombre" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioItem.Per_ApePaterno, "Paterno", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UsuarioItem.Per_ApePaterno, new { htmlAttributes = new { @class = "form-control", @id = "per_apepaterno" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioItem.Per_ApeMaterno, "Materno", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UsuarioItem.Per_ApeMaterno, new { htmlAttributes = new { @class = "form-control", @id = "per_apematerno" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioItem.Per_Email, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UsuarioItem.Per_Email, new { htmlAttributes = new { @class = "form-control", @id = "per_email" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioItem.Per_Dni, "DNI", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UsuarioItem.Per_Dni, new { htmlAttributes = new { @class = "form-control", @id = "per_dni" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioItem.Per_Dir, "Direccion", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UsuarioItem.Per_Dir, new { htmlAttributes = new { @class = "form-control", @id = "per_dir" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioItem.Per_Cel, "Celular", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UsuarioItem.Per_Cel, new { htmlAttributes = new { @class = "form-control", @id = "per_cel" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioItem.Per_Tel, "Telefono", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UsuarioItem.Per_Tel, new { htmlAttributes = new { @class = "form-control", @id = "per_tel" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioItem.Per_Sexo, "Sexo", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UsuarioItem.Per_Sexo, new { htmlAttributes = new { @class = "form-control", @id = "per_sexo" } })
+                        </div>
+                    </div>
+                </div>
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.UsuarioItem.TipoUser_Descrip, "Tipo de Usuario", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.UsuarioItem.TipoUser_Descrip, new { htmlAttributes = new { @class = "form-control", @id = "tipouser_descrip" } })
+                    </div>
+                </div>*@
+
+            </div>
+        </div>
+    </div>
+
     
-    
-    <div class="form-group">
-        @Html.LabelFor(model => model.UsuarioItem.Per_Nombre, "Nombre", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.UsuarioItem.Per_Nombre, new { htmlAttributes = new { @class = "form-control module-input", @id = "per_nombre" } })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.UsuarioItem.Per_ApePaterno, "Apellido Paterno", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.UsuarioItem.Per_ApePaterno, new { htmlAttributes = new { @class = "form-control", @id = "per_apepaterno" } })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.UsuarioItem.Per_ApeMaterno, "Apellido Materno", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.UsuarioItem.Per_ApeMaterno, new { htmlAttributes = new { @class = "form-control", @id = "per_apematerno" } })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.UsuarioItem.Per_Email, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.UsuarioItem.Per_Email, new { htmlAttributes = new { @class = "form-control", @id = "per_email" } })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.UsuarioItem.Per_Dni, "DNI", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.UsuarioItem.Per_Dni, new { htmlAttributes = new { @class = "form-control", @id = "per_dni" } })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.UsuarioItem.Per_Dir, "Direccion", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.UsuarioItem.Per_Dir, new { htmlAttributes = new { @class = "form-control", @id = "per_dir" } })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.UsuarioItem.Per_Cel, "Celular", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.UsuarioItem.Per_Cel, new { htmlAttributes = new { @class = "form-control", @id = "per_cel" } })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.UsuarioItem.Per_Tel, "Telefono", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.UsuarioItem.Per_Tel, new { htmlAttributes = new { @class = "form-control", @id = "per_tel" } })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.UsuarioItem.Per_Sexo, "Sexo", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.UsuarioItem.Per_Sexo, new { htmlAttributes = new { @class = "form-control", @id = "per_sexo" } })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.UsuarioItem.TipoUser_Descrip, "Tipo de Usuario", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.UsuarioItem.TipoUser_Descrip, new { htmlAttributes = new { @class = "form-control", @id = "tipouser_descrip" } })
-        </div>
-    </div>
-
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <span class="btn btn-green btn-uppercase cancel" onclick="moduleSubmit()">Save</span>
