@@ -87,7 +87,7 @@ namespace SIGA.Controllers
 
         public ActionResult Create()
         {
-            return PartialView("UsuarioEditPartialView", new UsuarioViewModel());
+            return PartialView("UsuarioCreatePartialView", new UsuarioViewModel());
         }
 
         public ActionResult Edit(int userid)

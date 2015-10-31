@@ -39,7 +39,7 @@ namespace SIGA
 
             bundles.Add(new ScriptBundle("~/bundles/SIGA").Include(
                 "~/Scripts/SIGA/menu.js",
-                "~/Scripts/SIGA/usuario.js"));
+                "~/Scripts/SIGA/usuarioItem.js"));
 
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

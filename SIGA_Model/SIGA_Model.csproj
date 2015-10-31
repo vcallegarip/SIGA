@@ -69,7 +69,6 @@
     <Compile Include="Calificacion.cs">
       <DependentUpon>SigaModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="Curso.cs">
       <DependentUpon>SigaModel.tt</DependentUpon>
     </Compile>
@@ -98,6 +97,7 @@
     <Compile Include="Recibo.cs">
       <DependentUpon>SigaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SigaEntities.cs" />
     <Compile Include="SigaModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

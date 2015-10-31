@@ -1,0 +1,151 @@
+﻿@model SIGA.Models.ViewModels.UsuarioViewModel
+
+@{
+    var isCreating = Model.UsuarioItem.User_Id == 0;
+    ViewBag.Title = (isCreating) ? "Create" : "Edit";
+}
+
+<div id="CreateUsuarioContainer">
+
+    <span data-bind="text: nombre">nombre</span>
+
+    <div data-bind="visible: !saveCompleted()">
+
+        @using (Html.BeginForm("Create", "Usuario", FormMethod.Post, new { data_bind = "submit: validateAndSave" }))
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">Datos Generales</div>
+                <div class="panel-body sectionPanelContainer">
+                    <div class="row">
+                        <div class="col-lg-4">
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UsuarioItem.Per_Nombre, "Nombre", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.UsuarioItem.Per_Nombre, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.usuarioItem.per_nombre" } })
+                                    @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Nombre, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UsuarioItem.Per_ApePaterno, "Paterno", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.UsuarioItem.Per_ApePaterno, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.usuarioItem.per_apepaterno" } })
+                                    @Html.ValidationMessageFor(model => model.UsuarioItem.Per_ApePaterno, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UsuarioItem.Per_ApeMaterno, "Materno", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.UsuarioItem.Per_ApeMaterno, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.usuarioItem.per_apematerno" } })
+                                    @Html.ValidationMessageFor(model => model.UsuarioItem.Per_ApeMaterno, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UsuarioItem.Per_Email, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.UsuarioItem.Per_Email, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.usuarioItem.per_email" } })
+                                    @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UsuarioItem.Per_Dni, "DNI", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.UsuarioItem.Per_Dni, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.usuarioItem.per_dni" } })
+                                    @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Dni, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UsuarioItem.Per_Dir, "Direccion", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.UsuarioItem.Per_Dir, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.usuarioItem.per_dir" } })
+                                    @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Dir, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UsuarioItem.Per_Cel, "Celular", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.UsuarioItem.Per_Cel, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.usuarioItem.per_cel" } })
+                                    @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Cel, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UsuarioItem.Per_Tel, "Telefono", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.UsuarioItem.Per_Tel, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.usuarioItem.per_tel" } })
+                                    @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Tel, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UsuarioItem.Per_Sexo, "Sexo", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.UsuarioItem.Per_Sexo, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.usuarioItem.per_sexo" } })
+                                    @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Sexo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+                                @Html.LabelFor(model => model.UsuarioItem.TipoUser_Descrip, "Tipo de Usuario", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.UsuarioItem.TipoUser_Descrip, new { htmlAttributes = new { @class = "form-control", @id = "tipouser_descrip" } })
+                                </div>
+                            </div>*@
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10" data-bind="visible: !sending()">
+                    <input type="submit" value="@if (isCreating) { @Html.Raw("Create") } else { @Html.Raw("Update") }" class="btn btn-default" />
+                </div>
+
+                <div class="progress" data-bind="visible: sending">
+                    <div class="progress-bar progress-bar-info progress-bar-striped active"
+                         role="progressbar" aria-valuenow="100"
+                         aria-valuemin="0" aria-valuemax="100"
+                         style="width: 100%">
+                        <span class="sr-only"></span>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+</div>
+
+<script src="@Url.Content("/Scripts/Siga/Usuario/usuarioDTO.js")" type="text/javascript"></script>
+
+<script>
+
+    var usuarioVM = new usuarioViewModel(@Html.HtmlConvertToJson(Model));
+    ko.applyBindings(usuarioVM, $('#CreateUsuarioContainer')[0]);
+
+    @*$(document).ready(function(){
+        var usuarioVM = new usuarioViewModel(@Html.HtmlConvertToJson(Model.UsuarioItem));
+        ko.applyBindings(usuarioVM, $('#CreateUsuarioContainer')[0]);
+    });*@
+
+</script>
+
+

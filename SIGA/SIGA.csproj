@@ -198,7 +198,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers_Api\UsuariodfController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\api\UsuarioApiController.cs" />
+    <Compile Include="Controllers\Api\UsuarioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -313,7 +313,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Usuario\UsuarioEditPartialView.cshtml" />
     <Content Include="Views\Usuario\Delete.cshtml" />
-    <Content Include="Views\Usuario\Details.cshtml" />
     <None Include="Views\Shared\_UsuarioPartial.cshtmltxt" />
     <Content Include="Web-Dev.config">
       <SubType>Designer</SubType>
@@ -325,10 +324,10 @@
       <DependentUpon>Web-Dev.config</DependentUpon>
     </Content>
     <Content Include="Views\Usuario\UsuarioPartialView.cshtml" />
-    <Content Include="Views\Usuario\ProfesorGrid.cshtml" />
     <Content Include="Views\Usuario\UsuarioListPartialView.cshtml" />
     <Content Include="Views\Web-Dev.config" />
     <Content Include="Views\Usuario\UsuarioDetailsPartialView.cshtml" />
+    <Content Include="Views\Usuario\UsuarioCreatePartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

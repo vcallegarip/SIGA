@@ -49,11 +49,11 @@
 //                    {
 //                        var usuario = AutoMapper.Mapper.Map<UsuarioViewModel, Usuario>(usuarioViewModel);
 //                        int usuarioIdentity = 0;
-//                        usuario.Per_Id = personaIdentity;
+//                        usuarioItem.Per_Id = personaIdentity;
 
 //                        db.Usuario.Add(usuario);
 //                        db.SaveChanges();
-//                        usuarioIdentity = usuario.User_Id;
+//                        usuarioIdentity = usuarioItem.User_Id;
 
 //                        if (usuarioIdentity > 0)
 //                        {
