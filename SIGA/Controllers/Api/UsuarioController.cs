@@ -24,10 +24,8 @@ namespace SIGA.Controllers.Api
             using (var db = new SIGAEntities())
             {
 
-                string message = "An error ocurred while creating event: ";
                 if (!ModelState.IsValid)
                 {
-                    message += "Event ModelState is not valid.";
                     return BadRequest(ModelState);
                 }
 
@@ -47,26 +45,45 @@ namespace SIGA.Controllers.Api
                     db.Persona.Add(persona);
 
                     TipoUsuario tipoUsuario = new TipoUsuario();
-                    string tipoUserValue = "Alumno"; // usuarioViewModel.UsuarioItem.TipoUser_Descrip"];
+                    string tipoUserValue = usuarioViewModel.UsuarioItem.TipoUser_Descrip;
                     var tipoUserId = db.TipoUsuario.Where(t => t.TipoUser_Descrip == tipoUserValue).FirstOrDefault();
 
                     Usuario usuario = new Usuario();
                     usuario.Per_Id = persona.Per_Id;
                     usuario.TipoUser_Id = Convert.ToInt16(tipoUserId.TipoUser_Id);
-                    usuario.User_Nombre = "usename"; // persona.Per_Nombre.Substring(0, persona.Per_Nombre.Length) + " " + persona.Per_ApeMaterno.Substring(0, 0);
+                    usuario.User_Nombre = persona.Per_Nombre.Substring(0, persona.Per_Nombre.Length) + " " + persona.Per_ApeMaterno.Substring(0, 0);
                     usuario.User_Pass = "";
 
                     db.Usuario.Add(usuario);
 
+                    if (tipoUserValue == "Alumno")
+                    {
+                        Alumno alumno = new Alumno();
+                        alumno.User_Id = usuario.User_Id;
+                        alumno.Alu_Apoderado = usuarioViewModel.UsuarioItem.AlumnoItem.Alu_Apoderado;
+                        alumno.Alu_FechaIngreso = usuarioViewModel.UsuarioItem.AlumnoItem.Alu_FechaIngreso;
+                        alumno.Alu_FechaRegistro = usuarioViewModel.UsuarioItem.AlumnoItem.Alu_FechaRegistro;
+                        alumno.Alu_Estado = true;
 
-                    Alumno alumno = new Alumno();
-                    alumno.User_Id = usuario.User_Id;
-                    alumno.Alu_Apoderado = usuarioViewModel.UsuarioItem.AlumnoItem.Alu_Apoderado;
-                    alumno.Alu_FechaIngreso = usuarioViewModel.UsuarioItem.AlumnoItem.Alu_FechaIngreso;
-                    alumno.Alu_FechaRegistro = usuarioViewModel.UsuarioItem.AlumnoItem.Alu_FechaRegistro;  
-                    alumno.Alu_Estado = true;
+                        db.Alumno.Add(alumno);
+                    }
 
-                    db.Alumno.Add(alumno);
+                    if (tipoUserValue == "Profesor")
+                    {
+                        Profesor profesor = new Profesor();
+                        // add code
+
+                        db.Profesor.Add(profesor);
+                    }
+
+                    if (tipoUserValue == "Administrador")
+                    {
+                        Administrador administrador = new Administrador();
+                        // add code
+
+                        db.Administrador.Add(administrador);
+                    }
+
 
                     db.SaveChanges();
 

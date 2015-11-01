@@ -15,8 +15,8 @@ namespace SIGA.Models.ViewModels
 
         private SIGAEntities db = new SIGAEntities();
 
-        [Required]
-        [JsonProperty(PropertyName = "usuarioItem")]
+        //[Required]
+        //[JsonProperty(PropertyName = "usuarioItem")]
         public UsuarioItem UsuarioItem { get; set; }
 
         //public List<SelectListItem> TipoUsuario { get; set; }

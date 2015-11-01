@@ -1,25 +1,27 @@
 ﻿var usuarioVM = null;
+
 function usuarioViewModel(usuario) {
     
     usuarioVM = this;
+
     usuarioVM.ReturnStatus = ko.observable();
+
     usuarioVM.nombre = ko.observable('Binding is working');
 
     usuarioVM.tipoUsuarioSelected = ko.observable();
 
-    usuarioVM.setActiveColor = ko.observable('noActiveColor');
-
     usuarioVM.setTipoUsuarioSelected = function (data) {
         usuarioVM.tipoUsuarioSelected(data);
-        $('#' + data + '').addClass('active');
-        $('#' + data + ' a').css('color', '#2c7ecc', 'font-weight','bold');
-        $('#tipoUsuarioPanel li').not('#' + data + '').removeClass('active');
-        $('#tipoUsuarioPanel li a').not('#' + data + ' a').css('color', '#454242');
-        //usuarioVM.setActiveColor('niceActiveElement');
+        $('#li' + data + '').addClass('active');
+        $('#li' + data + ' a').css('color', '#2c7ecc', 'font-weight','bold');
+        $('#tipoUsuarioPanel li').not('#li' + data + '').removeClass('active');
+        $('#tipoUsuarioPanel li a').not('#li' + data + ' a').css('color', '#454242');
     }
 
     usuarioVM.usuarioList = ko.observableArray([]);
+
     usuarioVM.tipoUsuarioClick = ko.observable();
+
     usuarioVM.tipoUsuarioItems = ko.observableArray([
         { name: 'Alumno' },
         { name: 'Profesor' },
@@ -35,9 +37,10 @@ function usuarioViewModel(usuario) {
     };
 
     usuarioVM.saveCompleted = ko.observable(false);
-    usuarioVM.sending = ko.observable(false);
-    usuarioVM.isCreating = 0 == 0;
 
+    usuarioVM.sending = ko.observable(false);
+
+    usuarioVM.isCreating = 0 == 0;
 
     usuarioVM.usuario = {
         usuarioItem : {
@@ -51,7 +54,7 @@ function usuarioViewModel(usuario) {
             per_cel: ko.observable(usuario.per_cel),
             per_tel: ko.observable(usuario.per_tel),
             per_sexo: ko.observable(usuario.per_sexo),
-            tipouser_descrip: ko.observable(usuario.tipouser_descrip),
+            tipouser_descrip: ko.observable(usuarioVM.tipoUsuarioSelected),
             alumnoItem: {
                 alu_apoderado: ko.observable(usuario.alu_apoderado),
                 alu_fechaingreso: ko.observable(usuario.alu_fechaingreso),
@@ -148,18 +151,18 @@ function editUsuario(userid) {
     return;
 }
 
-function saveNewUsuario() {
+//function saveNewUsuario() {
     
-    $.ajax({
-        url: '',
-        type: 'POST',
-        cache: false,
-        data: jQuery("#UsuarioCreateForm").serialize(),
-        success: function (result) {
-            // do accordingly as per your result                 
-        }
-    });
-}
+//    $.ajax({
+//        url: '',
+//        type: 'POST',
+//        cache: false,
+//        data: jQuery("#UsuarioCreateForm").serialize(),
+//        success: function (result) {
+//            // do accordingly as per your result                 
+//        }
+//    });
+//}
 
 
 //function settipo(data) {
