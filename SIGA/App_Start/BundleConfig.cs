@@ -14,6 +14,7 @@ namespace SIGA
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+                        //"~/Scripts/jquery.validate.unobtrusive.js",
                         "~/Scripts/jquery.validate*"
             ));
 

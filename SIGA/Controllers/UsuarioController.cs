@@ -100,8 +100,6 @@ namespace SIGA.Controllers
         public ActionResult Edit(int id, FormCollection collection)
         {
 
-            //int userid = Convert.ToInt32(collection["User_Id"]);
-
             using (var db = new SIGAEntities())
             {
                 try
@@ -115,8 +113,6 @@ namespace SIGA.Controllers
                     usuario.User_Nombre = "usename"; // persona.Per_Nombre.Substring(0, persona.Per_Nombre.Length) + " " + persona.Per_ApeMaterno.Substring(0, 0);
                     usuario.User_Pass = "";
 
-                    //db.Usuario.Attach(usuario);
-
                     Persona persona = db.Persona.First(p => p.Per_Id == usuario.Per_Id);
                     persona.Per_Dni = Convert.ToInt32(collection["UsuarioItem.Per_Dni"]);
                     persona.Per_Nombre = collection["UsuarioItem.Per_Nombre"];
@@ -128,15 +124,11 @@ namespace SIGA.Controllers
                     persona.Per_Tel = collection["UsuarioItem.Per_Tel"];
                     persona.Per_Email = collection["UsuarioItem.Per_Email"];
 
-                    //db.Persona.Attach(persona);
-
                     Alumno alumno = db.Alumno.First(a => a.User_Id == id);
-                    alumno.Alu_FechNac = Convert.ToDateTime(collection["UsuarioItem.Alu_FechNac"]);
-                    alumno.Alu_Apoderado = collection["UsuarioItem.Per_Dir"];
-                    alumno.Alu_FechIngreso = DateTime.UtcNow;
+                    alumno.Alu_Apoderado = collection["UsuarioItem.AlumnoItem.Alu_Apoderado"];
+                    alumno.Alu_FechaIngreso = Convert.ToDateTime(collection["UsuarioItem.AlumnoItem.Alu_FechaIngreso"]);
+                    alumno.Alu_FechaRegistro = Convert.ToDateTime(collection["UsuarioItem.AlumnoItem.Alu_FechaRegistro"]);  //DateTime.UtcNow;
                     alumno.Alu_Estado = true;
-
-                    //db.Alumno.Add(alumno);
 
                     db.SaveChanges();
 

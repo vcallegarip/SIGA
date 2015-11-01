@@ -9,9 +9,11 @@
 
 namespace SIGA_Model
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Persona
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,6 +24,9 @@ namespace SIGA_Model
     
         public int Per_Id { get; set; }
         public int Per_Dni { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Email Address")]
+        [JsonProperty(PropertyName = "per_nombre")]
         public string Per_Nombre { get; set; }
         public string Per_ApePaterno { get; set; }
         public string Per_ApeMaterno { get; set; }
@@ -30,6 +35,7 @@ namespace SIGA_Model
         public string Per_Cel { get; set; }
         public string Per_Tel { get; set; }
         public string Per_Email { get; set; }
+        public Nullable<System.DateTime> Per_FechaNacimiento { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usuario> Usuario { get; set; }

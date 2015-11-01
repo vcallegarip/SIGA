@@ -21,7 +21,6 @@ namespace SIGA.Controllers.Api
         [ResponseType(typeof(UsuarioViewModel))]
         public IHttpActionResult Post(UsuarioViewModel usuarioViewModel)
         {
-
             using (var db = new SIGAEntities())
             {
 
@@ -34,7 +33,6 @@ namespace SIGA.Controllers.Api
 
                 try
                 {
-
                     Persona persona = new Persona();
                     persona.Per_Dni = usuarioViewModel.UsuarioItem.Per_Dni;
                     persona.Per_Nombre = usuarioViewModel.UsuarioItem.Per_Nombre;
@@ -63,9 +61,9 @@ namespace SIGA.Controllers.Api
 
                     Alumno alumno = new Alumno();
                     alumno.User_Id = usuario.User_Id;
-                    alumno.Alu_FechNac = DateTime.UtcNow; //usuarioViewModel.UsuarioItem;
-                    alumno.Alu_Apoderado = "Apoderado"; //usuarioViewModel.UsuarioItem.Per_Dir"];
-                    alumno.Alu_FechIngreso = DateTime.UtcNow;
+                    alumno.Alu_Apoderado = usuarioViewModel.UsuarioItem.AlumnoItem.Alu_Apoderado;
+                    alumno.Alu_FechaIngreso = usuarioViewModel.UsuarioItem.AlumnoItem.Alu_FechaIngreso;
+                    alumno.Alu_FechaRegistro = usuarioViewModel.UsuarioItem.AlumnoItem.Alu_FechaRegistro;  
                     alumno.Alu_Estado = true;
 
                     db.Alumno.Add(alumno);

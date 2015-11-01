@@ -19,7 +19,6 @@ var UsuarioItem = function (data) {
 
 var AlumnoInfo = function (data) {
     this.User_Id = ko.observable(data.user_Id || '');
-    this.Alu_FechNac = data.alu_FechNac || '';
     this.Alu_Apoderado = data.alu_Apoderado || '';
     this.Alu_FechIngreso = data.alu_FechIngreso || '';
 }

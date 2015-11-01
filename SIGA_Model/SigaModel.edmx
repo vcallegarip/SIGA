@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SIGAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SIGAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Administrador">
           <Key>
             <PropertyRef Name="Adm_ID" />
@@ -21,9 +21,9 @@
           </Key>
           <Property Name="Alu_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="User_Id" Type="int" Nullable="false" />
-          <Property Name="Alu_FechNac" Type="date" />
           <Property Name="Alu_Apoderado" Type="varchar" MaxLength="50" />
-          <Property Name="Alu_FechIngreso" Type="datetime" Nullable="false" />
+          <Property Name="Alu_FechaIngreso" Type="datetime" Nullable="false" />
+          <Property Name="Alu_FechaRegistro" Type="datetime" />
           <Property Name="Alu_Estado" Type="bit" Nullable="false" />
           <Property Name="Alu_Foto" Type="varchar" MaxLength="200" />
         </EntityType>
@@ -113,6 +113,7 @@
           <Property Name="Per_ApePaterno" Type="varchar" MaxLength="50" />
           <Property Name="Per_ApeMaterno" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Per_Sexo" Type="char" MaxLength="1" />
+          <Property Name="Per_FechaNacimiento" Type="date" />
           <Property Name="Per_Dir" Type="varchar" MaxLength="50" />
           <Property Name="Per_Cel" Type="char" MaxLength="9" />
           <Property Name="Per_Tel" Type="varchar" MaxLength="20" Nullable="false" />
@@ -414,8 +415,7 @@
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SIGAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -436,12 +436,12 @@
           </Key>
           <Property Name="Alu_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="User_Id" Type="Int32" Nullable="false" />
-          <Property Name="Alu_FechNac" Type="DateTime" Precision="0" />
           <Property Name="Alu_Apoderado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Alu_FechIngreso" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Alu_Estado" Type="Boolean" Nullable="false" />
           <Property Name="Alu_Foto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Alumno_Usuario" FromRole="Alumno" ToRole="Usuario" />
+          <Property Name="Alu_FechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Alu_FechaRegistro" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Aula">
           <Key>
@@ -546,6 +546,7 @@
           <Property Name="Per_Tel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Per_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Persona" FromRole="Persona" ToRole="Usuario" />
+          <Property Name="Per_FechaNacimiento" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Profesor">
           <Key>
@@ -876,11 +877,11 @@
           <EntitySetMapping Name="Alumno">
             <EntityTypeMapping TypeName="SIGAModel.Alumno">
               <MappingFragment StoreEntitySet="Alumno">
+                <ScalarProperty Name="Alu_FechaRegistro" ColumnName="Alu_FechaRegistro" />
+                <ScalarProperty Name="Alu_FechaIngreso" ColumnName="Alu_FechaIngreso" />
                 <ScalarProperty Name="Alu_Id" ColumnName="Alu_Id" />
                 <ScalarProperty Name="User_Id" ColumnName="User_Id" />
-                <ScalarProperty Name="Alu_FechNac" ColumnName="Alu_FechNac" />
                 <ScalarProperty Name="Alu_Apoderado" ColumnName="Alu_Apoderado" />
-                <ScalarProperty Name="Alu_FechIngreso" ColumnName="Alu_FechIngreso" />
                 <ScalarProperty Name="Alu_Estado" ColumnName="Alu_Estado" />
                 <ScalarProperty Name="Alu_Foto" ColumnName="Alu_Foto" />
               </MappingFragment>
@@ -971,6 +972,7 @@
           <EntitySetMapping Name="Persona">
             <EntityTypeMapping TypeName="SIGAModel.Persona">
               <MappingFragment StoreEntitySet="Persona">
+                <ScalarProperty Name="Per_FechaNacimiento" ColumnName="Per_FechaNacimiento" />
                 <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
                 <ScalarProperty Name="Per_Dni" ColumnName="Per_Dni" />
                 <ScalarProperty Name="Per_Nombre" ColumnName="Per_Nombre" />

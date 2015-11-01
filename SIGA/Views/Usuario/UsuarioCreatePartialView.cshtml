@@ -5,20 +5,23 @@
     ViewBag.Title = (isCreating) ? "Create" : "Edit";
 }
 
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
 <div id="CreateUsuarioContainer">
 
-    <span data-bind="text: nombre">nombre</span>
+    @*<span data-bind="text: nombre">nombre</span>*@
 
     <div data-bind="visible: !saveCompleted()">
 
         @using (Html.BeginForm("Create", "Usuario", FormMethod.Post, new { data_bind = "submit: validateAndSave" }))
         {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
             <div class="panel panel-default">
                 <div class="panel-heading">Datos Generales</div>
                 <div class="panel-body sectionPanelContainer">
                     <div class="row">
                         <div class="col-lg-4">
-
                             <div class="form-group">
                                 @Html.LabelFor(model => model.UsuarioItem.Per_Nombre, "Nombre", htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-10">
@@ -131,51 +134,63 @@
 
                             </ul>
 
-                            <div data-bind="visible: tipoUsuarioSelected() == 'liAlumno'">
-                                <h1>Alumno</h1>
-                            </div>
-                            <div data-bind="visible: tipoUsuarioSelected() == 'liProfesor'">
-                                <h1>Profesor</h1>
-                            </div>
-                            <div data-bind="visible: tipoUsuarioSelected() == 'liAdministrador'">
-                                <h1>Administrador</h1>
+                            <div class="row">
+                                <br />
+                                <div class="col-lg-12">
+                                    <div data-bind="visible: tipoUsuarioSelected() == 'liAlumno'">
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <a href="#" class="thumbnail">
+                                                    <img src="" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="col-lg-7">
+                                                <div class="row">
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.UsuarioItem.AlumnoItem.Alu_Apoderado, "Apoderado", htmlAttributes: new { @class = "control-label col-md-2" })
+                                                            <div class="col-md-10">
+                                                                @Html.EditorFor(model => model.UsuarioItem.AlumnoItem.Alu_Apoderado, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.usuarioItem.alumnoItem.alu_apoderado" } })
+                                                                @Html.ValidationMessageFor(model => model.UsuarioItem.AlumnoItem.Alu_Apoderado, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.UsuarioItem.AlumnoItem.Alu_FechaIngreso, "Fecha Ingreso", htmlAttributes: new { @class = "control-label col-md-2" })
+                                                        <div class="col-md-10">
+                                                            @Html.EditorFor(model => model.UsuarioItem.AlumnoItem.Alu_FechaIngreso, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.usuarioItem.alumnoItem.alu_fechaingreso" } })
+                                                            @Html.ValidationMessageFor(model => model.UsuarioItem.AlumnoItem.Alu_FechaIngreso, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.UsuarioItem.AlumnoItem.Alu_FechaRegistro, "Fecha Registro", htmlAttributes: new { @class = "control-label col-md-2" })
+                                                        <div class="col-md-10">
+                                                            @Html.EditorFor(model => model.UsuarioItem.AlumnoItem.Alu_FechaRegistro, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.usuarioItem.alumnoItem.alu_fecharegistro" } })
+                                                            @Html.ValidationMessageFor(model => model.UsuarioItem.AlumnoItem.Alu_FechaRegistro, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-bind="visible: tipoUsuarioSelected() == 'liProfesor'">
+                                        <h1>Profesor</h1>
+                                    </div>
+                                    <div data-bind="visible: tipoUsuarioSelected() == 'liAdministrador'">
+                                        <h1>Administrador</h1>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-
-                        @*<div class="col-lg-4 text-center">
-                            <button id="btnAlumno" type="button" class="btn btn-default tipoUsuarioButtons" data-bind="click: setTipoUsuarioSelected('Alumno')">Alumno</button>
-                        </div>
-                        <div class="col-lg-4 text-center">
-                            <button id="btnProfesor" type="button" class="btn btn-default tipoUsuarioButtons" data-bind="click: setTipoUsuarioSelected('Profesor')">Profesor</button>
-                        </div>
-                        <div class="col-lg-4 text-center">
-                            <button id="btnAdministrador" type="button" class="btn btn-default tipoUsuarioButtons" data-bind="click: setTipoUsuarioSelected('Administrador')">Administrador</button>
-                        </div>*@
-
                     </div>
                 </div>
             </div>
-
-
-            
-
-
-            <div data-bind="visible: tipoUsuarioSelected() == 'Alumno'">
-            
-            </div>
-
-            <div data-bind="visible: tipoUsuarioSelected() == 'Profesor'">
-
-            </div>
-            <span data-bind="visible: tipoUsuarioSelected() == 'Administrador'">
-        
-            </span>
-            
             
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10" data-bind="visible: !sending()">
-                    <input type="submit" value="@if (isCreating) { @Html.Raw("Create") } else { @Html.Raw("Update") }" class="btn btn-default" />
+                <div class="col-lg-12" data-bind="visible: !sending()">
+                    <input type="submit" value="@if (isCreating) { @Html.Raw("Create") } else { @Html.Raw("Update") }" class="btn btn-success" />
                 </div>
 
                 <div class="progress" data-bind="visible: sending">
@@ -193,15 +208,12 @@
 
 </div>
 
-<script src="@Url.Content("/Scripts/Siga/Usuario/usuarioDTO.js")" type="text/javascript"></script>
 
 <script>
 
     $(document).ready(function(){
-        var usuarioVM = new usuarioViewModel(@Html.HtmlConvertToJson(Model.UsuarioItem));
+        var usuarioVM = new usuarioViewModel(@Html.HtmlConvertToJson(Model));
         ko.applyBindings(usuarioVM, $('#CreateUsuarioContainer')[0]);
-
-
     });
 
     @*var usuarioVM = new usuarioViewModel(@Html.HtmlConvertToJson(Model));

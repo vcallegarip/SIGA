@@ -12,7 +12,7 @@ function usuarioViewModel(usuario) {
     usuarioVM.setTipoUsuarioSelected = function (data) {
         usuarioVM.tipoUsuarioSelected(data);
         $('#' + data + '').addClass('active');
-        $('#' + data + ' a').css('color', '#2c7ecc');
+        $('#' + data + ' a').css('color', '#2c7ecc', 'font-weight','bold');
         $('#tipoUsuarioPanel li').not('#' + data + '').removeClass('active');
         $('#tipoUsuarioPanel li a').not('#' + data + ' a').css('color', '#454242');
         //usuarioVM.setActiveColor('niceActiveElement');
@@ -38,6 +38,7 @@ function usuarioViewModel(usuario) {
     usuarioVM.sending = ko.observable(false);
     usuarioVM.isCreating = 0 == 0;
 
+
     usuarioVM.usuario = {
         usuarioItem : {
             user_id: usuario.user_id,
@@ -51,6 +52,11 @@ function usuarioViewModel(usuario) {
             per_tel: ko.observable(usuario.per_tel),
             per_sexo: ko.observable(usuario.per_sexo),
             tipouser_descrip: ko.observable(usuario.tipouser_descrip),
+            alumnoItem: {
+                alu_apoderado: ko.observable(usuario.alu_apoderado),
+                alu_fechaingreso: ko.observable(usuario.alu_fechaingreso),
+                alu_fecharegistro: ko.observable(usuario.alu_fecharegistro),
+            }
         }
     };
     

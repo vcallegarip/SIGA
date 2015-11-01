@@ -3,6 +3,7 @@ using SIGA_Model;
 using SIGA_Model.StoredProcContexts;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,21 +15,24 @@ namespace SIGA.Models.ViewModels
 
         private SIGAEntities db = new SIGAEntities();
 
+        [Required]
         [JsonProperty(PropertyName = "usuarioItem")]
         public UsuarioItem UsuarioItem { get; set; }
 
-        public List<SelectListItem> TipoUsuario { get; set; }
+        //public List<SelectListItem> TipoUsuario { get; set; }
 
         public UsuarioViewModel()
         {
-            this.TipoUsuario = new List<SelectListItem>();
-            this.UsuarioItem = new ViewModels.UsuarioItem();
-            var tipoUsuarios = db.TipoUsuario.ToList();
-            this.TipoUsuario.Add(new SelectListItem { Text = "-- Elegir --", Value = "-- Elegir --" });
-            foreach (var tipoUsuario in tipoUsuarios)
-            {
-                this.TipoUsuario.Add(new SelectListItem { Text = tipoUsuario.TipoUser_Descrip, Value = tipoUsuario.TipoUser_Id.ToString() });
-            }
+            //this.TipoUsuario = new List<SelectListItem>();
+
+            this.UsuarioItem = new UsuarioItem();
+
+            //var tipoUsuarios = db.TipoUsuario.ToList();
+            //this.TipoUsuario.Add(new SelectListItem { Text = "-- Elegir --", Value = "-- Elegir --" });
+            //foreach (var tipoUsuario in tipoUsuarios)
+            //{
+            //    this.TipoUsuario.Add(new SelectListItem { Text = tipoUsuario.TipoUser_Descrip, Value = tipoUsuario.TipoUser_Id.ToString() });
+            //}
         }
 
     }
@@ -41,6 +45,7 @@ namespace SIGA.Models.ViewModels
         [JsonProperty(PropertyName = "per_dni")]
         public int Per_Dni { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Email Address")]
         [JsonProperty(PropertyName = "per_nombre")]
         public string Per_Nombre { get; set; }
 
@@ -81,14 +86,14 @@ namespace SIGA.Models.ViewModels
         [JsonProperty(PropertyName = "user_id")]
         public int User_Id  { get; set; }
 
-        [JsonProperty(PropertyName = "alu_fechnac")]
-        public DateTime Alu_FechNac { get; set; }
-
         [JsonProperty(PropertyName = "alu_apoderado")]
         public string Alu_Apoderado { get; set; }
 
-        [JsonProperty(PropertyName = "alu_fechingreso")]
-        public DateTime Alu_FechIngreso { get; set; }
+        [JsonProperty(PropertyName = "alu_fechaingreso")]
+        public DateTime Alu_FechaIngreso { get; set; }
+
+        [JsonProperty(PropertyName = "alu_fecharegistro")]
+        public DateTime Alu_FechaRegistro { get; set; }
 
     }
 
