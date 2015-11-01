@@ -2,12 +2,22 @@
 function usuarioViewModel(usuario) {
     
     usuarioVM = this;
-    //usuarioVM.usuarioInfo = ko.observable(new UsuarioInfo(''));
     usuarioVM.ReturnStatus = ko.observable();
-    usuarioVM.nombre = ko.observable('Victor');
+    usuarioVM.nombre = ko.observable('Binding is working');
 
-    //usuarioVM.usuarioItem = ko.observable(new UsuarioItem(usuario.usuarioItem));
-    
+    usuarioVM.tipoUsuarioSelected = ko.observable();
+
+    usuarioVM.setActiveColor = ko.observable('noActiveColor');
+
+    usuarioVM.setTipoUsuarioSelected = function (data) {
+        usuarioVM.tipoUsuarioSelected(data);
+        $('#' + data + '').addClass('active');
+        $('#' + data + ' a').css('color', '#2c7ecc');
+        $('#tipoUsuarioPanel li').not('#' + data + '').removeClass('active');
+        $('#tipoUsuarioPanel li a').not('#' + data + ' a').css('color', '#454242');
+        //usuarioVM.setActiveColor('niceActiveElement');
+    }
+
     usuarioVM.usuarioList = ko.observableArray([]);
     usuarioVM.tipoUsuarioClick = ko.observable();
     usuarioVM.tipoUsuarioItems = ko.observableArray([
@@ -133,7 +143,7 @@ function editUsuario(userid) {
 }
 
 function saveNewUsuario() {
-    debugger
+    
     $.ajax({
         url: '',
         type: 'POST',
@@ -145,4 +155,8 @@ function saveNewUsuario() {
     });
 }
 
+
+//function settipo(data) {
+//    usuarioVM.tipoUsuarioSelected = data;
+//}
 

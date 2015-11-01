@@ -114,6 +114,65 @@
                 </div>
             </div>
 
+            <div id="tipoUsuarioPanel" class="panel panel-default">
+                <div class="panel-heading">Tipo de Usuario</div>
+                <div class="panel-body sectionPanelContainer">
+                    <div class="row">
+                        <div class="col-lg-12">
+
+                            <ul class="nav nav-tabs">
+                                <li id="liAlumno" role="presentation"><a data-bind="click: function () { setTipoUsuarioSelected('liAlumno') }">Alumno</a></li>
+                                <li id="liProfesor" role="presentation"><a data-bind="click: function () { setTipoUsuarioSelected('liProfesor') }">Profesor</a></li>
+                                <li id="liAdministrador" role="presentation"><a data-bind="click: function () { setTipoUsuarioSelected('liAdministrador') }">Administrador</a></li>
+
+                                @*<li role="presentation"><a id="liAlumno" data-bind="click: function () { setTipoUsuarioSelected('liAlumno') }">Alumno</a></li>
+                                <li role="presentation"><a id="liProfesor" data-bind="click: function () { setTipoUsuarioSelected('liProfesor') }">Profesor</a></li>
+                                <li role="presentation"><a id="liAdministrador" data-bind="click: function () { setTipoUsuarioSelected('liAdministrador') }">Administrador</a></li>*@
+
+                            </ul>
+
+                            <div data-bind="visible: tipoUsuarioSelected() == 'liAlumno'">
+                                <h1>Alumno</h1>
+                            </div>
+                            <div data-bind="visible: tipoUsuarioSelected() == 'liProfesor'">
+                                <h1>Profesor</h1>
+                            </div>
+                            <div data-bind="visible: tipoUsuarioSelected() == 'liAdministrador'">
+                                <h1>Administrador</h1>
+                            </div>
+                        </div>
+
+
+                        @*<div class="col-lg-4 text-center">
+                            <button id="btnAlumno" type="button" class="btn btn-default tipoUsuarioButtons" data-bind="click: setTipoUsuarioSelected('Alumno')">Alumno</button>
+                        </div>
+                        <div class="col-lg-4 text-center">
+                            <button id="btnProfesor" type="button" class="btn btn-default tipoUsuarioButtons" data-bind="click: setTipoUsuarioSelected('Profesor')">Profesor</button>
+                        </div>
+                        <div class="col-lg-4 text-center">
+                            <button id="btnAdministrador" type="button" class="btn btn-default tipoUsuarioButtons" data-bind="click: setTipoUsuarioSelected('Administrador')">Administrador</button>
+                        </div>*@
+
+                    </div>
+                </div>
+            </div>
+
+
+            
+
+
+            <div data-bind="visible: tipoUsuarioSelected() == 'Alumno'">
+            
+            </div>
+
+            <div data-bind="visible: tipoUsuarioSelected() == 'Profesor'">
+
+            </div>
+            <span data-bind="visible: tipoUsuarioSelected() == 'Administrador'">
+        
+            </span>
+            
+            
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10" data-bind="visible: !sending()">
                     <input type="submit" value="@if (isCreating) { @Html.Raw("Create") } else { @Html.Raw("Update") }" class="btn btn-default" />
@@ -138,13 +197,25 @@
 
 <script>
 
-    var usuarioVM = new usuarioViewModel(@Html.HtmlConvertToJson(Model));
-    ko.applyBindings(usuarioVM, $('#CreateUsuarioContainer')[0]);
-
-    @*$(document).ready(function(){
+    $(document).ready(function(){
         var usuarioVM = new usuarioViewModel(@Html.HtmlConvertToJson(Model.UsuarioItem));
         ko.applyBindings(usuarioVM, $('#CreateUsuarioContainer')[0]);
-    });*@
+
+
+    });
+
+    @*var usuarioVM = new usuarioViewModel(@Html.HtmlConvertToJson(Model));
+    ko.applyBindings(usuarioVM, $('#CreateUsuarioContainer')[0]);*@
+
+
+    //if (usuarioVM.tipoUsuarioSelected != '') {
+    //    $('#' + usuarioVM.tipoUsuarioSelected + '').addClass("active")
+    //}
+    
+    //$(".nav a").on("click", function () {
+    //    $(".nav").find(".active").removeClass("active");
+    //    $(this).parent().addClass("active");
+    //});
 
 </script>
 

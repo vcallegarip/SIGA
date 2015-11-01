@@ -172,7 +172,6 @@ textarea {
     margin-right: -13px !important;
 }
 
-
 .menuMainHeaderItems li{
     padding:5px !important;
     margin-left:25px;
@@ -187,7 +186,6 @@ textarea {
 .menuMainHeaderItems li:hover a{
     color:white;
 }
-
 
 #mainContainer{
    width:100%;
@@ -206,7 +204,6 @@ textarea {
     color:whitesmoke;
 }
 
-
 #breadCrumb.withMenu{
     width: calc(100% - 250px);
 }
@@ -218,9 +215,9 @@ textarea {
 
 
 
-/*****************/
-/* Usuario Page */
-/******************/
+/**************************************************************************/
+/****************************   Usuario Page ******************************/
+/**************************************************************************/
 
 
 .panel-heading{
@@ -234,6 +231,7 @@ textarea {
 }
 
 
+
 /* Usuario Search Bar - Filtros */
 .btn-group, 
 .btn-group-vertical {
@@ -243,7 +241,6 @@ textarea {
 .filtrosContainer .form-group{
     margin-bottom:0;
 }
-
 
 
 
@@ -260,10 +257,10 @@ textarea {
     word-wrap: break-word;
 }
 
-
 .bootstrapDataGridData > .row:nth-child(even){
     background-color: #f3f4f7;
 }
+
 .bootstrapDataGridData > .row:nth-child(odd){
      background-color: #EFF0F0;
 }
@@ -272,8 +269,33 @@ textarea {
    background-color: #E3E8EA;
 }
 
-
 .opcionesButtomGroup{
     position:relative;
     top:2.5px;
+}
+
+.tipoUsuarioButtons{
+    min-width:280px;
+    text-align:center;
+    background-color:#6aabc1;
+}
+
+.noActiveColor{
+    background-color:rgba(228, 228, 228, 0.77) !important;
+}
+
+.niceActiveElement{
+    background-color:#2c7ecc !important;
+    color:white;
+    font-weight:bold;
+}
+
+/*.active{
+    background-color:#2c7ecc !important;
+    color:white !important;
+    font-weight:bold !important;
+}*/
+
+#tipoUsuarioPanel li{
+    color:#454242 !important;
 }
