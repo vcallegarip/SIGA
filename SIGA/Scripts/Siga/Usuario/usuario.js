@@ -20,6 +20,8 @@ function usuarioViewModel(usuario) {
 
     usuarioVM.usuarioList = ko.observableArray([]);
 
+    usuarioVM.showActionResponseContent = ko.observable(false);
+
     usuarioVM.tipoUsuarioClick = ko.observable();
 
     usuarioVM.tipoUsuarioItems = ko.observableArray([
@@ -63,36 +65,39 @@ function usuarioViewModel(usuario) {
         }
     };
     
+    
     usuarioVM.validateAndSave = function (form) {
         if (!$(form).valid())
             return false;
 
         usuarioVM.sending(true);
+
         $.ajax({
             url: '/api/usuario',
             type: (usuarioVM.isCreating) ? 'Post' : 'Put',
             contentType: 'application/json',
             data: ko.toJSON(usuarioVM.usuario)
-        })
-        .success(usuarioVM.successfulSave)
+        }) 
+        .success(usuarioVM.successfulSave) 
         .error(usuarioVM.errorSave)
         .complete(function () { usuarioVM.sending(false) });
     };
 
     usuarioVM.successfulSave = function () {
         usuarioVM.saveCompleted(true);
-
-        $('.body-content').prepend('<div class="alert alert-success"><strong>Success!</strong> The author has been saved.</div>');
+        
+        $('.body-content').prepend('<div class="alert alert-success"><strong>Success!</strong> El Usuario fue guardado con exito.</div>');
         setTimeout(function () {
             if (usuarioVM.isCreating)
-                location.href = './';
+                //location.href = '/';
+                loadUsuario();
             else
-                location.href = '../';
+                loadUsuario();
         }, 1000);
     };
 
     usuarioVM.errorSave = function () {
-        $('.body-content').prepend('<div class="alert alert-danger"><strong>Error!</strong> There was an error saving the author.</div>');
+        $('.body-content').prepend('<div class="alert alert-danger"><strong>Error!</strong> Se produjo un error al guardar los datos del usuario.</div>');
     };
 
     usuarioVM.resetFilters = function () {
@@ -149,6 +154,29 @@ function resetFilters() {
 function editUsuario(userid) {
     $("#mainContainer").load('/Usuario/Edit?userid=' + userid);
     return;
+}
+
+function loadUsuario() {
+
+    var txtPrimerNombre = "";
+    var txtApellidoPaterno = "";
+    var txtEmail = "";
+    var cboTipoUsuario = "Todos"
+
+    var params = new Array();
+    params.push("?primerNombre=" + encodeURI(txtPrimerNombre));
+    params.push("apellidoPaterno=" + encodeURI(txtApellidoPaterno));
+    params.push("email=" + encodeURI(txtEmail));
+    params.push("tipoUSuario=" + encodeURI(cboTipoUsuario));
+
+    $("#mainContainer").load('/Usuario/Usuario' + params.join('&'), function (response, status, xhr) {
+        if (status == "error") {
+            var msg = "Sorry but there was an error: ";
+            $("#error").html(msg + xhr.status + " " + xhr.statusText);
+        }
+    });
+    return true;
+
 }
 
 //function saveNewUsuario() {

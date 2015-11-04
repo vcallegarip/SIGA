@@ -21,6 +21,7 @@ namespace SIGA.Controllers.Api
         [ResponseType(typeof(UsuarioViewModel))]
         public IHttpActionResult Post(UsuarioViewModel usuarioViewModel)
         {
+
             using (var db = new SIGAEntities())
             {
 

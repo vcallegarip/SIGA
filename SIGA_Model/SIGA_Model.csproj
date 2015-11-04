@@ -147,6 +147,7 @@
       <DependentUpon>SigaModel.edmx</DependentUpon>
       <LastGenOutput>SigaModel.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="SigaModel.edmx.sql" />
     <Content Include="SigaModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SigaModel.edmx</DependentUpon>

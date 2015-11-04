@@ -17,10 +17,18 @@
         {
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+            @*<div class="row">
+                <div class="col-lg-12" data-bind="visible: showActionResponseContent()">
+                    <div class="alert alert-success">
+                        <strong>Success!</strong> El Usuario fue guardado con exito.
+                    </div>
+                </div>
+            </div>*@
+
             <div class="panel panel-default">
                 <div class="panel-heading">Datos Generales</div>
                 <div class="panel-body sectionPanelContainer">
-                    <div class="row">
+                    <div class="row paddingBottom5px">
                         <div class="col-lg-4">
                             <div class="form-group">
                                 @Html.LabelFor(model => model.UsuarioItem.Per_Nombre, "Nombre", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -49,7 +57,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row paddingBottom5px">
                         <div class="col-lg-4">
                             <div class="form-group">
                                 @Html.LabelFor(model => model.UsuarioItem.Per_Email, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -78,7 +86,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row paddingBottom5px">
                         <div class="col-lg-4">
                             <div class="form-group">
                                 @Html.LabelFor(model => model.UsuarioItem.Per_Cel, "Celular", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -106,13 +114,6 @@
                                 </div>
                             </div>
                         </div>
-                        @*<div class="form-group">
-                                @Html.LabelFor(model => model.UsuarioItem.TipoUser_Descrip, "Tipo de Usuario", htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.UsuarioItem.TipoUser_Descrip, new { htmlAttributes = new { @class = "form-control", @id = "tipouser_descrip" } })
-                                </div>
-                            </div>*@
-
                     </div>
                 </div>
             </div>
@@ -134,34 +135,34 @@
                                 <div class="col-lg-12">
                                     <div data-bind="visible: tipoUsuarioSelected() == 'Alumno'">
                                         <div class="row">
-                                            <div class="col-lg-3">
-                                                <a href="#" class="thumbnail">
-                                                    <img src="" alt="">
+                                            <div class="col-lg-3 text-center">
+                                                <a href="#" class="thumbnail center-block" style="width:150px;height:150px">
+                                                    <img src="~/Content/images/usuario.png" />
                                                 </a>
                                             </div>
                                             <div class="col-lg-7">
-                                                <div class="row">
-                                                    <div class="row">
-                                                        <div class="form-group">
-                                                            @Html.LabelFor(model => model.UsuarioItem.AlumnoItem.Alu_Apoderado, "Apoderado", htmlAttributes: new { @class = "control-label col-md-2" })
-                                                            <div class="col-md-10">
-                                                                @Html.EditorFor(model => model.UsuarioItem.AlumnoItem.Alu_Apoderado, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.usuarioItem.alumnoItem.alu_apoderado" } })
-                                                                @Html.ValidationMessageFor(model => model.UsuarioItem.AlumnoItem.Alu_Apoderado, "", new { @class = "text-danger" })
-                                                            </div>
+                                                <div class="row paddingBottom5px">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.UsuarioItem.AlumnoItem.Alu_Apoderado, "Apoderado", htmlAttributes: new { @class = "control-label col-md-3 text-right" })
+                                                        <div class="col-md-9">
+                                                            @Html.EditorFor(model => model.UsuarioItem.AlumnoItem.Alu_Apoderado, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.usuarioItem.alumnoItem.alu_apoderado" } })
+                                                            @Html.ValidationMessageFor(model => model.UsuarioItem.AlumnoItem.Alu_Apoderado, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="row paddingBottom5px">
                                                     <div class="form-group">
-                                                        @Html.LabelFor(model => model.UsuarioItem.AlumnoItem.Alu_FechaIngreso, "Fecha Ingreso", htmlAttributes: new { @class = "control-label col-md-2" })
-                                                        <div class="col-md-10">
+                                                        @Html.LabelFor(model => model.UsuarioItem.AlumnoItem.Alu_FechaIngreso, "Fecha Ingreso", htmlAttributes: new { @class = "control-label col-md-3 text-right" })
+                                                        <div class="col-md-9">
                                                             @Html.EditorFor(model => model.UsuarioItem.AlumnoItem.Alu_FechaIngreso, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.usuarioItem.alumnoItem.alu_fechaingreso" } })
                                                             @Html.ValidationMessageFor(model => model.UsuarioItem.AlumnoItem.Alu_FechaIngreso, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <div class="row paddingBottom5px">
                                                     <div class="form-group">
-                                                        @Html.LabelFor(model => model.UsuarioItem.AlumnoItem.Alu_FechaRegistro, "Fecha Registro", htmlAttributes: new { @class = "control-label col-md-2" })
-                                                        <div class="col-md-10">
+                                                        @Html.LabelFor(model => model.UsuarioItem.AlumnoItem.Alu_FechaRegistro, "Fecha Registro", htmlAttributes: new { @class = "control-label col-md-3 text-right" })
+                                                        <div class="col-md-9">
                                                             @Html.EditorFor(model => model.UsuarioItem.AlumnoItem.Alu_FechaRegistro, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuario.usuarioItem.alumnoItem.alu_fecharegistro" } })
                                                             @Html.ValidationMessageFor(model => model.UsuarioItem.AlumnoItem.Alu_FechaRegistro, "", new { @class = "text-danger" })
                                                         </div>

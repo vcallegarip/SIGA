@@ -17,6 +17,13 @@ body {
 }
 
 
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
 /*#mainContainer a {
     color: #2f2b2b;
 }*/
@@ -79,7 +86,6 @@ textarea {
   font-weight:bold;
 }
 
-
 .table-content > .row:nth-child(odd) {
   background-color: #F5F5F5;
 }
@@ -104,6 +110,8 @@ textarea {
     width: 190px;
     z-index: 100;
 }*/
+
+
 
 /***************************************** Main Container ************************************/
 
@@ -231,7 +239,6 @@ textarea {
 }
 
 
-
 /* Usuario Search Bar - Filtros */
 .btn-group, 
 .btn-group-vertical {
@@ -241,7 +248,6 @@ textarea {
 .filtrosContainer .form-group{
     margin-bottom:0;
 }
-
 
 
 /* bootstrapDataGrid */
