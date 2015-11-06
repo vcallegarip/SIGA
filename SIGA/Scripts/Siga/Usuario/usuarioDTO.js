@@ -1,5 +1,5 @@
 ﻿
-var UsuarioItem = function (data) {
+var UsuarioData = function (data) {
 
     this.user_Id = data.user_Id || '';
     this.per_Dni = data.per_Dni || '';
@@ -26,7 +26,7 @@ var AlumnoInfo = function (data) {
 
 
 
-//var UsuarioItem = function (data) {
+//var UsuarioData = function (data) {
 
 //    this.User_Id = ko.observable(data.user_Id || '');
 //    this.Per_Dni = ko.observable(data.per_Dni || '');

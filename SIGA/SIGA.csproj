@@ -328,7 +328,7 @@
     <Content Include="Views\Usuario\UsuarioListPartialView.cshtml" />
     <Content Include="Views\Web-Dev.config" />
     <Content Include="Views\Usuario\UsuarioDetailsPartialView.cshtml" />
-    <Content Include="Views\Usuario\UsuarioCreatePartialView.cshtml" />
+    <Content Include="Views\Usuario\UsuarioCreateEditPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

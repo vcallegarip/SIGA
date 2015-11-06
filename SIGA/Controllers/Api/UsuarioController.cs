@@ -52,8 +52,8 @@ namespace SIGA.Controllers.Api
                     Usuario usuario = new Usuario();
                     usuario.Per_Id = persona.Per_Id;
                     usuario.TipoUser_Id = Convert.ToInt16(tipoUserId.TipoUser_Id);
-                    usuario.User_Nombre = persona.Per_Nombre.Substring(0, persona.Per_Nombre.Length) + " " + persona.Per_ApeMaterno.Substring(0, 0);
-                    usuario.User_Pass = "";
+                    usuario.User_Nombre = usuarioViewModel.UsuarioItem.User_Nombre;
+                    //usuario.User_Pass = "";
 
                     db.Usuario.Add(usuario);
 

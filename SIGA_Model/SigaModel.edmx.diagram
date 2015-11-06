@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f91556027c97400b9e6588ae3271681c" Name="Diagram1">
+      <Diagram DiagramId="f91556027c97400b9e6588ae3271681c" Name="Diagram1" ZoomLevel="75">
         <EntityTypeShape EntityType="SIGAModel.Administrador" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SIGAModel.Alumno" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SIGAModel.Aula" Width="1.5" PointX="1.5" PointY="13" IsExpanded="true" />
@@ -33,7 +33,7 @@
         <AssociationConnector Association="SIGAModel.FK_Matricula_Recibo" ManuallyRouted="false" />
         <AssociationConnector Association="SIGAModel.FK_Recibo_Pago" ManuallyRouted="false" />
         <AssociationConnector Association="SIGAModel.FK_Usuario_Persona" ManuallyRouted="false" />
-        <AssociationConnector Association="SIGAModel.FK_Profesor_Usuario1" ManuallyRouted="false" />
+        <AssociationConnector Association="SIGAModel.FK_Profesor_Usuario" ManuallyRouted="false" />
         <AssociationConnector Association="SIGAModel.FK_Usuario_Tipo_Usuario" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

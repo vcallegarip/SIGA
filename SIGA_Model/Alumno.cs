@@ -19,7 +19,7 @@ namespace SIGA_Model
         public string Alu_Apoderado { get; set; }
         public bool Alu_Estado { get; set; }
         public string Alu_Foto { get; set; }
-        public System.DateTime Alu_FechaIngreso { get; set; }
+        public Nullable<System.DateTime> Alu_FechaIngreso { get; set; }
         public Nullable<System.DateTime> Alu_FechaRegistro { get; set; }
     
         public virtual Usuario Usuario { get; set; }

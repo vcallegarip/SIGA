@@ -113,6 +113,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SigaModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>SigaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>SigaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="StoredProcContexts\UsuarioContext.cs" />
     <Compile Include="StoredProcContexts\UsuarioInfo.cs" />
     <Compile Include="StoredProcContexts\UsuarioCreate.cs" />
@@ -147,7 +153,6 @@
       <DependentUpon>SigaModel.edmx</DependentUpon>
       <LastGenOutput>SigaModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="SigaModel.edmx.sql" />
     <Content Include="SigaModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SigaModel.edmx</DependentUpon>

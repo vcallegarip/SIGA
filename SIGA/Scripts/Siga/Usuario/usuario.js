@@ -41,31 +41,26 @@ function usuarioViewModel(usuario) {
     usuarioVM.saveCompleted = ko.observable(false);
 
     usuarioVM.sending = ko.observable(false);
-
-    usuarioVM.isCreating = 0 == 0;
-
+    
+    usuarioVM.isCreating = usuario.UsuarioItem.user_id == 0;
+    
     usuarioVM.usuario = {
-        usuarioItem : {
-            user_id: usuario.user_id,
-            per_nombre: ko.observable(usuario.per_nombre),
-            per_apepaterno: ko.observable(usuario.per_apepaterno),
-            per_apematerno: ko.observable(usuario.per_apematerno),
-            per_email: ko.observable(usuario.per_email),
-            per_dni: ko.observable(usuario.per_dni),
-            per_dir: ko.observable(usuario.per_dir),
-            per_cel: ko.observable(usuario.per_cel),
-            per_tel: ko.observable(usuario.per_tel),
-            per_sexo: ko.observable(usuario.per_sexo),
+            user_id: usuario.UsuarioItem.user_id,
+            per_nombre: ko.observable(usuario.UsuarioItem.per_nombre),
+            per_apepaterno: ko.observable(usuario.UsuarioItem.per_apepaterno),
+            per_apematerno: ko.observable(usuario.UsuarioItem.per_apematerno),
+            per_email: ko.observable(usuario.UsuarioItem.per_email),
+            per_dni: ko.observable(usuario.UsuarioItem.per_dni),
+            per_dir: ko.observable(usuario.UsuarioItem.per_dir),
+            per_cel: ko.observable(usuario.UsuarioItem.per_cel),
+            per_tel: ko.observable(usuario.UsuarioItem.per_tel),
+            per_sexo: ko.observable(usuario.UsuarioItem.per_sexo),
             tipouser_descrip: ko.observable(usuarioVM.tipoUsuarioSelected),
-            alumnoItem: {
-                alu_apoderado: ko.observable(usuario.alu_apoderado),
-                alu_fechaingreso: ko.observable(usuario.alu_fechaingreso),
-                alu_fecharegistro: ko.observable(usuario.alu_fecharegistro),
-            }
-        }
-    };
-    
-    
+            alu_apoderado: ko.observable(usuario.UsuarioItem.alu_apoderado),
+            alu_fechaingreso: ko.observable(usuario.UsuarioItem.alu_fechaingreso),
+            alu_fecharegistro: ko.observable(usuario.UsuarioItem.alu_fecharegistro),
+        },
+
     usuarioVM.validateAndSave = function (form) {
         if (!$(form).valid())
             return false;
@@ -97,7 +92,7 @@ function usuarioViewModel(usuario) {
     };
 
     usuarioVM.errorSave = function () {
-        $('.body-content').prepend('<div class="alert alert-danger"><strong>Error!</strong> Se produjo un error al guardar los datos del usuario.</div>');
+        $('.body-content').prepend('<div class="alert alert-danger"><strong>Error!</strong> Se produjo un error al guardar los datos del usuario.UsuarioItem.</div>');
     };
 
     usuarioVM.resetFilters = function () {

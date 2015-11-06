@@ -21,7 +21,7 @@ namespace SIGA_Model
         }
     
         public int Per_Id { get; set; }
-        public int Per_Dni { get; set; }
+        public Nullable<int> Per_Dni { get; set; }
         public string Per_Nombre { get; set; }
         public string Per_ApePaterno { get; set; }
         public string Per_ApeMaterno { get; set; }

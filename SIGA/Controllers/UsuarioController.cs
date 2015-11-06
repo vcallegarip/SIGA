@@ -64,16 +64,16 @@ namespace SIGA.Controllers
             usuarioViewModel.UsuarioItem = new UsuarioItem()
             {
                 User_Id = singleUsuario.UsuarioInformationItems[0].User_Id,
-                Per_Nombre = singleUsuario.UsuarioInformationItems[0].Per_Nombre.ToString(),
-                Per_ApePaterno = singleUsuario.UsuarioInformationItems[0].Per_ApePaterno.ToString(),
-                Per_ApeMaterno = singleUsuario.UsuarioInformationItems[0].Per_ApeMaterno.ToString(),
-                Per_Email = singleUsuario.UsuarioInformationItems[0].Per_Email.ToString(),
-                Per_Dni = singleUsuario.UsuarioInformationItems[0].Per_Dni,
-                Per_Dir = singleUsuario.UsuarioInformationItems[0].Per_Dir.ToString(),
-                Per_Cel = singleUsuario.UsuarioInformationItems[0].Per_Cel.ToString(),
-                Per_Tel = singleUsuario.UsuarioInformationItems[0].Per_Tel.ToString(),
-                Per_Sexo = singleUsuario.UsuarioInformationItems[0].Per_Sexo.ToString(),
-                TipoUser_Descrip = singleUsuario.UsuarioInformationItems[0].TipoUser_Descrip.ToString(),
+                Per_Nombre = singleUsuario.UsuarioInformationItems[0].Per_Nombre == null ? "" : singleUsuario.UsuarioInformationItems[0].Per_Nombre,
+                Per_ApePaterno = singleUsuario.UsuarioInformationItems[0].Per_ApePaterno == null ? "" : singleUsuario.UsuarioInformationItems[0].Per_ApePaterno,
+                Per_ApeMaterno = singleUsuario.UsuarioInformationItems[0].Per_ApeMaterno == null ? "" : singleUsuario.UsuarioInformationItems[0].Per_ApeMaterno,
+                Per_Email = singleUsuario.UsuarioInformationItems[0].Per_Email == null ? "" : singleUsuario.UsuarioInformationItems[0].Per_Email,
+                Per_Dni = singleUsuario.UsuarioInformationItems[0].Per_Dni == null ? 0 : singleUsuario.UsuarioInformationItems[0].Per_Dni,
+                Per_Dir = singleUsuario.UsuarioInformationItems[0].Per_Dir == null ? "" : singleUsuario.UsuarioInformationItems[0].Per_Dir,
+                Per_Cel = singleUsuario.UsuarioInformationItems[0].Per_Cel == null ? "" : singleUsuario.UsuarioInformationItems[0].Per_Cel,
+                Per_Tel = singleUsuario.UsuarioInformationItems[0].Per_Tel == null ? "" : singleUsuario.UsuarioInformationItems[0].Per_Tel,
+                Per_Sexo = singleUsuario.UsuarioInformationItems[0].Per_Sexo == null ? "" : singleUsuario.UsuarioInformationItems[0].Per_Sexo,
+                TipoUser_Descrip = singleUsuario.UsuarioInformationItems[0].TipoUser_Descrip == null ? "" : singleUsuario.UsuarioInformationItems[0].TipoUser_Descrip,
             };
 
             return usuarioViewModel;
@@ -87,12 +87,16 @@ namespace SIGA.Controllers
 
         public ActionResult Create()
         {
-            return PartialView("UsuarioCreatePartialView", new UsuarioViewModel());
+            return PartialView("UsuarioCreateEditPartialView", new UsuarioViewModel());
         }
 
-        public ActionResult Edit(int userid)
+        public ActionResult Edit(int? userid)
         {
-            return PartialView("UsuarioEditPartialView", GetUsuario(userid));
+            if (userid == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return PartialView("UsuarioCreateEditPartialView", GetUsuario(userid.Value));
         }
 
         // POST: UsuarioChange/Edit/5

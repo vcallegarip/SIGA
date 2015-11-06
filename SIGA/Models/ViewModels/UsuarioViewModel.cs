@@ -15,7 +15,6 @@ namespace SIGA.Models.ViewModels
 
         private SIGAEntities db = new SIGAEntities();
 
-
         public UsuarioItem UsuarioItem { get; set; }
 
         //public List<SelectListItem> TipoUsuario { get; set; }
@@ -41,50 +40,40 @@ namespace SIGA.Models.ViewModels
         [JsonProperty(PropertyName = "user_id")]
         public int User_Id { get; set; }
 
-        [Required]
         [JsonProperty(PropertyName = "per_dni")]
-        public int Per_Dni { get; set; }
+        public int? Per_Dni { get; set; }
 
-        [Required(ErrorMessage = "Please Enter Email Address")]
+        [Required(ErrorMessage = "Please Enter el nombre de usuario.")]
         [JsonProperty(PropertyName = "per_nombre")]
         public string Per_Nombre { get; set; }
 
-        [Required]
         [JsonProperty(PropertyName = "per_apepaterno")]
         public string Per_ApePaterno { get; set; }
 
-        [Required]
         [JsonProperty(PropertyName = "per_apematerno")]
         public string Per_ApeMaterno { get; set; }
 
-        [Required]
         [JsonProperty(PropertyName = "per_sexo")]
         public string Per_Sexo { get; set; }
 
-        [Required]
         [JsonProperty(PropertyName = "per_dir")]
         public string Per_Dir { get; set; }
 
-        [Required]
         [JsonProperty(PropertyName = "per_cel")]
         public string Per_Cel { get; set; }
 
-        [Required]
         [JsonProperty(PropertyName = "per_tel")]
         public string Per_Tel { get; set; }
 
-        [Required]
         [JsonProperty(PropertyName = "per_email")]
         public string Per_Email { get; set; }
 
         [JsonProperty(PropertyName = "user_nombre")]
         public string User_Nombre { get; set; }
 
-        [Required]
         [JsonProperty(PropertyName = "tipouser_descrip")]
         public string TipoUser_Descrip { get; set; }
 
-        [Required]
         [JsonProperty(PropertyName = "alumnoItem")]
         public AlumnoItem AlumnoItem { get; set; } 
 
@@ -99,15 +88,12 @@ namespace SIGA.Models.ViewModels
         [JsonProperty(PropertyName = "alu_apoderado")]
         public string Alu_Apoderado { get; set; }
 
-        [Required]
         [JsonProperty(PropertyName = "alu_fechaingreso")]
-        public DateTime Alu_FechaIngreso { get; set; }
+        public DateTime? Alu_FechaIngreso { get; set; }
 
-        [Required]
         [JsonProperty(PropertyName = "alu_fecharegistro")]
-        public DateTime Alu_FechaRegistro { get; set; }
+        public DateTime? Alu_FechaRegistro { get; set; }
 
     }
-
 
 }
