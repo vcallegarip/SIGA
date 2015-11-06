@@ -57,47 +57,60 @@ namespace SIGA_Model.StoredProcContexts
     }
 
     public class UsuarioInformation
-        {
-            [StoredProcAttributes.ParameterType(System.Data.SqlDbType.Int)]
-            [StoredProcAttributes.Name("User_Id")]
-            public int User_Id { get; set; }
+    {
+        [StoredProcAttributes.ParameterType(System.Data.SqlDbType.Int)]
+        [StoredProcAttributes.Name("User_Id")]
+        public int User_Id { get; set; }
 
-            [StoredProcAttributes.Name("Per_Dni")]
-            public int Per_Dni { get; set; }
+        [StoredProcAttributes.Name("Per_Dni")]
+        public int Per_Dni { get; set; }
 
-            [StoredProcAttributes.Name("TipoUser_Descrip")]
-            public string TipoUser_Descrip { get; set; }
+        [StoredProcAttributes.Name("TipoUser_Descrip")]
+        public string TipoUser_Descrip { get; set; }
 
-            [StoredProcAttributes.Name("Per_Nombre")]
-            public string Per_Nombre { get; set; }
+        [StoredProcAttributes.Name("Per_Nombre")]
+        public string Per_Nombre { get; set; }
 
-            [StoredProcAttributes.Name("Per_ApePaterno")]
-            public string Per_ApePaterno { get; set; }
+        [StoredProcAttributes.Name("Per_ApePaterno")]
+        public string Per_ApePaterno { get; set; }
 
-            [StoredProcAttributes.Name("Per_ApeMaterno")]
-            public string Per_ApeMaterno { get; set; }
+        [StoredProcAttributes.Name("Per_ApeMaterno")]
+        public string Per_ApeMaterno { get; set; }
 
-            [StoredProcAttributes.Name("Per_Sexo")]
-            public string Per_Sexo { get; set; }
+        [StoredProcAttributes.Name("Per_Sexo")]
+        public string Per_Sexo { get; set; }
 
-            [StoredProcAttributes.Name("Per_Dir")]
-            public string Per_Dir { get; set; }
+        [StoredProcAttributes.Name("Per_Dir")]
+        public string Per_Dir { get; set; }
 
-            [StoredProcAttributes.Name("Per_Tel")]
-            public string Per_Tel { get; set; }
+        [StoredProcAttributes.Name("Per_Tel")]
+        public string Per_Tel { get; set; }
 
-            [StoredProcAttributes.Name("Per_Cel")]
-            public string Per_Cel { get; set; }
+        [StoredProcAttributes.Name("Per_Cel")]
+        public string Per_Cel { get; set; }
 
-            [StoredProcAttributes.Name("Per_Email")]
-            public string Per_Email { get; set; }
+        [StoredProcAttributes.Name("Per_Email")]
+        public string Per_Email { get; set; }
 
-            [StoredProcAttributes.Name("User_Nombre")]
-            public string User_Nombre { get; set; }
 
-            [StoredProcAttributes.Name("User_Inactivo")]
-            public Boolean User_Inactivo { get; set; }
 
-        }
+        [StoredProcAttributes.Name("User_Nombre")]
+        public string User_Nombre { get; set; }
+
+        [StoredProcAttributes.Name("User_Inactivo")]
+        public Boolean User_Inactivo { get; set; }
+
+
+
+        [StoredProcAttributes.Name("Alu_Apoderado")]
+        public string Alu_Apoderado { get; set; }
+
+        [StoredProcAttributes.Name("Alu_FechaIngreso")]
+        public DateTime Alu_FechaIngreso { get; set; }
+
+        [StoredProcAttributes.Name("Alu_FechaRegistro")]
+        public DateTime Alu_FechaRegistro { get; set; }
+
+    }
     
 }

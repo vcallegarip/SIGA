@@ -35,6 +35,7 @@
         <AssociationConnector Association="SIGAModel.FK_Usuario_Persona" ManuallyRouted="false" />
         <AssociationConnector Association="SIGAModel.FK_Profesor_Usuario" ManuallyRouted="false" />
         <AssociationConnector Association="SIGAModel.FK_Usuario_Tipo_Usuario" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SIGAModel.Author" Width="1.5" PointX="0.75" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

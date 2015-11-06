@@ -76,6 +76,13 @@ namespace SIGA.Controllers
                 TipoUser_Descrip = singleUsuario.UsuarioInformationItems[0].TipoUser_Descrip == null ? "" : singleUsuario.UsuarioInformationItems[0].TipoUser_Descrip,
             };
 
+            usuarioViewModel.UsuarioItem.AlumnoItem = new AlumnoItem()
+            {
+                Alu_FechaIngreso = singleUsuario.UsuarioInformationItems[0].Alu_FechaIngreso == null ? (DateTime?)null : singleUsuario.UsuarioInformationItems[0].Alu_FechaIngreso,
+                Alu_FechaRegistro = singleUsuario.UsuarioInformationItems[0].Alu_FechaRegistro == null ? (DateTime?)null : singleUsuario.UsuarioInformationItems[0].Alu_FechaRegistro,
+                Alu_Apoderado = singleUsuario.UsuarioInformationItems[0].Alu_Apoderado == null ? "" : singleUsuario.UsuarioInformationItems[0].Alu_Apoderado,
+            };
+
             return usuarioViewModel;
 
         }

@@ -42,36 +42,43 @@ function usuarioViewModel(usuario) {
 
     usuarioVM.sending = ko.observable(false);
     
-    usuarioVM.isCreating = usuario.UsuarioItem.user_id == 0;
-    
-    usuarioVM.usuario = {
-            user_id: usuario.UsuarioItem.user_id,
-            per_nombre: ko.observable(usuario.UsuarioItem.per_nombre),
-            per_apepaterno: ko.observable(usuario.UsuarioItem.per_apepaterno),
-            per_apematerno: ko.observable(usuario.UsuarioItem.per_apematerno),
-            per_email: ko.observable(usuario.UsuarioItem.per_email),
-            per_dni: ko.observable(usuario.UsuarioItem.per_dni),
-            per_dir: ko.observable(usuario.UsuarioItem.per_dir),
-            per_cel: ko.observable(usuario.UsuarioItem.per_cel),
-            per_tel: ko.observable(usuario.UsuarioItem.per_tel),
-            per_sexo: ko.observable(usuario.UsuarioItem.per_sexo),
-            tipouser_descrip: ko.observable(usuarioVM.tipoUsuarioSelected),
-            alu_apoderado: ko.observable(usuario.UsuarioItem.alu_apoderado),
-            alu_fechaingreso: ko.observable(usuario.UsuarioItem.alu_fechaingreso),
-            alu_fecharegistro: ko.observable(usuario.UsuarioItem.alu_fecharegistro),
-        },
+    usuarioVM.isCreating = usuario.UsuarioItem.User_Id == 0;
+ 
+    activeUserTabOnDetail(usuario.UsuarioItem.TipoUser_Descrip);
 
+    usuarioVM.usuarioData = {
+        UsuarioItem: {
+            User_Id: usuario.UsuarioItem.User_Id,
+            Per_Nombre: ko.observable(usuario.UsuarioItem.Per_Nombre),
+            Per_ApePaterno: ko.observable(usuario.UsuarioItem.Per_ApePaterno),
+            Per_ApeMaterno: ko.observable(usuario.UsuarioItem.Per_ApeMaterno),
+            Per_Email: ko.observable(usuario.UsuarioItem.Per_Email),
+            Per_Dni: ko.observable(usuario.UsuarioItem.Per_Dni),
+            Per_Dir: ko.observable(usuario.UsuarioItem.Per_Dir),
+            Per_Cel: ko.observable(usuario.UsuarioItem.Per_Cel),
+            Per_Tel: ko.observable(usuario.UsuarioItem.Per_Tel),
+            Per_Sexo: ko.observable(usuario.UsuarioItem.Per_Sexo),
+            User_Nombre: ko.observable(usuario.UsuarioItem.User_Nombre),
+            TipoUser_Descrip: ko.observable(usuarioVM.tipoUsuarioSelected),
+            AlumnoItem : {
+                Alu_FechaIngreso: ko.observable(usuario.UsuarioItem.AlumnoItem.Alu_FechaIngreso),
+                Alu_FechaRegistro: ko.observable(usuario.UsuarioItem.AlumnoItem.Alu_FechaRegistro),
+                Alu_Apoderado: ko.observable(usuario.UsuarioItem.AlumnoItem.Alu_Apoderado),
+            }
+        }
+    }
+
+    
     usuarioVM.validateAndSave = function (form) {
         if (!$(form).valid())
             return false;
-
         usuarioVM.sending(true);
 
         $.ajax({
             url: '/api/usuario',
             type: (usuarioVM.isCreating) ? 'Post' : 'Put',
             contentType: 'application/json',
-            data: ko.toJSON(usuarioVM.usuario)
+            data: ko.toJSON(usuarioVM.usuarioData)
         }) 
         .success(usuarioVM.successfulSave) 
         .error(usuarioVM.errorSave)
@@ -92,7 +99,7 @@ function usuarioViewModel(usuario) {
     };
 
     usuarioVM.errorSave = function () {
-        $('.body-content').prepend('<div class="alert alert-danger"><strong>Error!</strong> Se produjo un error al guardar los datos del usuario.UsuarioItem.</div>');
+        $('.body-content').prepend('<div class="alert alert-danger"><strong>Error!</strong> Se produjo un error al guardar los datos del usuario</div>');
     };
 
     usuarioVM.resetFilters = function () {
@@ -103,6 +110,11 @@ function usuarioViewModel(usuario) {
         editUsuario(userid);
     };
 
+}
+
+
+function activeUserTabOnDetail(data) {
+    usuarioVM.setTipoUsuarioSelected(data);
 }
 
 function searchUsuario() {
@@ -173,22 +185,3 @@ function loadUsuario() {
     return true;
 
 }
-
-//function saveNewUsuario() {
-    
-//    $.ajax({
-//        url: '',
-//        type: 'POST',
-//        cache: false,
-//        data: jQuery("#UsuarioCreateForm").serialize(),
-//        success: function (result) {
-//            // do accordingly as per your result                 
-//        }
-//    });
-//}
-
-
-//function settipo(data) {
-//    usuarioVM.tipoUsuarioSelected = data;
-//}
-

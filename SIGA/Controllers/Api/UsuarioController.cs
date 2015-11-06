@@ -62,8 +62,8 @@ namespace SIGA.Controllers.Api
                         Alumno alumno = new Alumno();
                         alumno.User_Id = usuario.User_Id;
                         alumno.Alu_Apoderado = usuarioViewModel.UsuarioItem.AlumnoItem.Alu_Apoderado;
-                        alumno.Alu_FechaIngreso = usuarioViewModel.UsuarioItem.AlumnoItem.Alu_FechaIngreso;
-                        alumno.Alu_FechaRegistro = usuarioViewModel.UsuarioItem.AlumnoItem.Alu_FechaRegistro;
+                        alumno.Alu_FechaIngreso = (DateTime)usuarioViewModel.UsuarioItem.AlumnoItem.Alu_FechaIngreso;
+                        alumno.Alu_FechaRegistro = DateTime.UtcNow;
                         alumno.Alu_Estado = true;
 
                         db.Alumno.Add(alumno);

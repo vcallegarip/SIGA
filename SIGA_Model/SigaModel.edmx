@@ -21,11 +21,11 @@
           </Key>
           <Property Name="Alu_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="User_Id" Type="int" Nullable="false" />
-          <Property Name="Alu_Apoderado" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Alu_FechaIngreso" Type="datetime" />
-          <Property Name="Alu_FechaRegistro" Type="datetime" />
-          <Property Name="Alu_Estado" Type="bit" Nullable="false" />
+          <Property Name="Alu_Apoderado" Type="varchar" MaxLength="50" />
+          <Property Name="Alu_Estado" Type="bit" />
           <Property Name="Alu_Foto" Type="varchar" MaxLength="200" />
+          <Property Name="Alu_FechaIngreso" Type="datetime" Nullable="false" />
+          <Property Name="Alu_FechaRegistro" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Aula">
           <Key>
@@ -33,6 +33,15 @@
           </Key>
           <Property Name="Aul_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Aul_Capacidad" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Biography" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Calificacion">
           <Key>
@@ -79,7 +88,7 @@
           <Property Name="User_Id" Type="int" Nullable="false" />
           <Property Name="Rec_Id" Type="int" Nullable="false" />
           <Property Name="Mat_Tipo" Type="varchar" MaxLength="50" />
-          <Property Name="Mat_Fecha" Type="date" Nullable="false" />
+          <Property Name="Mat_Fecha" Type="datetime" Nullable="false" />
           <Property Name="Mat_Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Modulo">
@@ -101,7 +110,7 @@
           </Key>
           <Property Name="Pag_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Alu_Id" Type="int" />
-          <Property Name="Pag_Fech" Type="date" />
+          <Property Name="Pag_Fech" Type="datetime" />
         </EntityType>
         <EntityType Name="Persona">
           <Key>
@@ -110,14 +119,14 @@
           <Property Name="Per_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Per_Dni" Type="int" />
           <Property Name="Per_Nombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Per_ApePaterno" Type="varchar" MaxLength="50" />
-          <Property Name="Per_ApeMaterno" Type="varchar" MaxLength="50" />
+          <Property Name="Per_ApePaterno" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Per_ApeMaterno" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Per_Sexo" Type="char" MaxLength="1" />
-          <Property Name="Per_FechaNacimiento" Type="date" />
           <Property Name="Per_Dir" Type="varchar" MaxLength="50" />
           <Property Name="Per_Cel" Type="char" MaxLength="9" />
           <Property Name="Per_Tel" Type="varchar" MaxLength="20" />
-          <Property Name="Per_Email" Type="varchar" MaxLength="50" />
+          <Property Name="Per_Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Per_FechaNacimiento" Type="datetime" />
         </EntityType>
         <EntityType Name="Profesor">
           <Key>
@@ -171,7 +180,7 @@
           <Property Name="TipoUser_Id" Type="int" Nullable="false" />
           <Property Name="User_Nombre" Type="varchar" MaxLength="50" />
           <Property Name="User_Pass" Type="varchar" MaxLength="20" />
-          <Property Name="User_Inactivo" Type="bit" Nullable="false" />
+          <Property Name="User_Inactivo" Type="bit" />
         </EntityType>
         <Association Name="FK_Administrador_Usuario">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
@@ -269,7 +278,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Profesor_Usuario">
+        <Association Name="FK_Profesor_Usuario1">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Profesor" Type="Self.Profesor" Multiplicity="*" />
           <ReferentialConstraint>
@@ -341,7 +350,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="Profesor_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Profesor.Get" />
         <Function Name="Profesor_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Profesor.Insert">
           <Parameter Name="Per_Dni" Type="int" Mode="In" />
@@ -359,49 +367,18 @@
           <Parameter Name="Cur_Id" Type="int" Mode="In" />
           <Parameter Name="Prof_Especialidad" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Usuario_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Usuario.Get">
           <Parameter Name="UserID" Type="int" Mode="In" />
           <Parameter Name="PrimerNombre" Type="varchar" Mode="In" />
           <Parameter Name="ApellidoPaterno" Type="varchar" Mode="In" />
           <Parameter Name="Email" Type="varchar" Mode="In" />
           <Parameter Name="TipoUsuario" Type="varchar" Mode="In" />
-          <Parameter Name="minRowNumber" Type="int" Mode="In" />
-          <Parameter Name="maxRowNumber" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="SIGAModelStoreContainer">
           <EntitySet Name="Administrador" EntityType="Self.Administrador" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Alumno" EntityType="Self.Alumno" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Aula" EntityType="Self.Aula" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Calificacion" EntityType="Self.Calificacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Horario" EntityType="Self.Horario" Schema="dbo" store:Type="Tables" />
@@ -447,7 +424,7 @@
             <End Role="Curso" EntitySet="Curso" />
             <End Role="Profesor" EntitySet="Profesor" />
           </AssociationSet>
-          <AssociationSet Name="FK_Profesor_Usuario" Association="Self.FK_Profesor_Usuario">
+          <AssociationSet Name="FK_Profesor_Usuario1" Association="Self.FK_Profesor_Usuario1">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Profesor" EntitySet="Profesor" />
           </AssociationSet>
@@ -493,12 +470,12 @@
           </Key>
           <Property Name="Alu_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="User_Id" Type="Int32" Nullable="false" />
-          <Property Name="Alu_Apoderado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Alu_Estado" Type="Boolean" Nullable="false" />
+          <Property Name="Alu_Apoderado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Alu_Estado" Type="Boolean" />
           <Property Name="Alu_Foto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Alumno_Usuario" FromRole="Alumno" ToRole="Usuario" />
-          <Property Name="Alu_FechaIngreso" Type="DateTime" Precision="3" />
-          <Property Name="Alu_FechaRegistro" Type="DateTime" Precision="3" />
+          <Property Name="Alu_FechaIngreso" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="Alu_FechaRegistro" Type="DateTime" Precision="3" Nullable="false" />
         </EntityType>
         <EntityType Name="Aula">
           <Key>
@@ -560,7 +537,7 @@
           <Property Name="User_Id" Type="Int32" Nullable="false" />
           <Property Name="Rec_Id" Type="Int32" Nullable="false" />
           <Property Name="Mat_Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Mat_Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Mat_Fecha" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Mat_Estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Curso" Relationship="Self.FK_Matricula_Curso" FromRole="Matricula" ToRole="Curso" />
           <NavigationProperty Name="Recibo" Relationship="Self.FK_Matricula_Recibo" FromRole="Matricula" ToRole="Recibo" />
@@ -585,7 +562,7 @@
           </Key>
           <Property Name="Pag_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Alu_Id" Type="Int32" />
-          <Property Name="Pag_Fech" Type="DateTime" Precision="0" />
+          <Property Name="Pag_Fech" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Recibo" Relationship="Self.FK_Recibo_Pago" FromRole="Pago" ToRole="Recibo" />
         </EntityType>
         <EntityType Name="Persona">
@@ -595,15 +572,15 @@
           <Property Name="Per_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Per_Dni" Type="Int32" />
           <Property Name="Per_Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Per_ApePaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Per_ApeMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Per_ApePaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Per_ApeMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Per_Sexo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="Per_Dir" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Per_Cel" Type="String" MaxLength="9" FixedLength="true" Unicode="false" />
           <Property Name="Per_Tel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Per_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Per_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Persona" FromRole="Persona" ToRole="Usuario" />
-          <Property Name="Per_FechaNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="Per_FechaNacimiento" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Profesor">
           <Key>
@@ -665,7 +642,7 @@
           <Property Name="TipoUser_Id" Type="Int32" Nullable="false" />
           <Property Name="User_Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="User_Pass" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="User_Inactivo" Type="Boolean" Nullable="false" />
+          <Property Name="User_Inactivo" Type="Boolean" />
           <NavigationProperty Name="Administrador" Relationship="Self.FK_Administrador_Usuario" FromRole="Usuario" ToRole="Administrador" />
           <NavigationProperty Name="Alumno" Relationship="Self.FK_Alumno_Usuario" FromRole="Usuario" ToRole="Alumno" />
           <NavigationProperty Name="Persona" Relationship="Self.FK_Usuario_Persona" FromRole="Usuario" ToRole="Persona" />
@@ -966,9 +943,8 @@
             <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
             <Parameter Name="Email" Mode="In" Type="String" />
             <Parameter Name="TipoUsuario" Mode="In" Type="String" />
-            <Parameter Name="minRowNumber" Mode="In" Type="Int32" />
-            <Parameter Name="maxRowNumber" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Author" EntityType="SIGAModel.Author" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -981,6 +957,15 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Biography" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1172,31 +1157,17 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Profesor_Get" FunctionName="SIGAModel.Store.Profesor_Get" />
           <FunctionImportMapping FunctionImportName="Profesor_Insert" FunctionName="SIGAModel.Store.Profesor_Insert" />
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="SIGAModel.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="SIGAModel.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="SIGAModel.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="SIGAModel.Store.sp_helpdiagramdefinition">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SIGAModel.sp_helpdiagramdefinition_Result">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="SIGAModel.Store.sp_helpdiagrams">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SIGAModel.sp_helpdiagrams_Result">
-                <ScalarProperty Name="Database" ColumnName="Database" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="SIGAModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="SIGAModel.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="Usuario_Get" FunctionName="SIGAModel.Store.Usuario_Get" />
+          <EntitySetMapping Name="Author">
+            <EntityTypeMapping TypeName="SIGAModel.Author">
+              <MappingFragment StoreEntitySet="Author">
+                <ScalarProperty Name="Biography" ColumnName="Biography" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

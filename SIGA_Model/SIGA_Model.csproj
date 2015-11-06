@@ -66,6 +66,9 @@
     <Compile Include="Aula.cs">
       <DependentUpon>SigaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Author.cs">
+      <DependentUpon>SigaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Calificacion.cs">
       <DependentUpon>SigaModel.tt</DependentUpon>
     </Compile>

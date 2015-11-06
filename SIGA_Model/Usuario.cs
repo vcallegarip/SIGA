@@ -27,7 +27,7 @@ namespace SIGA_Model
         public int TipoUser_Id { get; set; }
         public string User_Nombre { get; set; }
         public string User_Pass { get; set; }
-        public bool User_Inactivo { get; set; }
+        public Nullable<bool> User_Inactivo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Administrador> Administrador { get; set; }

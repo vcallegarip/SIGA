@@ -43,6 +43,7 @@ namespace SIGA_Model
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TipoUsuario> TipoUsuario { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<Author> Author { get; set; }
     
         public virtual int Profesor_Get()
         {
@@ -213,7 +214,7 @@ namespace SIGA_Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
     
-        public virtual int Usuario_Get(Nullable<int> userID, string primerNombre, string apellidoPaterno, string email, string tipoUsuario, Nullable<int> minRowNumber, Nullable<int> maxRowNumber)
+        public virtual int Usuario_Get(Nullable<int> userID, string primerNombre, string apellidoPaterno, string email, string tipoUsuario)
         {
             var userIDParameter = userID.HasValue ?
                 new ObjectParameter("UserID", userID) :
@@ -235,15 +236,7 @@ namespace SIGA_Model
                 new ObjectParameter("TipoUsuario", tipoUsuario) :
                 new ObjectParameter("TipoUsuario", typeof(string));
     
-            var minRowNumberParameter = minRowNumber.HasValue ?
-                new ObjectParameter("minRowNumber", minRowNumber) :
-                new ObjectParameter("minRowNumber", typeof(int));
-    
-            var maxRowNumberParameter = maxRowNumber.HasValue ?
-                new ObjectParameter("maxRowNumber", maxRowNumber) :
-                new ObjectParameter("maxRowNumber", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Usuario_Get", userIDParameter, primerNombreParameter, apellidoPaternoParameter, emailParameter, tipoUsuarioParameter, minRowNumberParameter, maxRowNumberParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Usuario_Get", userIDParameter, primerNombreParameter, apellidoPaternoParameter, emailParameter, tipoUsuarioParameter);
         }
     }
 }
