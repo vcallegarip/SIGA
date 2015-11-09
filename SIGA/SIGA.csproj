@@ -312,7 +312,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Usuario\UsuarioEditPartialView.cshtml" />
     <Content Include="Views\Usuario\Delete.cshtml" />
     <None Include="Views\Shared\_UsuarioPartial.cshtmltxt" />
     <Content Include="Web-Dev.config">

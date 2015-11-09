@@ -18,6 +18,8 @@ namespace SIGA.Controllers
     public class UsuarioController : Controller
     {
 
+        SIGAEntities db = new SIGAEntities();
+
         public ActionResult Index()
         {
             return Content("There is no home page for this module.");
@@ -106,57 +108,35 @@ namespace SIGA.Controllers
             return PartialView("UsuarioCreateEditPartialView", GetUsuario(userid.Value));
         }
 
-        // POST: UsuarioChange/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        
+        public ActionResult Delete(int? userid)
         {
-
-            using (var db = new SIGAEntities())
+            if (userid == null)
             {
-                try
-                {
-                    TipoUsuario tipoUsuario = new TipoUsuario();
-                    string tipoUserValue = "Alumno"; // collection["UsuarioItem.TipoUser_Descrip"];
-                    var tipoUserId = db.TipoUsuario.Where(t => t.TipoUser_Descrip == tipoUserValue).FirstOrDefault();
-
-                    Usuario usuario = db.Usuario.First(u => u.User_Id == id);
-                    usuario.TipoUser_Id = Convert.ToInt16(tipoUserId.TipoUser_Id);
-                    usuario.User_Nombre = "usename"; // persona.Per_Nombre.Substring(0, persona.Per_Nombre.Length) + " " + persona.Per_ApeMaterno.Substring(0, 0);
-                    usuario.User_Pass = "";
-
-                    Persona persona = db.Persona.First(p => p.Per_Id == usuario.Per_Id);
-                    persona.Per_Dni = Convert.ToInt32(collection["UsuarioItem.Per_Dni"]);
-                    persona.Per_Nombre = collection["UsuarioItem.Per_Nombre"];
-                    persona.Per_ApePaterno = collection["UsuarioItem.Per_ApePaterno"];
-                    persona.Per_ApeMaterno = collection["UsuarioItem.Per_ApeMaterno"];
-                    persona.Per_Sexo = collection["UsuarioItem.Per_Sexo"];
-                    persona.Per_Dir = collection["UsuarioItem.Per_Dir"];
-                    persona.Per_Cel = collection["UsuarioItem.Per_Cel"];
-                    persona.Per_Tel = collection["UsuarioItem.Per_Tel"];
-                    persona.Per_Email = collection["UsuarioItem.Per_Email"];
-
-                    Alumno alumno = db.Alumno.First(a => a.User_Id == id);
-                    alumno.Alu_Apoderado = collection["UsuarioItem.AlumnoItem.Alu_Apoderado"];
-                    alumno.Alu_FechaIngreso = Convert.ToDateTime(collection["UsuarioItem.AlumnoItem.Alu_FechaIngreso"]);
-                    alumno.Alu_FechaRegistro = Convert.ToDateTime(collection["UsuarioItem.AlumnoItem.Alu_FechaRegistro"]);  //DateTime.UtcNow;
-                    alumno.Alu_Estado = true;
-
-                    db.SaveChanges();
-
-                }
-                catch (Exception e)
-                {
-                    throw;
-                }
-
-                return RedirectToAction("GetDetails", new
-                {
-                    userid = id,
-                    //editable = true
-                });
-
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+            Usuario usuario = db.Usuario.First(u => u.User_Id == userid);
+            usuario.User_Inactivo = true;
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+            //return PartialView("Delete", GetUsuario(userid.Value));
+        }
+
+
+        // POST: Authors/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int userid)
+        {
+            Usuario usuario = db.Usuario.First(u => u.User_Id == userid);
+            usuario.User_Inactivo = true;
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
     }

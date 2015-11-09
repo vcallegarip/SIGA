@@ -12,6 +12,22 @@ var layoutViewModel = function () {
     layoutVM.selectMenuItemNumber = ko.observable(0);
     layoutVM.lastCall_setActiveItem = 0;
 
+    layoutVM.confirmDialog = ko.observable(false);
+    layoutVM.confirmMessage = ko.observable('');
+    layoutVM.confirmButton = ko.observable('');
+    layoutVM.confirmResult = false;
+    layoutVM.confirmTitle = ko.observable('');
+    layoutVM.confirmTarget = "";
+    layoutVM.confirmButtonOk = ko.observable('');
+    layoutVM.confirmButtonCancel = ko.observable('');
+
+    layoutVM.alertDialog = ko.observable(false);
+    layoutVM.alertMessage = ko.observable('');
+    layoutVM.alertTitle = ko.observable('');
+    layoutVM.alertTarget = "";
+    layoutVM.alertButtonOk = ko.observable('');
+
+    layoutVM.errorMessage = ko.observable(false);
     layoutVM.togglePlus = function () {
         $(event.target).toggleClass('fa-plus-square-o fa-minus-square-o');
     }
@@ -105,4 +121,34 @@ function loadUsuario() {
 
 }
 
-   
+
+function confirmDialogCallBack() {
+    //addEntity(enviroVM.confirmTargetObject);
+    layoutVM.clearConfirm();
+}
+
+function showConfirmDialog(callback, title, message, okButtonText, cancelButtonText, param1) {
+
+    layoutVM.dialogReturnVal = null;
+
+    layoutVM.confirmTarget = callback;
+    layoutVM.confirmTargetObject = param1;
+
+    layoutVM.confirmTitle(title);
+    layoutVM.confirmMessage(message);
+
+    layoutVM.confirmButtonOk(okButtonText);
+    layoutVM.confirmButtonCancel(cancelButtonText);
+    layoutVM.confirmDialog(true);
+
+}
+
+function showAlertDialog(title, message, okButtonText, param1) {
+
+    layoutVM.alertTitle(title);
+    layoutVM.alertMessage(message);
+
+    layoutVM.alertButtonOk(okButtonText);
+    layoutVM.alertDialog(true);
+
+}

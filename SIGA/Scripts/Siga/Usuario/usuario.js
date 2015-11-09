@@ -18,6 +18,8 @@ function usuarioViewModel(usuario) {
         $('#tipoUsuarioPanel li a').not('#li' + data + ' a').css('color', '#454242');
     }
 
+    usuarioVM.deleteUserId = ko.observable(0);
+
     usuarioVM.usuarioList = ko.observableArray([]);
 
     usuarioVM.showActionResponseContent = ko.observable(false);
@@ -110,6 +112,47 @@ function usuarioViewModel(usuario) {
         editUsuario(userid);
     };
 
+    usuarioVM.showUsuarioDeleteModal = function (userid) {
+        showUsuarioDeleteModal(userid);
+    }
+
+    usuarioVM.usuarioDelete = function () {
+        var URL = '/usuario/Delete?userid=' + usuarioVM.deleteUserId;
+        $.ajax(
+        {
+            url: URL,
+            type: "Delete",
+            data: '',
+            async: true,
+            success: function (data, textStatus, jqXHR) {
+                $("#mainContainer").html(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(getAjaxErrorText(xhr));
+            }
+        });
+    }
+
+    usuarioVM.deleteUsuario = function (userid) {
+        deleteUsuario(userid);
+    };
+
+    usuarioVM.showDeleteModal = function (data, event) {
+        usuarioVM.sending = ko.observable(false);
+
+        $.get($(event.target).attr('href'), function (d) {
+            $('.body-content').prepend(d);
+            $('#deleteModal').modal('show');
+
+            ko.applyBindings(usuarioVM, document.getElementById('deleteModal'));
+        });
+    };
+
+    usuarioVM.deleteAuthor = function (form) {
+        usuarioVM.sending(true);
+        return true;
+    };
+
 }
 
 
@@ -184,4 +227,24 @@ function loadUsuario() {
     });
     return true;
 
+}
+
+function getDetailsUsuario(userid) {
+    $("#mainContainer").load('/Usuario/GetDetails?userid=' + userid);
+    return;
+}
+
+function deleteUsuario(userid) {
+    $("#mainContainer").load('/Usuario/Delete?userid=' + userid);
+    usuarioVM.sending = ko.observable(false);
+    //$('.body-content').prepend(d);
+    $('#deleteModal').modal('show');
+
+    ko.applyBindings(usuarioVM, document.getElementById('deleteModal'));
+}
+
+function showUsuarioDeleteModal(userid) {
+    usuarioVM.deleteUserId() = userid;
+    showConfirmDialog(usuarioVM.usuarioDelete, "Confirmation", "Are you sure you want to delete this request?", "Ok", "Cancel", null);
+    return false;
 }

@@ -2,121 +2,187 @@
 
 <div id="UsuarioDetailContainer">
 
-    @using (Html.BeginForm("Edit", "UsuarioChange", new { id = Model.UsuarioData.User_Id }, FormMethod.Post, new { @id = "UsuarioForm" }))
-    {
-
-        @Html.HiddenFor(m => m.UsuarioData.User_Id);
-
-        <div class="panel panel-default">
-            <div class="panel-heading">Datos Generales</div>
-            <div class="panel-body sectionPanelContainer">
-                <div class="row">
-                    <div class="col-lg-4">
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.UsuarioData.Per_Nombre, "Nombre", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.UsuarioData.Per_Nombre, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @readonly = "readonly" } })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.UsuarioData.Per_ApePaterno, "Paterno", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.UsuarioData.Per_ApePaterno, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @readonly = "readonly" } })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.UsuarioData.Per_ApeMaterno, "Materno", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.UsuarioData.Per_ApeMaterno, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @readonly = "readonly" } })
-                            </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Datos Generales</div>
+        <div class="panel-body sectionPanelContainer">
+            <div class="row paddingBottom5px">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioItem.Per_Nombre, "Nombre", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UsuarioItem.Per_Nombre, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuarioData.UsuarioItem.Per_Nombre", @disabled = "disabled", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Nombre, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.UsuarioData.Per_Email, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.UsuarioData.Per_Email, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @readonly = "readonly" } })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.UsuarioData.Per_Dni, "DNI", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.UsuarioData.Per_Dni, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @readonly = "readonly" } })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.UsuarioData.Per_Dir, "Direccion", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.UsuarioData.Per_Dir, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @readonly = "readonly" } })
-                            </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioItem.Per_ApePaterno, "Paterno", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UsuarioItem.Per_ApePaterno, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuarioData.UsuarioItem.Per_ApePaterno", @disabled = "disabled", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.UsuarioItem.Per_ApePaterno, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.UsuarioData.Per_Cel, "Celular", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.UsuarioData.Per_Cel, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @readonly = "readonly" } })
-                            </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioItem.Per_ApeMaterno, "Materno", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UsuarioItem.Per_ApeMaterno, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuarioData.UsuarioItem.Per_ApeMaterno", @disabled = "disabled", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.UsuarioItem.Per_ApeMaterno, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.UsuarioData.Per_Tel, "Telefono", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.UsuarioData.Per_Tel, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @readonly = "readonly" } })
-                            </div>
+                </div>
+            </div>
+            <div class="row paddingBottom5px">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioItem.Per_Email, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UsuarioItem.Per_Email, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuarioData.UsuarioItem.Per_Email", @disabled = "disabled", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Email, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.UsuarioData.Per_Sexo, "Sexo", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.UsuarioData.Per_Sexo, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled", @readonly = "readonly" } })
-                            </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioItem.Per_Dni, "DNI", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UsuarioItem.Per_Dni, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuarioData.UsuarioItem.Per_Dni", @disabled = "disabled", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Dni, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
-                    @*<div class="form-group">
-                            @Html.LabelFor(model => model.UsuarioData.TipoUser_Descrip, "Tipo de Usuario", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.UsuarioData.TipoUser_Descrip, new { htmlAttributes = new { @class = "form-control", @id = "tipouser_descrip" } })
-                            </div>
-                        </div>*@
-
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioItem.Per_Dir, "Direccion", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UsuarioItem.Per_Dir, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuarioData.UsuarioItem.Per_Dir", @disabled = "disabled", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Dir, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row paddingBottom5px">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioItem.Per_Cel, "Celular", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UsuarioItem.Per_Cel, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuarioData.UsuarioItem.Per_Cel", @disabled = "disabled", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Cel, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioItem.Per_Tel, "Telefono", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UsuarioItem.Per_Tel, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuarioData.UsuarioItem.Per_Tel", @disabled = "disabled", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Tel, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioItem.Per_Sexo, "Sexo", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UsuarioItem.Per_Sexo, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuarioData.UsuarioItem.Per_Sexo", @disabled = "disabled", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.UsuarioItem.Per_Sexo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
+    <div id="tipoUsuarioPanel" class="panel panel-default">
+        <div class="panel-heading">Tipo de Usuario</div>
+        <div class="panel-body sectionPanelContainer">
+            <div class="row">
+                <div class="col-lg-12">
 
-    }
+                    <ul class="nav nav-tabs">
+                        <li data-bind="visible: tipoUsuarioSelected == 'Alumno'" id="liAlumno"><a data-bind="click: function () { setTipoUsuarioSelected('Alumno') }">Alumno</a></li>
+                        <li data-bind="visible: tipoUsuarioSelected == 'Profesor'" id=" liprofesor"><a data-bind="click: function () { setTipoUsuarioSelected('Profesor') }">Profesor</a></li>
+                        <li data-bind="visible: tipoUsuarioSelected == 'Administrador'" id="liAdministrador"><a data-bind="click: function () { setTipoUsuarioSelected('Administrador') }">Administrador</a></li>
+                    </ul>
+
+                    <div class="row">
+                        <br />
+                        <div class="col-lg-12">
+                            <div data-bind="visible: tipoUsuarioSelected() == 'Alumno'">
+                                <div class="row">
+                                    <div class="col-lg-3 text-center">
+                                        <a href="#" class="thumbnail center-block" style="width:150px;height:150px">
+                                            <img src="~/Content/images/usuario.png" />
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <div class="row paddingBottom5px">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.UsuarioItem.User_Nombre, "Usuario Alias", htmlAttributes: new { @class = "control-label col-md-3 text-right" })
+                                                <div class="col-md-9">
+                                                    @Html.EditorFor(model => model.UsuarioItem.User_Nombre, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuarioData.UsuarioItem.User_Nombre", @disabled = "disabled", @readonly = "readonly" } })
+                                                    @Html.ValidationMessageFor(model => model.UsuarioItem.User_Nombre, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row paddingBottom5px">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.UsuarioItem.AlumnoItem.Alu_FechaIngreso, "Fecha Ingreso", htmlAttributes: new { @class = "control-label col-md-3 text-right" })
+                                                <div class="col-md-9">
+                                                    @Html.EditorFor(model => model.UsuarioItem.AlumnoItem.Alu_FechaIngreso, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuarioData.UsuarioItem.AlumnoItem.Alu_FechaIngreso", @disabled = "disabled", @readonly = "readonly" } })
+                                                    @Html.ValidationMessageFor(model => model.UsuarioItem.AlumnoItem.Alu_FechaIngreso, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row paddingBottom5px">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.UsuarioItem.AlumnoItem.Alu_FechaRegistro, "Fecha Registro", htmlAttributes: new { @class = "control-label col-md-3 text-right" })
+                                                <div class="col-md-9">
+                                                    @Html.EditorFor(model => model.UsuarioItem.AlumnoItem.Alu_FechaRegistro, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuarioData.UsuarioItem.AlumnoItem.Alu_FechaRegistro", @disabled = "disabled", @readonly = "readonly" } })
+                                                    @Html.ValidationMessageFor(model => model.UsuarioItem.AlumnoItem.Alu_FechaRegistro, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row paddingBottom5px">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.UsuarioItem.AlumnoItem.Alu_Apoderado, "Apoderado", htmlAttributes: new { @class = "control-label col-md-3 text-right" })
+                                                <div class="col-md-9">
+                                                    @Html.EditorFor(model => model.UsuarioItem.AlumnoItem.Alu_Apoderado, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuarioData.UsuarioItem.AlumnoItem.Alu_Apoderado", @disabled = "disabled", @readonly = "readonly" } })
+                                                    @Html.ValidationMessageFor(model => model.UsuarioItem.AlumnoItem.Alu_Apoderado, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-bind="visible: tipoUsuarioSelected() == 'Profesor'">
+                                <h1>Profesor</h1>
+                            </div>
+                            <div data-bind="visible: tipoUsuarioSelected() == 'Administrador'">
+                                <h1>Administrador</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 
-@*<script type="text/javascript">
+<script>
 
     $(document).ready(function () {
-
+        var usuarioVM = new usuarioViewModel(@Html.HtmlConvertToJson(Model));
         ko.applyBindings(usuarioVM, $('#UsuarioDetailContainer')[0]);
-
     });
 
-</script>*@
+    //$('.nav li').not('.active').addClass('disabled');
+    //$('.nav li').not('.active').find('a').removeAttr("data-toggle");
+
+</script>
 

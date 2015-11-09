@@ -140,12 +140,50 @@
 
 </script>
 
-<script>
-
-    //$(".nav a").on("click", function () {
-    //    $(".nav").find(".active").removeClass("active");
-    //    $(this).parent().addClass("active");
-    //});
-
-</script>
-
+<div class="container confirm " style="display:none" data-bind="visible: layoutVM.confirmDialog">
+    <div>
+        <div class="row title  layoutVM.popover_title">
+            <div class="col-xs-12">
+                <span data-bind="text: layoutVM.confirmTitle" class="title"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <span class="content" data-bind="text: layoutVM.confirmMessage" style="white-space:pre-wrap;display:inline-block"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-top:20px;">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-4">
+            <button class="btn btn-md form-control " data-bind="click: function(){layoutVM.confirmTarget(layoutVM.confirmTargetObject);layoutVM.clearConfirm();}">Yes</button>
+        </div>
+        <div class="col-xs-4">
+            <button class="btn btn-md form-control " data-bind="click: function(){layoutVM.clearConfirm();}">No</button>
+        </div>
+    </div>
+</div>
+<div class="container alertPopover " style="display:none" data-bind="visible: layoutVM.alertDialog">
+    <div>
+        <div class="row title  layoutVM.popover_title">
+            <div class="col-xs-12">
+                <span data-bind="text: layoutVM.alertTitle" class="title"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <span class="content" data-bind="text: layoutVM.alertMessage" style="white-space:pre-wrap;display:inline-block"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-top:20px; z-index:2000">
+        <div class="col-xs-4"></div>
+        <div class="col-xs-4">
+            <button class="btn btn-md form-control " data-bind="click: function(){layoutVM.clearAlert();}">Yes</button>
+        </div>
+    </div>
+</div>
+<div class="container popover-error " style="display:none" data-bind="visible: layoutVM.errorMessage">
+    <div class="pull-right pointer" data-bind="click: function(){layoutVM.errorMessage(false)}"><i class="fa fa-times-circle"></i></div>
+    <div id="popover-error-body"></div>
+</div>

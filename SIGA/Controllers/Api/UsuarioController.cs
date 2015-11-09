@@ -100,5 +100,68 @@ namespace SIGA.Controllers.Api
 
         }
 
+
+        // PUT: api/Authors/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult Put(UsuarioViewModel usuarioViewModel)
+        {
+            using (var db = new SIGAEntities())
+            {
+                try
+                {
+                    TipoUsuario tipoUsuario = new TipoUsuario();
+                    string tipoUserValue = usuarioViewModel.UsuarioItem.TipoUser_Descrip; // collection["UsuarioItem.TipoUser_Descrip"];
+                    var tipoUserId = db.TipoUsuario.Where(t => t.TipoUser_Descrip == tipoUserValue).FirstOrDefault();
+
+                    Usuario usuario = db.Usuario.First(u => u.User_Id == usuarioViewModel.UsuarioItem.User_Id);
+                    usuario.TipoUser_Id = Convert.ToInt16(tipoUserId.TipoUser_Id);
+                    usuario.User_Nombre = "usename"; // persona.Per_Nombre.Substring(0, persona.Per_Nombre.Length) + " " + persona.Per_ApeMaterno.Substring(0, 0);
+                    usuario.User_Pass = "";
+
+                    Persona persona = db.Persona.First(p => p.Per_Id == usuario.Per_Id);
+                    persona.Per_Dni = usuarioViewModel.UsuarioItem.Per_Dni; // Convert.ToInt32(collection["UsuarioItem.Per_Dni"]);
+                    persona.Per_Nombre = usuarioViewModel.UsuarioItem.Per_Nombre; // collection["UsuarioItem.Per_Nombre"];
+                    persona.Per_ApePaterno = usuarioViewModel.UsuarioItem.Per_ApePaterno; // collection["UsuarioItem.Per_ApePaterno"];
+                    persona.Per_ApeMaterno = usuarioViewModel.UsuarioItem.Per_ApeMaterno; // collection["UsuarioItem.Per_ApeMaterno"];
+                    persona.Per_Sexo = usuarioViewModel.UsuarioItem.Per_Sexo; // collection["UsuarioItem.Per_Sexo"];
+                    persona.Per_Dir = usuarioViewModel.UsuarioItem.Per_Dir; // collection["UsuarioItem.Per_Dir"];
+                    persona.Per_Cel = usuarioViewModel.UsuarioItem.Per_Cel; // collection["UsuarioItem.Per_Cel"];
+                    persona.Per_Tel = usuarioViewModel.UsuarioItem.Per_Tel; // collection["UsuarioItem.Per_Tel"];
+                    persona.Per_Email = usuarioViewModel.UsuarioItem.Per_Email; // collection["UsuarioItem.Per_Email"];
+
+                    Alumno alumno = db.Alumno.First(a => a.User_Id == usuarioViewModel.UsuarioItem.User_Id);
+                    alumno.Alu_Apoderado = usuarioViewModel.UsuarioItem.AlumnoItem.Alu_Apoderado; // collection["UsuarioItem.AlumnoItem.Alu_Apoderado"];
+                    alumno.Alu_FechaIngreso = Convert.ToDateTime(usuarioViewModel.UsuarioItem.AlumnoItem.Alu_FechaIngreso); // Convert.ToDateTime(collection["UsuarioItem.AlumnoItem.Alu_FechaIngreso"]);
+                    alumno.Alu_FechaRegistro = Convert.ToDateTime(usuarioViewModel.UsuarioItem.AlumnoItem.Alu_FechaRegistro); // Convert.ToDateTime(collection["UsuarioItem.AlumnoItem.Alu_FechaRegistro"]);  //DateTime.UtcNow;
+                    alumno.Alu_Estado = true;
+
+                    db.SaveChanges();
+
+                }
+                catch (Exception e)
+                {
+                    throw;
+                }
+
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+
+        }
+
+
+        // DELETE: api/Authors/5
+        [ResponseType(typeof(UsuarioViewModel))]
+        public IHttpActionResult DeleteUsuario(int userid)
+        {
+
+            Usuario usuario = db.Usuario.First(u => u.User_Id == userid);
+            usuario.User_Inactivo = true;
+
+            db.SaveChanges();
+
+            return Ok();
+        }
+
     }
+
 }
