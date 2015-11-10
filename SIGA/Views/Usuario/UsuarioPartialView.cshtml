@@ -1,5 +1,4 @@
-﻿@*@model SIGA.Models.ViewModels.UsuarioViewModel*@
-@model SIGA_Model.StoredProcContexts.UsuarioInfoCollection
+﻿@model SIGA_Model.StoredProcContexts.UsuarioInfoCollection
 
 <div id="UsuarioContainer">
 
@@ -21,25 +20,25 @@
                         <div class="col-lg-3  col-md-3">
                             <div class="form-group">
                                 <label for="txtPrimerNombre">Nombre</label>
-                                <input type="text" class="form-control" id="txtPrimerNombre" placeholder="Nombre">
+                                <input type="text" class="form-control" id="txtPrimerNombre" name="txtPrimerNombre" placeholder="Nombre">
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
                                 <label for="txtApellidoPaterno">Paterno</label>
-                                <input type="text" class="form-control" id="txtApellidoPaterno" placeholder="Apellido Paterno">
+                                <input type="text" class="form-control" id="txtApellidoPaterno" name="txtApellidoPaterno" placeholder="Apellido Paterno">
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
                                 <label for="txtEmail">Correo</label>
-                                <input type="text" class="form-control" id="txtEmail" placeholder="Correo Electronico">
+                                <input type="text" class="form-control" id="txtEmail" name="txtEmail" placeholder="Correo Electronico">
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
                                 <label for="cboTipoUsuario">Usuario</label>
-                                <select class="form-control" id="cboTipoUsuario">
+                                <select class="form-control" id="cboTipoUsuario" name="cboTipoUsuario">
                                     <option>Todos</option>
                                     <option>Alumno</option>
                                     <option>Profesor</option>
@@ -67,24 +66,22 @@
                         </div>
                     </div>
                 </div>
-            </div>         
-        </div>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-heading">Datos del Usuario</div>
-        <div class="panel-body dataContainer">
-            <div class="row noSideMarginInRow">
-                <div class="usuarioSubContainer" id="usuarioSubContainer">
-                    @Html.Partial("UsuarioListPartialView", Model)
-                </div>
             </div>
         </div>
-        <div class="panel-footer">Agregar paginacion</div>
     </div>
+    
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Datos del Usuario</div>
+    <div class="panel-body dataContainer">
+        <div class="usuarioSubContainer" id="usuarioSubContainer">
+            @Html.Partial("UsuarioListPartialView", Model)
+        </div>
+    </div>
+    <div class="panel-footer">Agregar paginacion</div>
 </div>
       
-
 <script src="~/Scripts/Siga/Usuario/usuario.js"></script>
 
 <script>

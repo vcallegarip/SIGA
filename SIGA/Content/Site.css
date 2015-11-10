@@ -305,3 +305,44 @@ textarea {
 #tipoUsuarioPanel li{
     color:#454242 !important;
 }
+
+
+
+.confirm, 
+.alertPopover {
+    position: fixed;
+    height: 200px;
+    width: 400px;
+    top: calc(50% - 150px/2); /* 50% - height/2 */
+    left: calc(50% - 400px/2); /* 50% - width/2 */
+    z-index: 1000;
+    background-color: #164F7B;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    padding: 10px 30px 20px 30px;
+    white-space: nowrap;
+    line-height: 30px;
+}
+
+.popover-error {
+    position: fixed;
+    height: 95%;
+    width: 80%;
+    z-index: 1000;
+    background-color: lightyellow;
+    top: 10px; /* 50% - height/2 */
+    left: 10%; /* 50% - width/2 */
+    border-radius: 8px;
+    border: solid 1px #ccc;
+    color: black;
+    font-size: 16px;
+    padding: 10px 30px 20px 30px;
+    line-height: 30px;
+}
+
+#popover-error-body {
+    height: 95%;
+    width: 100%;
+    overflow-y: scroll;
+}

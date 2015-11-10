@@ -27,6 +27,14 @@ var layoutViewModel = function () {
     layoutVM.alertTarget = "";
     layoutVM.alertButtonOk = ko.observable('');
 
+    layoutVM.clearConfirm = function () {
+        layoutVM.confirmDialog(false);
+    }
+
+    layoutVM.clearAlert = function () {
+        layoutVM.alertDialog(false);
+    }
+
     layoutVM.errorMessage = ko.observable(false);
     layoutVM.togglePlus = function () {
         $(event.target).toggleClass('fa-plus-square-o fa-minus-square-o');
@@ -69,7 +77,7 @@ var layoutViewModel = function () {
 
         }
     };
-
+    
 }
 
 
@@ -98,11 +106,18 @@ function evalViewport() {
 }
 
 function loadUsuario() {
-   
-    var txtPrimerNombre = "";
-    var txtApellidoPaterno = "";
-    var txtEmail = "";
-    var cboTipoUsuario = "Todos"
+
+    var txtPrimerNombre = ($("#txtPrimerNombre").val() == null || $("#txtPrimerNombre").val() == "")
+                        ? "" : $("#txtPrimerNombre").val();
+
+    var txtApellidoPaterno = ($("#txtApellidoPaterno").val() == null || $("#txtApellidoPaterno").val() == "")
+                        ? "" : $("#txtApellidoPaterno").val();
+
+    var txtEmail = ($("#txtEmail").val() == null || $("#txtEmail").val() == "")
+                        ? "" : $("#txtEmail").val();
+
+    var cboTipoUsuario = ($("#cboTipoUsuario").val() == null || $("#cboTipoUsuario").val() == "")
+                        ? "Todos" : $("#cboTipoUsuario").val();
 
 
     var params = new Array();
@@ -120,7 +135,6 @@ function loadUsuario() {
     return true;
 
 }
-
 
 function confirmDialogCallBack() {
     //addEntity(enviroVM.confirmTargetObject);

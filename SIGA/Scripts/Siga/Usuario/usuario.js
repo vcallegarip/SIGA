@@ -70,7 +70,6 @@ function usuarioViewModel(usuario) {
         }
     }
 
-    
     usuarioVM.validateAndSave = function (form) {
         if (!$(form).valid())
             return false;
@@ -104,55 +103,6 @@ function usuarioViewModel(usuario) {
         $('.body-content').prepend('<div class="alert alert-danger"><strong>Error!</strong> Se produjo un error al guardar los datos del usuario</div>');
     };
 
-    usuarioVM.resetFilters = function () {
-        resetFilters();
-    };
-
-    usuarioVM.editUsuario = function (userid) {
-        editUsuario(userid);
-    };
-
-    usuarioVM.showUsuarioDeleteModal = function (userid) {
-        showUsuarioDeleteModal(userid);
-    }
-
-    usuarioVM.usuarioDelete = function () {
-        var URL = '/usuario/Delete?userid=' + usuarioVM.deleteUserId;
-        $.ajax(
-        {
-            url: URL,
-            type: "Delete",
-            data: '',
-            async: true,
-            success: function (data, textStatus, jqXHR) {
-                $("#mainContainer").html(data);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert(getAjaxErrorText(xhr));
-            }
-        });
-    }
-
-    usuarioVM.deleteUsuario = function (userid) {
-        deleteUsuario(userid);
-    };
-
-    usuarioVM.showDeleteModal = function (data, event) {
-        usuarioVM.sending = ko.observable(false);
-
-        $.get($(event.target).attr('href'), function (d) {
-            $('.body-content').prepend(d);
-            $('#deleteModal').modal('show');
-
-            ko.applyBindings(usuarioVM, document.getElementById('deleteModal'));
-        });
-    };
-
-    usuarioVM.deleteAuthor = function (form) {
-        usuarioVM.sending(true);
-        return true;
-    };
-
 }
 
 
@@ -161,22 +111,19 @@ function activeUserTabOnDetail(data) {
 }
 
 function searchUsuario() {
-    var searchParam = ($(".paf-menu-item.active").attr('data-id') == null || $(".paf-menu-item.active").attr('data-id') == "")
-                        ? "" : "type:'" + $(".paf-menu-item.active").attr('data-id') + "'";
 
     var txtPrimerNombre = ($("#txtPrimerNombre").val() == null || $("#txtPrimerNombre").val() == "")
-                        ? searchParam : $("#txtPrimerNombre").val();
+                        ? "" : $("#txtPrimerNombre").val();
 
     var txtApellidoPaterno = ($("#txtApellidoPaterno").val() == null || $("#txtApellidoPaterno").val() == "")
-                        ? searchParam : $("#txtApellidoPaterno").val();
+                        ? "" : $("#txtApellidoPaterno").val();
 
     var txtEmail = ($("#txtEmail").val() == null || $("#txtEmail").val() == "")
-                        ? searchParam : $("#txtEmail").val();
+                        ? "" : $("#txtEmail").val();
 
     var cboTipoUsuario = ($("#cboTipoUsuario").val() == null || $("#cboTipoUsuario").val() == "")
-                        ? searchParam : $("#cboTipoUsuario").val();
-
-
+                        ? "Todos" : $("#cboTipoUsuario").val();
+    
     var params = new Array();
     params.push("?primerNombre=" + encodeURI(txtPrimerNombre));
     params.push("apellidoPaterno=" + encodeURI(txtApellidoPaterno));
@@ -206,45 +153,33 @@ function editUsuario(userid) {
     return;
 }
 
-function loadUsuario() {
-
-    var txtPrimerNombre = "";
-    var txtApellidoPaterno = "";
-    var txtEmail = "";
-    var cboTipoUsuario = "Todos"
-
-    var params = new Array();
-    params.push("?primerNombre=" + encodeURI(txtPrimerNombre));
-    params.push("apellidoPaterno=" + encodeURI(txtApellidoPaterno));
-    params.push("email=" + encodeURI(txtEmail));
-    params.push("tipoUSuario=" + encodeURI(cboTipoUsuario));
-
-    $("#mainContainer").load('/Usuario/Usuario' + params.join('&'), function (response, status, xhr) {
-        if (status == "error") {
-            var msg = "Sorry but there was an error: ";
-            $("#error").html(msg + xhr.status + " " + xhr.statusText);
-        }
-    });
-    return true;
-
-}
-
 function getDetailsUsuario(userid) {
     $("#mainContainer").load('/Usuario/GetDetails?userid=' + userid);
     return;
 }
 
-function deleteUsuario(userid) {
-    $("#mainContainer").load('/Usuario/Delete?userid=' + userid);
-    usuarioVM.sending = ko.observable(false);
-    //$('.body-content').prepend(d);
-    $('#deleteModal').modal('show');
+function showUsuarioDeleteModal(userid) {
 
-    ko.applyBindings(usuarioVM, document.getElementById('deleteModal'));
+    showConfirmDialog(usuarioDelete(userid), "Confirmacion", "Estas seguro que quieres eliminar este usuario?", "Aceptar", "Cancelar", null);
+    //loadUsuario();
+    return false;
 }
 
-function showUsuarioDeleteModal(userid) {
-    usuarioVM.deleteUserId() = userid;
-    showConfirmDialog(usuarioVM.usuarioDelete, "Confirmation", "Are you sure you want to delete this request?", "Ok", "Cancel", null);
-    return false;
+function usuarioDelete(userid) {
+    var URL = '/usuario/Delete?userid=' + userid;
+    $.ajax(
+    {
+        url: URL,
+        type: "Delete",
+        data: '',
+        async: true,
+        success: function (data, textStatus, jqXHR) {
+            searchUsuario();
+            $("#mainContainer").html(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            searchUsuario();
+            alert(getAjaxErrorText(xhr));
+        }
+    });
 }

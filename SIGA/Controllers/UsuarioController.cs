@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Newtonsoft.Json;
 using SIGA_Model.StoredProcContexts;
 using SIGA.Models.ViewModels;
 using SIGA_Model;
@@ -22,7 +17,7 @@ namespace SIGA.Controllers
 
         public ActionResult Index()
         {
-            return Content("There is no home page for this module.");
+            return PartialView("UsuarioPartialView");
         }
 
         public ActionResult Usuario([System.Web.Http.FromUri] string primerNombre, string apellidoPaterno, string email, string tipoUsuario)
@@ -107,7 +102,6 @@ namespace SIGA.Controllers
             }
             return PartialView("UsuarioCreateEditPartialView", GetUsuario(userid.Value));
         }
-
         
         public ActionResult Delete(int? userid)
         {
@@ -121,23 +115,22 @@ namespace SIGA.Controllers
 
             db.SaveChanges();
 
-            return RedirectToAction("Index");
-            //return PartialView("Delete", GetUsuario(userid.Value));
+            return RedirectToAction("Usuario");
         }
 
 
         // POST: Authors/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int userid)
-        {
-            Usuario usuario = db.Usuario.First(u => u.User_Id == userid);
-            usuario.User_Inactivo = true;
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int userid)
+        //{
+        //    Usuario usuario = db.Usuario.First(u => u.User_Id == userid);
+        //    usuario.User_Inactivo = true;
 
-            db.SaveChanges();
+        //    db.SaveChanges();
 
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
 
     }
 }

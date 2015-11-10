@@ -43,14 +43,6 @@
                 </button>
                 @Html.ActionLink("Sistema Integrado de Gestion Academica", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            @*<div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        </ul>
-                    @Html.Partial("_LoginPartial")
-            </div>*@
         </div>
     </div>
 
@@ -129,7 +121,6 @@
     </ul>
 
 </script>
-
 <script type="text/html" id="breadCrumTemplate">
 
     <div class="row">
@@ -140,23 +131,25 @@
 
 </script>
 
-<div class="container confirm " style="display:none" data-bind="visible: layoutVM.confirmDialog">
+
+<div class="container confirm" style="display:none" data-bind="visible: layoutVM.confirmDialog">
     <div>
-        <div class="row title  layoutVM.popover_title">
+        <div class="row title  layoutVM.popover_title" style="background-color:#05293c">
             <div class="col-xs-12">
-                <span data-bind="text: layoutVM.confirmTitle" class="title"></span>
+                <span data-bind="text: layoutVM.confirmTitle" class="title" style="font-weight:bold"></span>
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="padding-top:20px;">
             <div class="col-xs-12">
                 <span class="content" data-bind="text: layoutVM.confirmMessage" style="white-space:pre-wrap;display:inline-block"></span>
             </div>
         </div>
     </div>
-    <div class="row" style="padding-top:20px;">
+    <div class="row" style="padding-top:30px;">
         <div class="col-xs-2"></div>
         <div class="col-xs-4">
-            <button class="btn btn-md form-control " data-bind="click: function(){layoutVM.confirmTarget(layoutVM.confirmTargetObject);layoutVM.clearConfirm();}">Yes</button>
+            <button class="btn btn-md form-control " data-bind="click: function(){layoutVM.confirmTarget(layoutVM.confirmTargetObject);layoutVM.clearConfirm();},text:confirmButtonOk">Si</button>
+            
         </div>
         <div class="col-xs-4">
             <button class="btn btn-md form-control " data-bind="click: function(){layoutVM.clearConfirm();}">No</button>

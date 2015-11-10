@@ -324,10 +324,10 @@
       <DependentUpon>Web-Dev.config</DependentUpon>
     </Content>
     <Content Include="Views\Usuario\UsuarioPartialView.cshtml" />
-    <Content Include="Views\Usuario\UsuarioListPartialView.cshtml" />
     <Content Include="Views\Web-Dev.config" />
     <Content Include="Views\Usuario\UsuarioDetailsPartialView.cshtml" />
     <Content Include="Views\Usuario\UsuarioCreateEditPartialView.cshtml" />
+    <Content Include="Views\Usuario\UsuarioListPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
