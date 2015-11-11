@@ -103,6 +103,30 @@ function usuarioViewModel(usuario) {
         $('.body-content').prepend('<div class="alert alert-danger"><strong>Error!</strong> Se produjo un error al guardar los datos del usuario</div>');
     };
 
+    usuarioVM.showUsuarioDeleteModal = function (userid) {
+        showConfirmDialog(usuarioDelete(userid), "Confirmacion", "Estas seguro que quieres eliminar este usuario?", "Aceptar", "Cancelar", null);
+        return false;
+    }
+
+    usuarioVM.usuarioDelete = function (userid) {
+        var URL = '/usuario/Delete?userid=' + userid;
+        $.ajax(
+        {
+            url: URL,
+            type: "Delete",
+            data: '',
+            async: true,
+            success: function (data, textStatus, jqXHR) {
+                searchUsuario();
+                $("#mainContainer").html(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                searchUsuario();
+                alert(getAjaxErrorText(xhr));
+            }
+        });
+    }
+
 }
 
 
@@ -156,30 +180,4 @@ function editUsuario(userid) {
 function getDetailsUsuario(userid) {
     $("#mainContainer").load('/Usuario/GetDetails?userid=' + userid);
     return;
-}
-
-function showUsuarioDeleteModal(userid) {
-
-    showConfirmDialog(usuarioDelete(userid), "Confirmacion", "Estas seguro que quieres eliminar este usuario?", "Aceptar", "Cancelar", null);
-    //loadUsuario();
-    return false;
-}
-
-function usuarioDelete(userid) {
-    var URL = '/usuario/Delete?userid=' + userid;
-    $.ajax(
-    {
-        url: URL,
-        type: "Delete",
-        data: '',
-        async: true,
-        success: function (data, textStatus, jqXHR) {
-            searchUsuario();
-            $("#mainContainer").html(data);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            searchUsuario();
-            alert(getAjaxErrorText(xhr));
-        }
-    });
 }

@@ -137,7 +137,6 @@ function loadUsuario() {
 }
 
 function confirmDialogCallBack() {
-    //addEntity(enviroVM.confirmTargetObject);
     layoutVM.clearConfirm();
 }
 
