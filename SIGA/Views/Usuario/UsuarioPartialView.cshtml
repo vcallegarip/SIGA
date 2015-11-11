@@ -1,13 +1,10 @@
-﻿@model SIGA_Model.StoredProcContexts.UsuarioInfoCollection
+﻿@model SIGA.Models.ViewModels.UsuarioViewModel
 
 <div id="UsuarioContainer">
 
-    <div class="row viewTitle">
-        <div class="col-lg-6 pull-left">
-            <h1 class="noMarginTop">Usuarios</h1>
-        </div>
-        <div class="col-lg-6 pull-right">
-            <button id="btnNewUsuario" type="button" class="btn btn-success pull-right" data-bind="click: LoadCreateViewForUsuario"><i class="fa fa-plus"></i> Crear Usuario</button>
+    <div class="row viewTitle marginBottomp10px">
+        <div class="col-lg-12 pull-left">
+            <button id="btnNewUsuario" type="button" class="btn btn-success" data-bind="click: LoadCreateViewForUsuario"><i class="fa fa-plus"></i> Crear Usuario</button>
         </div>
     </div>
 
@@ -20,25 +17,25 @@
                         <div class="col-lg-3  col-md-3">
                             <div class="form-group">
                                 <label for="txtPrimerNombre">Nombre</label>
-                                <input type="text" class="form-control" id="txtPrimerNombre" name="txtPrimerNombre" placeholder="Nombre">
+                                <input type="text" class="form-control" id="txtPrimerNombre" name="txtPrimerNombre" placeholder="Nombre" data-bind="textInput: usuarioVM.txtPrimerNombre">
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
                                 <label for="txtApellidoPaterno">Paterno</label>
-                                <input type="text" class="form-control" id="txtApellidoPaterno" name="txtApellidoPaterno" placeholder="Apellido Paterno">
+                                <input type="text" class="form-control" id="txtApellidoPaterno" name="txtApellidoPaterno" placeholder="Apellido Paterno" data-bind="textInput: usuarioVM.txtApellidoPaterno">
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
                                 <label for="txtEmail">Correo</label>
-                                <input type="text" class="form-control" id="txtEmail" name="txtEmail" placeholder="Correo Electronico">
+                                <input type="text" class="form-control" id="txtEmail" name="txtEmail" placeholder="Correo Electronico" data-bind="textInput: usuarioVM.txtEmail">
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
                                 <label for="cboTipoUsuario">Usuario</label>
-                                <select class="form-control" id="cboTipoUsuario" name="cboTipoUsuario">
+                                <select class="form-control" id="cboTipoUsuario" name="cboTipoUsuario" data-bind="selectedOptions: usuarioVM.cboTipoUsuario">
                                     <option>Todos</option>
                                     <option>Alumno</option>
                                     <option>Profesor</option>
@@ -82,35 +79,37 @@
     <div class="panel-footer">Agregar paginacion</div>
 </div>
       
+
 <script src="~/Scripts/Siga/Usuario/usuario.js"></script>
 
 <script>
 
     $(document).ready(function () {
 
+        var usuarioVM = new usuarioViewModel(@Html.HtmlConvertToJson(Model));
         ko.applyBindings(usuarioVM, $('#UsuarioContainer')[0]);
 
         $("#txtPrimerNombre").keypress(function (e) {
             if (e.which == 13) {
-                searchUsuario();
+                usuarioVM.searchUsuario();
             }
         });
 
         $("#txtApellidoPaterno").keypress(function (e) {
             if (e.which == 13) {
-                searchUsuario();
+                usuarioVM.searchUsuario();
             }
         });
 
         $("#txtEmail").keypress(function (e) {
             if (e.which == 13) {
-                searchUsuario();
+                usuarioVM.searchUsuario();
             }
         });
 
         $("#cboTipoUsuario").keypress(function (e) {
             if (e.which == 13) {
-                searchUsuario();
+                usuarioVM.searchUsuario();
             }
         });
     });

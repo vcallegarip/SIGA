@@ -124,7 +124,6 @@
     </Compile>
     <Compile Include="StoredProcContexts\UsuarioContext.cs" />
     <Compile Include="StoredProcContexts\UsuarioInfo.cs" />
-    <Compile Include="StoredProcContexts\UsuarioCreate.cs" />
     <Compile Include="sysdiagrams.cs">
       <DependentUpon>SigaModel.tt</DependentUpon>
     </Compile>

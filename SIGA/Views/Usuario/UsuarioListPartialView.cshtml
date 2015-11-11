@@ -1,14 +1,15 @@
-﻿@model SIGA_Model.StoredProcContexts.UsuarioInfoCollection
+﻿@model SIGA.Models.ViewModels.UsuarioViewModel
 
 <div id="UsuarioList" class="row noSideMarginInRow">
+    
     <div class="col-lg-12">
-        @if (Model.UsuarioInformationItems.Count == 0)
+        @if (Model.UsuarioItemList.Count == 0)
             {
             <div class="row">
                 <div class="col-xs-12 text-center">No Existe usuarios registrados en el sistema!</div>
             </div>
         }
-        else if (Model.UsuarioInformationItems.Count > 0)
+        else if (Model.UsuarioItemList.Count > 0)
         {
             <div id="bootstrapDataGrid">
                 <div class="row bootstrapDataGrid-Header marginBottomp5px">
@@ -22,7 +23,7 @@
                     <div class="col-lg-1 col-md-1"><span>Telefono</span></div>
                     <div class="col-lg-2 col-md-2"><span></span></div>
                 </div>
-                @foreach (var item in Model.UsuarioInformationItems)
+                @foreach (var item in Model.UsuarioItemList)
                 {
                     <div class="bootstrapDataGridData">
 
@@ -38,7 +39,7 @@
                             <div class="col-lg-2 col-md-2 noPaddingInColumn">
                                 <div class="opcionesButtomGroup">
                                     @*<a class="btn btn-md btn-default fa fa-trash-o dangerColor pull-right" data-bind="click: function() {  deleteUsuario(@item.User_Id); }"></a>*@
-                                    <a class="btn btn-md btn-default fa fa-trash-o dangerColor pull-right" onclick="showUsuarioDeleteModal(@item.User_Id)"></a>
+                                    <a class="btn btn-md btn-default fa fa-trash-o dangerColor pull-right" data-bind="click: function() {  showUsuarioDeleteModal(@item.User_Id); }"></a>
                                     <a class="btn btn-md btn-default fa fa-pencil-square-o warningColor pull-right" data-bind="click: function() {  editUsuario(@item.User_Id); }"></a>
                                     <a class="btn btn-md btn-default fa fa-info-circle infoColor pull-right" data-bind="click: function() {  getDetailsUsuario(@item.User_Id); }"></a>
                                 </div>
@@ -59,8 +60,9 @@
 <script>
 
     $(document).ready(function () {
+
+        var usuarioVM = new usuarioViewModel(@Html.HtmlConvertToJson(Model));
         ko.applyBindings(usuarioVM, $('#UsuarioList')[0]);
-        //searchUsuario();
     });
 
 </script>

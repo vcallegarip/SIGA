@@ -9,8 +9,6 @@
 
 <div id="CreateUsuarioContainer">
 
-    @*<span data-bind="text: nombre">nombre</span>*@
-
     <div data-bind="visible: !saveCompleted()">
 
         @using (Html.BeginForm("Create", "Usuario", new { @id = "CreateUsuarioContainer" }, FormMethod.Post, new { data_bind = "submit: validateAndSave" }))

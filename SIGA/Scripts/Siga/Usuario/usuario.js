@@ -32,8 +32,25 @@ function usuarioViewModel(usuario) {
         { name: 'Administrador' }
     ]);
 
+    usuarioVM.txtPrimerNombre = ko.observable('');
+    usuarioVM.txtApellidoPaterno = ko.observable('');
+    usuarioVM.txtEmail = ko.observable('');
+    usuarioVM.cboTipoUsuario = ko.observable('Todos');
+
     usuarioVM.searchUsuario = function () {
-        searchUsuario();
+        usuarioVM.txtPrimerNombre($("#txtPrimerNombre").val());
+        usuarioVM.txtApellidoPaterno($("#txtApellidoPaterno").val());
+        usuarioVM.txtEmail($("#txtEmail").val());
+        usuarioVM.cboTipoUsuario($("#cboTipoUsuario").val() == "" ? "Todos" : $("#cboTipoUsuario").val());
+
+        var params = new Array();
+        params.push("?primerNombre=" + encodeURI(usuarioVM.txtPrimerNombre()));
+        params.push("apellidoPaterno=" + encodeURI(usuarioVM.txtApellidoPaterno()));
+        params.push("email=" + encodeURI(usuarioVM.txtEmail()));
+        params.push("tipoUSuario=" + encodeURI(usuarioVM.cboTipoUsuario()));
+
+        $("#usuarioSubContainer").load('/usuario/UsuarioList' + params.join('&'));
+
     };
 
     usuarioVM.createUsuario = function () {
@@ -89,7 +106,7 @@ function usuarioViewModel(usuario) {
     usuarioVM.successfulSave = function () {
         usuarioVM.saveCompleted(true);
         
-        $('.body-content').prepend('<div class="alert alert-success"><strong>Success!</strong> El Usuario fue guardado con exito.</div>');
+        $('.body-content').prepend('<div class="alert alert-success"><strong>Exito!</strong> El Usuario fue guardado con exito.</div>');
         setTimeout(function () {
             if (usuarioVM.isCreating)
                 //location.href = '/';
@@ -103,13 +120,16 @@ function usuarioViewModel(usuario) {
         $('.body-content').prepend('<div class="alert alert-danger"><strong>Error!</strong> Se produjo un error al guardar los datos del usuario</div>');
     };
 
+    usuarioVM.userIdToDelete = 0;
+
     usuarioVM.showUsuarioDeleteModal = function (userid) {
-        showConfirmDialog(usuarioDelete(userid), "Confirmacion", "Estas seguro que quieres eliminar este usuario?", "Aceptar", "Cancelar", null);
+        usuarioVM.userIdToDelete = userid;
+        showConfirmDialog(usuarioVM.usuarioDelete, "Confirmacion", "Estas seguro que quieres eliminar este usuario?", "Ok", "Cancel", null);
         return false;
     }
 
-    usuarioVM.usuarioDelete = function (userid) {
-        var URL = '/usuario/Delete?userid=' + userid;
+    usuarioVM.usuarioDelete = function () {
+        var URL = '/usuario/Delete?userid=' + usuarioVM.userIdToDelete;
         $.ajax(
         {
             url: URL,
@@ -117,11 +137,9 @@ function usuarioViewModel(usuario) {
             data: '',
             async: true,
             success: function (data, textStatus, jqXHR) {
-                searchUsuario();
-                $("#mainContainer").html(data);
+                usuarioVM.searchUsuario();
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                searchUsuario();
                 alert(getAjaxErrorText(xhr));
             }
         });
@@ -134,30 +152,6 @@ function activeUserTabOnDetail(data) {
     usuarioVM.setTipoUsuarioSelected(data);
 }
 
-function searchUsuario() {
-
-    var txtPrimerNombre = ($("#txtPrimerNombre").val() == null || $("#txtPrimerNombre").val() == "")
-                        ? "" : $("#txtPrimerNombre").val();
-
-    var txtApellidoPaterno = ($("#txtApellidoPaterno").val() == null || $("#txtApellidoPaterno").val() == "")
-                        ? "" : $("#txtApellidoPaterno").val();
-
-    var txtEmail = ($("#txtEmail").val() == null || $("#txtEmail").val() == "")
-                        ? "" : $("#txtEmail").val();
-
-    var cboTipoUsuario = ($("#cboTipoUsuario").val() == null || $("#cboTipoUsuario").val() == "")
-                        ? "Todos" : $("#cboTipoUsuario").val();
-    
-    var params = new Array();
-    params.push("?primerNombre=" + encodeURI(txtPrimerNombre));
-    params.push("apellidoPaterno=" + encodeURI(txtApellidoPaterno));
-    params.push("email=" + encodeURI(txtEmail));
-    params.push("tipoUSuario=" + encodeURI(cboTipoUsuario));
-
-    $("#usuarioSubContainer").load('/usuario/UsuarioList' + params.join('&'));
-
-}
-
 function LoadCreateViewForUsuario() {
     $("#mainContainer").load('/usuario/create');
     return;
@@ -168,7 +162,7 @@ function resetFilters() {
     $('#txtApellidoPaterno').val('');
     $('#txtEmail').val('');
     $('#cboTipoUsuario').val('Todos');
-    searchUsuario();
+    usuarioVM.searchUsuario();
     return;
 }
 

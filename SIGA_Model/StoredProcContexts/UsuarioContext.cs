@@ -21,16 +21,5 @@ namespace SIGA_Model.StoredProcContexts
         [StoredProcAttributes.ReturnTypes(typeof(UsuarioInformation))]
         public StoredProc<UsuarioInfoInputParams> getUsuarios { get; set; }
 
-
-        [StoredProcAttributes.Name("[Usuario.Create]")]
-        [StoredProcAttributes.Schema("[dbo]")]
-        public StoredProc<UsuarioCreateInputParams> createUsuario { get; set; }
-
-        //[StoredProcAttributes.Name("[EmployeeInfo]")]
-        //[StoredProcAttributes.Schema("[webapp]")]
-        //[StoredProcAttributes.ReturnTypes(typeof(UsuarioInformation))]
-        //public StoredProc<UsuarioInfoInputParams> webapp_EmployeeInfo { get; set; }
-
-        
     }
 }

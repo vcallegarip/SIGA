@@ -6,14 +6,13 @@ using SIGA_Model.StoredProcContexts;
 using SIGA.Models.ViewModels;
 using SIGA_Model;
 using SIGA.Helpers;
+using System.Collections.Generic;
 
 namespace SIGA.Controllers
 {
     [NoCache]
     public class UsuarioController : Controller
     {
-
-        SIGAEntities db = new SIGAEntities();
 
         public ActionResult Index()
         {
@@ -32,9 +31,9 @@ namespace SIGA.Controllers
             return PartialView("UsuarioListPartialView", GetUsuarios(0, primerNombre, apellidoPaterno, email, tipoUsuario));
         }
 
-        public UsuarioInfoCollection GetUsuarios(int userid, string primerNombre, string apellidoPaterno, string email, string tipoUsuario)
+        public UsuarioViewModel GetUsuarios(int userid, string primerNombre, string apellidoPaterno, string email, string tipoUsuario)
         {
-
+            
             UsuarioInfoInputParams usuarioInfoInputParams = new UsuarioInfoInputParams()
             {
                 UserID = userid,
@@ -46,38 +45,58 @@ namespace SIGA.Controllers
 
             UsuarioInfoCollection usuarioInfoCollection = new UsuarioInfo().Execute(usuarioInfoInputParams);
 
-            return usuarioInfoCollection;
+            UsuarioViewModel usuarioViewModel = new UsuarioViewModel();
+
+            usuarioViewModel.UsuarioItemList = (from u in usuarioInfoCollection.UsuarioInformationItems
+                                              select new UsuarioItem
+                                              {
+                                                  User_Id = u.User_Id,
+                                                  Per_Nombre = u.Per_Nombre,
+                                                  Per_ApePaterno = u.Per_ApePaterno,
+                                                  Per_ApeMaterno = u.Per_ApeMaterno,
+                                                  Per_Email = u.Per_Email,
+                                                  Per_Dni = u.Per_Dni,
+                                                  Per_Dir = u.Per_Dir,
+                                                  Per_Cel = u.Per_Cel,
+                                                  Per_Tel = u.Per_Tel,
+                                                  Per_Sexo = u.Per_Sexo,
+                                                  User_Nombre = u.User_Nombre,
+                                                  TipoUser_Descrip = u.TipoUser_Descrip,
+                                                  AlumnoItem = new AlumnoItem
+                                                  {
+                                                      Alu_FechaIngreso = u.Alu_FechaIngreso,
+                                                      Alu_FechaRegistro = u.Alu_FechaRegistro,
+                                                      Alu_Apoderado = u.Alu_Apoderado,
+                                                  }
+                                              }).ToList();
+
+            return usuarioViewModel;
 
         }
 
-        public UsuarioViewModel GetUsuario(int user_id)
+        public UsuarioViewModel GetUsuario(int userid)
         {
 
-            //List<UsuarioInformation> singleUsuario = GetUsuarios(userid,"","","","");
-            UsuarioInfoCollection singleUsuario = GetUsuarios(user_id, "", "", "", "Todos");
-
-            UsuarioViewModel usuarioViewModel = new UsuarioViewModel();
+            UsuarioViewModel usuarioViewModel = GetUsuarios(userid, "", "", "", "Todos");
 
             usuarioViewModel.UsuarioItem = new UsuarioItem()
             {
-                User_Id = singleUsuario.UsuarioInformationItems[0].User_Id,
-                Per_Nombre = singleUsuario.UsuarioInformationItems[0].Per_Nombre == null ? "" : singleUsuario.UsuarioInformationItems[0].Per_Nombre,
-                Per_ApePaterno = singleUsuario.UsuarioInformationItems[0].Per_ApePaterno == null ? "" : singleUsuario.UsuarioInformationItems[0].Per_ApePaterno,
-                Per_ApeMaterno = singleUsuario.UsuarioInformationItems[0].Per_ApeMaterno == null ? "" : singleUsuario.UsuarioInformationItems[0].Per_ApeMaterno,
-                Per_Email = singleUsuario.UsuarioInformationItems[0].Per_Email == null ? "" : singleUsuario.UsuarioInformationItems[0].Per_Email,
-                Per_Dni = singleUsuario.UsuarioInformationItems[0].Per_Dni == null ? 0 : singleUsuario.UsuarioInformationItems[0].Per_Dni,
-                Per_Dir = singleUsuario.UsuarioInformationItems[0].Per_Dir == null ? "" : singleUsuario.UsuarioInformationItems[0].Per_Dir,
-                Per_Cel = singleUsuario.UsuarioInformationItems[0].Per_Cel == null ? "" : singleUsuario.UsuarioInformationItems[0].Per_Cel,
-                Per_Tel = singleUsuario.UsuarioInformationItems[0].Per_Tel == null ? "" : singleUsuario.UsuarioInformationItems[0].Per_Tel,
-                Per_Sexo = singleUsuario.UsuarioInformationItems[0].Per_Sexo == null ? "" : singleUsuario.UsuarioInformationItems[0].Per_Sexo,
-                TipoUser_Descrip = singleUsuario.UsuarioInformationItems[0].TipoUser_Descrip == null ? "" : singleUsuario.UsuarioInformationItems[0].TipoUser_Descrip,
-            };
-
-            usuarioViewModel.UsuarioItem.AlumnoItem = new AlumnoItem()
-            {
-                Alu_FechaIngreso = singleUsuario.UsuarioInformationItems[0].Alu_FechaIngreso == null ? (DateTime?)null : singleUsuario.UsuarioInformationItems[0].Alu_FechaIngreso,
-                Alu_FechaRegistro = singleUsuario.UsuarioInformationItems[0].Alu_FechaRegistro == null ? (DateTime?)null : singleUsuario.UsuarioInformationItems[0].Alu_FechaRegistro,
-                Alu_Apoderado = singleUsuario.UsuarioInformationItems[0].Alu_Apoderado == null ? "" : singleUsuario.UsuarioInformationItems[0].Alu_Apoderado,
+                User_Id = usuarioViewModel.UsuarioItemList[0].User_Id,
+                Per_Nombre = usuarioViewModel.UsuarioItemList[0].Per_Nombre == null ? "" : usuarioViewModel.UsuarioItemList[0].Per_Nombre,
+                Per_ApePaterno = usuarioViewModel.UsuarioItemList[0].Per_ApePaterno == null ? "" : usuarioViewModel.UsuarioItemList[0].Per_ApePaterno,
+                Per_ApeMaterno = usuarioViewModel.UsuarioItemList[0].Per_ApeMaterno == null ? "" : usuarioViewModel.UsuarioItemList[0].Per_ApeMaterno,
+                Per_Email = usuarioViewModel.UsuarioItemList[0].Per_Email == null ? "" : usuarioViewModel.UsuarioItemList[0].Per_Email,
+                Per_Dni = usuarioViewModel.UsuarioItemList[0].Per_Dni == null ? 0 : usuarioViewModel.UsuarioItemList[0].Per_Dni,
+                Per_Dir = usuarioViewModel.UsuarioItemList[0].Per_Dir == null ? "" : usuarioViewModel.UsuarioItemList[0].Per_Dir,
+                Per_Cel = usuarioViewModel.UsuarioItemList[0].Per_Cel == null ? "" : usuarioViewModel.UsuarioItemList[0].Per_Cel,
+                Per_Tel = usuarioViewModel.UsuarioItemList[0].Per_Tel == null ? "" : usuarioViewModel.UsuarioItemList[0].Per_Tel,
+                Per_Sexo = usuarioViewModel.UsuarioItemList[0].Per_Sexo == null ? "" : usuarioViewModel.UsuarioItemList[0].Per_Sexo,
+                TipoUser_Descrip = usuarioViewModel.UsuarioItemList[0].TipoUser_Descrip == null ? "" : usuarioViewModel.UsuarioItemList[0].TipoUser_Descrip,
+                AlumnoItem = new AlumnoItem{
+                                Alu_FechaIngreso = usuarioViewModel.UsuarioItemList[0].AlumnoItem.Alu_FechaIngreso == null ? (DateTime?)null : usuarioViewModel.UsuarioItemList[0].AlumnoItem.Alu_FechaIngreso,
+                                Alu_FechaRegistro = usuarioViewModel.UsuarioItemList[0].AlumnoItem.Alu_FechaRegistro == null ? (DateTime?)null : usuarioViewModel.UsuarioItemList[0].AlumnoItem.Alu_FechaRegistro,
+                                Alu_Apoderado = usuarioViewModel.UsuarioItemList[0].AlumnoItem.Alu_Apoderado == null ? "" : usuarioViewModel.UsuarioItemList[0].AlumnoItem.Alu_Apoderado,
+                           }
             };
 
             return usuarioViewModel;
@@ -105,32 +124,25 @@ namespace SIGA.Controllers
         
         public ActionResult Delete(int? userid)
         {
-            if (userid == null)
+            using (SIGAEntities db = new SIGAEntities())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                var user = db.Usuario.FirstOrDefault(u => u.User_Id == userid);
+                if (user != null)
+                {
+                    user.User_Inactivo = true;
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
             }
-
-            Usuario usuario = db.Usuario.First(u => u.User_Id == userid);
-            usuario.User_Inactivo = true;
-
-            db.SaveChanges();
 
             return RedirectToAction("Usuario");
         }
-
-
-        // POST: Authors/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int userid)
-        //{
-        //    Usuario usuario = db.Usuario.First(u => u.User_Id == userid);
-        //    usuario.User_Inactivo = true;
-
-        //    db.SaveChanges();
-
-        //    return RedirectToAction("Index");
-        //}
 
     }
 }

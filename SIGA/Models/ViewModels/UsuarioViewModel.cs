@@ -16,6 +16,7 @@ namespace SIGA.Models.ViewModels
         private SIGAEntities db = new SIGAEntities();
 
         public UsuarioItem UsuarioItem { get; set; }
+        public List<UsuarioItem> UsuarioItemList { get; set; }
 
         //public List<SelectListItem> TipoUsuario { get; set; }
 
@@ -25,6 +26,7 @@ namespace SIGA.Models.ViewModels
             //this.TipoUsuario = new List<SelectListItem>();
 
             this.UsuarioItem = new UsuarioItem();
+            this.UsuarioItemList = new List<UsuarioItem>();
             this.UsuarioItem.AlumnoItem = new AlumnoItem();
 
             //var tipoUsuarios = db.TipoUsuario.ToList();

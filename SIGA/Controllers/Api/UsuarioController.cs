@@ -148,20 +148,6 @@ namespace SIGA.Controllers.Api
 
         }
 
-
-        // DELETE: api/Authors/5
-        [ResponseType(typeof(UsuarioViewModel))]
-        public IHttpActionResult DeleteUsuario(int userid)
-        {
-
-            Usuario usuario = db.Usuario.First(u => u.User_Id == userid);
-            usuario.User_Inactivo = true;
-
-            db.SaveChanges();
-
-            return Ok();
-        }
-
     }
 
 }

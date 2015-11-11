@@ -19,8 +19,16 @@
     margin-top:5px;
 }
 
+.marginTop10px{
+    margin-top:10px;
+}
+
 .marginBottomp5px{
     margin-bottom:5px
+}
+
+.marginBottomp10px{
+    margin-bottom:10px
 }
 
 .paddingTop5px{
@@ -54,8 +62,6 @@
 .noPaddingRight{
     padding-right:0px;
 }
-
-
 
 .noMargin{
     margin:0px;
