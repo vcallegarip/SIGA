@@ -14,22 +14,23 @@ namespace SIGA_Model
     
     public partial class Modulo
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Modulo()
         {
-            this.Curso = new HashSet<Curso>();
+            this.ModuloCurso = new HashSet<ModuloCurso>();
+            this.Programa = new HashSet<Programa>();
         }
     
-        public int Mod_Id { get; set; }
-        public string Mod_Nombre { get; set; }
-        public string Mod_Tipo { get; set; }
-        public string Mod_Unidad { get; set; }
-        public string Mod_NumHoras { get; set; }
-        public string Mod_NumMes { get; set; }
-        public string Mod_NumCursos { get; set; }
-        public Nullable<int> Mod_Nivel { get; set; }
+        public int ModId { get; set; }
+        public int ModCatId { get; set; }
+        public int ModNivelId { get; set; }
+        public string ModNombre { get; set; }
+        public string ModNumHoras { get; set; }
+        public string ModNumMes { get; set; }
+        public string ModNumCursos { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Curso> Curso { get; set; }
+        public virtual ModuloCategoria ModuloCategoria { get; set; }
+        public virtual ModuloNivel ModuloNivel { get; set; }
+        public virtual ICollection<ModuloCurso> ModuloCurso { get; set; }
+        public virtual ICollection<Programa> Programa { get; set; }
     }
 }

@@ -1,0 +1,91 @@
+﻿@model SIGA.Models.ViewModels.ProgramacionViewModel
+
+<div id="ProgramacionContainer">
+
+    <div class="row viewTitle marginBottomp10px">
+        <div class="col-lg-12 pull-left">
+            <button id="btnNewProgramacion" type="button" class="btn btn-success" data-bind="click: LoadCreateViewForProgramacion"><i class="fa fa-plus"></i> Crear Programacion</button>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Filtros</div>
+        <div class="panel-body filtrosContainer">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-lg-6  col-md-6">
+                            <div class="form-group">
+                                <label for="txtProgNombre">Programacion Nombre</label>
+                                <input type="text" class="form-control" id="txtProgNombre" name="txtProgNombre" placeholder="Nombre" data-bind="textInput: progVM.txtProgNombre">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="txtModuloNombre">Modulo Nombre</label>
+                                <input type="text" class="form-control" id="txtModuloNombre" name="txtModuloNombre" placeholder="Modulo Nombre" data-bind="textInput: progVM.txtModuloNombre">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 hidden-md text-right">
+                    <div class="form-group">
+                        <label for="btnAction">&nbsp;</label>
+                        <div id="btnAction">
+                            <button id="btnSearch" type="button" data-bind="click: searchProgramacion" class="btn btn-primary"><i class="fa fa-search "></i> Buscar</button>
+                            <button id="btnReset" type="button" data-bind="click: resetFilters" class="btn btn-primary">Limpiar Filtros</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 visible-md  text-left">
+                    <div class="form-group">
+                        <label for="btnAction">&nbsp;</label>
+                        <div id="btnAction">
+                            <button id="btnSearch" type="button" data-bind="click: searchProgramacion" class="btn btn-primary"><i class="fa fa-search "></i> Buscar</button>
+                            <button id="btnReset" type="button" data-bind="click: resetFilters" class="btn btn-primary">Limpiar Filtros</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Datos del Usuario</div>
+    <div class="panel-body dataContainer">
+        <div class="programacionSubContainer" id="programacionSubContainer">
+            @Html.Partial("ProgramacionListPartialView", Model)
+        </div>
+    </div>
+    <div class="panel-footer">Agregar paginacion</div>
+</div>
+
+
+<script src="~/Scripts/Siga/Programacion/programacion.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        var progVM = new programacionViewModel(@Html.HtmlConvertToJson(Model));
+        ko.applyBindings(progVM, $('#ProgramacionContainer')[0]);
+
+
+        $("#txtProgNombre").keypress(function (e) {
+            if (e.which == 13) {
+                progVM.searchProgramacion();
+            }
+        });
+
+        $("#txtModuloNombre").keypress(function (e) {
+            if (e.which == 13) {
+                progVM.searchProgramacion();
+            }
+        });
+
+    });
+
+</script>
+

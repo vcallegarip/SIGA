@@ -1,0 +1,112 @@
+﻿@model SIGA.Models.ViewModels.ProgramacionViewModel
+
+@{
+    var isCreating = Model.ProgramacionItem.Prog_Id == 0;
+    ViewBag.Title = (isCreating) ? "Create" : "Edit";
+}
+
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+<div id="CreateProgramacionContainer">
+
+    <div data-bind="visible: !saveCompleted()">
+        @using (Html.BeginForm("Create", "Programacion", new { @id = "CreateProgramacionContainer" }, FormMethod.Post, new { data_bind = "submit: validateAndSave" }))
+        {
+            
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Datos Generales de Programacion</div>
+                <div class="panel-body sectionPanelContainer">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    @Html.LabelFor(model => model.ProgramacionItem.ProgNombre, "Nombre de Programacion", htmlAttributes: new { @class = "control-label col-md-5 text-right" })
+                                    <div class="col-md-7">
+                                        @Html.EditorFor(model => model.ProgramacionItem.ProgNombre, new { htmlAttributes = new { @class = "form-control", data_bind = "value: programacionData.ProgramacionItem.ProgNombre" } })
+                                        @Html.ValidationMessageFor(model => model.ProgramacionItem.ProgNombre, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    @Html.LabelFor(model => model.ProgramacionItem.ModId, "Nombre del Modulo", htmlAttributes: new { @class = "control-label col-md-5 text-right" })
+                                    <div class="col-md-7">
+                                        @Html.DropDownList("ModId", null, htmlAttributes: new { @class = "form-control", data_bind = "value: programacionData.ProgramacionItem.ModId" })
+                                        @Html.ValidationMessageFor(model => model.ProgramacionItem.ModId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    @Html.LabelFor(model => model.ProgramacionItem.AulId, "Numero de Aula", htmlAttributes: new { @class = "control-label col-md-5 text-right" })
+                                    <div class="col-md-7">
+                                        @Html.DropDownList("AulId", null, htmlAttributes: new { @class = "form-control", data_bind = "value: programacionData.ProgramacionItem.AulId" })
+                                        @Html.ValidationMessageFor(model => model.ProgramacionItem.AulId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    @Html.LabelFor(model => model.ProgramacionItem.HorId, "Horario a Estudiar", htmlAttributes: new { @class = "control-label col-md-5 text-right" })
+                                    <div class="col-md-7">
+                                        @Html.DropDownList("HorId", null, htmlAttributes: new { @class = "form-control", data_bind = "value: programacionData.ProgramacionItem.AulId" })
+                                        @Html.ValidationMessageFor(model => model.ProgramacionItem.HorId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    @Html.LabelFor(model => model.ProgramacionItem.ProgFechaInicio, "Fecha de Inicio", htmlAttributes: new { @class = "control-label col-md-5 text-right" })
+                                    <div class="col-md-7">
+                                        @Html.EditorFor(model => model.ProgramacionItem.ProgFechaInicio, new { htmlAttributes = new { @class = "form-control", data_bind = "value: programacionData.ProgramacionItem.ProgFechaInicio" } })
+                                        @Html.ValidationMessageFor(model => model.ProgramacionItem.ProgFechaInicio, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Cursos del Modulo</div>
+                <div class="panel-body dataContainer">
+                    <div class="programacionCursoSubContainer" id="programacionCursoSubContainer">
+                        @Html.Partial("ProgramacionCursoListPartialView", Model)
+                    </div>
+                </div>
+                <div class="panel-footer">Agregar paginacion</div>
+            </div>
+        }
+
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        var progVM = new programacionViewModel(@Html.HtmlConvertToJson(Model));
+        ko.applyBindings(progVM, $('#CreateProgramacionContainer')[0]);
+    });
+
+    $('#ModId').change(function () {
+        var modNombre = $('#ModId option:selected').text();
+        loadModuleCurso(modNombre)
+    });
+
+</script>
+

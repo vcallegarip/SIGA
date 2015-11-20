@@ -14,20 +14,19 @@ namespace SIGA_Model
     
     public partial class Horario
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Horario()
         {
-            this.Programacion = new HashSet<Programacion>();
+            this.Programa = new HashSet<Programa>();
         }
     
-        public int Hor_Id { get; set; }
-        public string Hor_Grupo { get; set; }
-        public Nullable<System.TimeSpan> Hor_Ini { get; set; }
-        public string Hor_Dia { get; set; }
-        public string Hor_Turno { get; set; }
-        public Nullable<System.TimeSpan> Hor_Fin { get; set; }
+        public int HorId { get; set; }
+        public string Año { get; set; }
+        public string HorMes { get; set; }
+        public string HorDia { get; set; }
+        public string HorTurno { get; set; }
+        public Nullable<System.TimeSpan> HorHoraIni { get; set; }
+        public Nullable<System.TimeSpan> HorHoraFin { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Programacion> Programacion { get; set; }
+        public virtual ICollection<Programa> Programa { get; set; }
     }
 }

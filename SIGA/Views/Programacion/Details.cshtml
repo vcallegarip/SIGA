@@ -1,0 +1,58 @@
+﻿@model SIGA_Model.Programacion
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Programacion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProgNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProgNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProgFechaInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProgFechaInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Aula.AulCapacidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Aula.AulCapacidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Horario.HorDia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Horario.HorDia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Modulo.ModNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Modulo.ModNombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

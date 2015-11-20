@@ -14,28 +14,22 @@ namespace SIGA_Model
     
     public partial class Curso
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Curso()
         {
             this.Calificacion = new HashSet<Calificacion>();
             this.Matricula = new HashSet<Matricula>();
+            this.ModuloCurso = new HashSet<ModuloCurso>();
             this.Profesor = new HashSet<Profesor>();
         }
     
-        public int Cur_Id { get; set; }
-        public int Mod_Id { get; set; }
-        public int Prog_Id { get; set; }
-        public string Cur_Name { get; set; }
-        public Nullable<int> Cur_NumHoras { get; set; }
-        public string Cur_Precio { get; set; }
+        public int CurId { get; set; }
+        public string CurName { get; set; }
+        public Nullable<int> CurNumHoras { get; set; }
+        public string CurPrecio { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Calificacion> Calificacion { get; set; }
-        public virtual Modulo Modulo { get; set; }
-        public virtual Programacion Programacion { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Matricula> Matricula { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ModuloCurso> ModuloCurso { get; set; }
         public virtual ICollection<Profesor> Profesor { get; set; }
     }
 }

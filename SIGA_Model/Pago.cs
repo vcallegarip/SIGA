@@ -14,7 +14,6 @@ namespace SIGA_Model
     
     public partial class Pago
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Pago()
         {
             this.Recibo = new HashSet<Recibo>();
@@ -24,7 +23,6 @@ namespace SIGA_Model
         public Nullable<int> Alu_Id { get; set; }
         public Nullable<System.DateTime> Pag_Fech { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Recibo> Recibo { get; set; }
     }
 }

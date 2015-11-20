@@ -42,9 +42,6 @@ var layoutViewModel = function () {
 
     layoutVM.soporteMenuitems = ko.observableArray([
         { name: 'Usuario' },
-        { name: 'Horario' },
-        { name: 'Modulo' },
-        { name: 'Curso' },
         { name: 'Programacion' }
     ]);
 
@@ -67,10 +64,8 @@ var layoutViewModel = function () {
         if (data.name == "Usuario") {
             loadUsuario();
         }
-        else if (data.name == "Horario") {
-            $('#mainContainer').load("/Home/Index/", function () {
-                window.history.pushState(null,'Page title','/Home')
-            });
+        else if (data.name == "Programacion") {
+            loadProgramacion();
         }
         else if (data.name == "Registro Matricula") {
             $('#mainContainer').load("/Usuario/Index")
@@ -134,6 +129,27 @@ function loadUsuario() {
     });
     return true;
 
+}
+
+function loadProgramacion() {
+
+    var txtProgNombre = ($("#txtProgNombre").val() == null || $("#txtProgNombre").val() == "")
+                        ? "" : $("#txtProgNombre").val();
+
+    var txtModuloNombre = ($("#txtModuloNombre").val() == null || $("#txtModuloNombre").val() == "")
+                        ? "" : $("#txtModuloNombre").val();
+
+    var params = new Array();
+    params.push("?progNombre=" + encodeURI(txtProgNombre));
+    params.push("moduloNombre=" + encodeURI(txtModuloNombre));
+
+    $("#mainContainer").load('/Programacion/Programacion' + params.join('&'), function (response, status, xhr) {
+        if (status == "error") {
+            var msg = "Sorry but there was an error: ";
+            $("#error").html(msg + xhr.status + " " + xhr.statusText);
+        }
+    });
+    return true;
 }
 
 function confirmDialogCallBack() {

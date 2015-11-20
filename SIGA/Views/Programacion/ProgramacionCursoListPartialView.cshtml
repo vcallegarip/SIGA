@@ -1,0 +1,56 @@
+﻿@*@model IEnumerable<SIGA.Models.ViewModels.ModuloCursoItem>*@
+
+@model SIGA.Models.ViewModels.ProgramacionViewModel
+
+<div id="ModuloCursoList" class="row noSideMarginInRow">
+
+    <div class="col-lg-12">
+        @if (Model.ProgramacionItem.ModuloCursoList.Count == 0)
+        {
+            <div class="row">
+                <div class="col-xs-12 text-center">No Existen cursos registrados para este modulo!</div>
+            </div>
+        }
+        else if (Model.ProgramacionItem.ModuloCursoList.Count > 0)
+        {
+            <div id="bootstrapDataGrid">
+                <div class="row bootstrapDataGrid-Header marginBottomp5px">
+                    <div class="col-lg-1 col-md-1 noPaddingInColumn"><span>Codigo</span></div>
+                    <div class="col-lg-1 col-md-1"><span>Nombre Curso</span></div>
+                    <div class="col-lg-1 col-md-1"><span>Numero de Horas</span></div>
+                    <div class="col-lg-1 col-md-1"><span>Precio</span></div>
+                    <div class="col-lg-2 col-md-2"><span></span></div>
+                </div>
+                @foreach (var item in Model.ProgramacionItem.ModuloCursoList)
+                {
+                    <div class="bootstrapDataGridData">
+
+                        <div class="row paddingBottom5px">
+                            <div class="col-lg-1 col-md-1 alignDataWithButton noPaddingInColumn"><span>@item.CudID</span></div>
+                            <div class="col-lg-1 col-md-1 alignDataWithButton"><span>@item.CurNombre</span></div>
+                            <div class="col-lg-1 col-md-1 alignDataWithButton"><span>@item.CurNumHoras</span></div>
+                            <div class="col-lg-1 col-md-1 alignDataWithButton"><span>@item.CurPrecio</span></div>
+                            <div class="col-lg-1 col-md-1 alignDataWithButton"><span></span></div>
+                            
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+        }
+
+    </div>
+</div>
+
+@*<script src="~/Scripts/Siga/Usuario/usuario.js"></script>*@
+
+@*<script>
+
+    $(document).ready(function () {
+
+        var progVM = new programacionViewModel(@Html.HtmlConvertToJson(Model));
+        ko.applyBindings(progVM, $('#ModuloCursoList')[0]);
+    });
+
+</script>*@

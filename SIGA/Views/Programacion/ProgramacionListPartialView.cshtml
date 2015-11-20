@@ -1,0 +1,64 @@
+﻿@model SIGA.Models.ViewModels.ProgramacionViewModel
+
+<div id="ProgramacionList" class="row noSideMarginInRow">
+    <div class="col-lg-12">
+        @if (Model.ProgramacionItemList.Count == 0)
+        {
+            <div class="row">
+                <div class="col-xs-12 text-center">No Existe programaciones registradas en el sistema!</div>
+            </div>
+        }
+        else if (Model.ProgramacionItemList.Count > 0)
+        {
+            <div id="bootstrapDataGrid">
+                <div class="row bootstrapDataGrid-Header marginBottomp5px">
+                    <div class="col-lg-1 col-md-1 noPaddingInColumn"><span>Codigo</span></div>
+                    <div class="col-lg-3 col-md-3"><span>Nombre</span></div>
+                    <div class="col-lg-1 col-md-1"><span>Inicio</span></div>
+                    <div class="col-lg-1 col-md-1"><span>Aforo</span></div>
+                    <div class="col-lg-1 col-md-1"><span>Dia</span></div>
+                    <div class="col-lg-3 col-md-3"><span>Modulo</span></div>
+                    <div class="col-lg-2 col-md-2"><span></span></div>
+                </div>
+                @foreach (var item in Model.ProgramacionItemList)
+                {
+                <div class="bootstrapDataGridData">
+
+                    <div class="row paddingBottom5px">
+                        <div class="col-lg-1 col-md-1 alignDataWithButton noPaddingInColumn"><span>@item.Prog_Id</span></div>
+                        <div class="col-lg-3 col-md-3 alignDataWithButton"><span>@item.ProgNombre</span></div>
+                        <div class="col-lg-1 col-md-1 alignDataWithButton"><span>@item.ProgFechaInicio.Value.Date.ToShortDateString()</span></div>
+                        <div class="col-lg-1 col-md-1 alignDataWithButton"><span>@item.AulaItem.AulCapacidad</span></div>
+                        <div class="col-lg-1 col-md-1 alignDataWithButton"><span>@item.HorarioItem.HorDia</span></div>
+                        <div class="col-lg-3 col-md-3 alignDataWithButton"><span>@item.ModuloItem.ModNombre</span></div>
+                        <div class="col-lg-2 col-md-2 noPaddingInColumn">
+                            <div class="opcionesButtomGroup">
+                                @*<a class="btn btn-md btn-default fa fa-trash-o dangerColor pull-right" data-bind="click: function() {  showUsuarioDeleteModal(@item.User_Id); }"></a>
+                                <a class="btn btn-md btn-default fa fa-pencil-square-o warningColor pull-right" data-bind="click: function() {  editUsuario(@item.User_Id); }"></a>
+                                <a class="btn btn-md btn-default fa fa-info-circle infoColor pull-right" data-bind="click: function() {  getDetailsUsuario(@item.User_Id); }"></a>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                }
+
+            </div>
+        }
+
+    </div>
+</div>
+
+
+
+<script src="~/Scripts/Siga/Programacion/programacion.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        var progVM = new programacionViewModel(@Html.HtmlConvertToJson(Model));
+        ko.applyBindings(progVM, $('#ProgramacionList')[0]);
+    });
+
+</script>
