@@ -196,7 +196,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Api\ModuloCursoController.cs" />
     <Compile Include="Controllers\Api\ProgramacionController.cs" />
+    <Compile Include="Controllers\ModuloCursoController.cs" />
     <Compile Include="Controllers\ProgramacionController.cs" />
     <Compile Include="Controllers_Api\UsuariodfController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -219,6 +221,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Helpers\SqlHelper.cs" />
+    <Compile Include="Models\ViewModels\ModuloCurso.cs" />
     <Compile Include="Models\ViewModels\ProgramacionViewModel.cs" />
     <Compile Include="Models\ViewModels\UsuarioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -271,6 +274,8 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Siga\menu.js" />
     <Content Include="Scripts\Siga\Programacion\programacion.js" />
+    <Content Include="Scripts\Siga\ModuloCurso\modulocurso.js" />
+    <Content Include="Scripts\Siga\ModuloCurso\modulocursoDTO.js" />
     <Content Include="Scripts\Siga\Usuario\usuario.js" />
     <Content Include="Scripts\Siga\Shared\layout.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
@@ -324,6 +329,7 @@
     <Content Include="Views\Programacion\ProgramacionPartialView.cshtml" />
     <Content Include="Views\Programacion\ProgramacionListPartialView.cshtml" />
     <Content Include="Views\Programacion\ProgramacionCursoListPartialView.cshtml" />
+    <Content Include="Views\ModuloCurso\ModuloCursoPartialView.cshtml" />
     <None Include="Views\Shared\_UsuarioPartial.cshtmltxt" />
     <Content Include="Web-Dev.config">
       <SubType>Designer</SubType>

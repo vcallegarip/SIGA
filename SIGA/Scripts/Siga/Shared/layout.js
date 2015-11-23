@@ -42,6 +42,7 @@ var layoutViewModel = function () {
 
     layoutVM.soporteMenuitems = ko.observableArray([
         { name: 'Usuario' },
+        { name: 'Modulo Curso' },
         { name: 'Programacion' }
     ]);
 
@@ -63,6 +64,9 @@ var layoutViewModel = function () {
     layoutVM.menuClick = function (data, event) {
         if (data.name == "Usuario") {
             loadUsuario();
+        }
+        else if (data.name == "Modulo Curso") {
+            loadModuloCurso();
         }
         else if (data.name == "Programacion") {
             loadProgramacion();
@@ -129,6 +133,13 @@ function loadUsuario() {
     });
     return true;
 
+}
+
+function loadModuloCurso() {
+    $("#mainContainer").load('/ModuloCurso');
+    //var mcVM = new modulocursoViewModel();
+    //ko.applyBindings(mcVM, $('#ModuloCurso')[0]);
+    //mcVM.getModulos();
 }
 
 function loadProgramacion() {

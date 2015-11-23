@@ -56,7 +56,7 @@
           <Property Name="CurId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CurName" Type="varchar" MaxLength="50" />
           <Property Name="CurNumHoras" Type="int" />
-          <Property Name="CurPrecio" Type="nchar" MaxLength="10" />
+          <Property Name="CurPrecio" Type="money" />
         </EntityType>
         <EntityType Name="Horario">
           <Key>
@@ -596,7 +596,7 @@
           <Property Name="CurId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CurName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CurNumHoras" Type="Int32" />
-          <Property Name="CurPrecio" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CurPrecio" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="Calificacion" Relationship="Self.FK_Calificacion_Curso" FromRole="Curso" ToRole="Calificacion" />
           <NavigationProperty Name="Matricula" Relationship="Self.FK_Matricula_Curso" FromRole="Curso" ToRole="Matricula" />
           <NavigationProperty Name="ModuloCurso" Relationship="Self.FK_ModuloCurso_Curso" FromRole="Curso" ToRole="ModuloCurso" />

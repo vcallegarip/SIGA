@@ -1,0 +1,50 @@
+﻿
+<div id="ModuloCurso">
+
+    <h1 data-bind="text: nombre"></h1>
+
+    <button onclick="getModulos()">Pull modules</button>
+
+    <div id="bootstrapDataGrid">
+        <div class="row bootstrapDataGrid-Header marginBottomp5px">
+            <div class="col-lg-1 col-md-1 noPaddingInColumn"><span>Codigo</span></div>
+            <div class="col-lg-1 col-md-1"><span>Nivel</span></div>
+            <div class="col-lg-1 col-md-1"><span>Categoria</span></div>
+            <div class="col-lg-1 col-md-1"><span>Nombre</span></div>
+            <div class="col-lg-1 col-md-1"><span># Horas</span></div>
+            <div class="col-lg-3 col-md-3"><span># Meses</span></div>
+            <div class="col-lg-1 col-md-1"><span># Cursos</span></div>
+            <div class="col-lg-2 col-md-2"><span></span></div>
+        </div>
+
+        <div class="bootstrapDataGridData" data-bind="foreach: modulos">
+            <div class="row paddingBottom5px">
+                <div class="col-lg-1 col-md-1 alignDataWithButton noPaddingInColumn"><span data-bind="text: ModId"></span></div>
+                <div class="col-lg-1 col-md-1 alignDataWithButton"><span data-bind="text: ModCategroria"></span></div>
+                <div class="col-lg-1 col-md-1 alignDataWithButton"><span data-bind="text: ModNivel"></span></div>
+                <div class="col-lg-1 col-md-1 alignDataWithButton"><span data-bind="text: ModNombre"></span></div>
+                <div class="col-lg-1 col-md-1 alignDataWithButton"><span data-bind="text: ModNumHoras"></span></div>
+                <div class="col-lg-3 col-md-3 alignDataWithButton wrapColumnData"><span data-bind="text: ModNumMes"></span></div>
+                <div class="col-lg-1 col-md-1 alignDataWithButton"><span data-bind="text: ModNumCursos"></span></div>
+                <div class="col-lg-1 col-md-1 alignDataWithButton"><span></span></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="@Url.Content("/Scripts/Siga/ModuloCurso/modulocurso.js")" type="text/javascript"></script>
+<script src="@Url.Content("/Scripts/Siga/ModuloCurso/modulocursoDTO.js")" type="text/javascript"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        ko.applyBindings(modulocursoViewModel, $('#ModuloCurso')[0]);
+        //mcVM.getModulos();
+
+    });
+
+</script>
+

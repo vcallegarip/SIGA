@@ -25,7 +25,7 @@ namespace SIGA_Model
         public int CurId { get; set; }
         public string CurName { get; set; }
         public Nullable<int> CurNumHoras { get; set; }
-        public string CurPrecio { get; set; }
+        public Nullable<decimal> CurPrecio { get; set; }
     
         public virtual ICollection<Calificacion> Calificacion { get; set; }
         public virtual ICollection<Matricula> Matricula { get; set; }
