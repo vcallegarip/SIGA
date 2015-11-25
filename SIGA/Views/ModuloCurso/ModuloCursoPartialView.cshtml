@@ -1,50 +1,148 @@
 ﻿
-<div id="ModuloCurso">
 
-    <h1 data-bind="text: nombre"></h1>
+<div id="UsuarioContainer">
 
-    <button onclick="getModulos()">Pull modules</button>
-
-    <div id="bootstrapDataGrid">
-        <div class="row bootstrapDataGrid-Header marginBottomp5px">
-            <div class="col-lg-1 col-md-1 noPaddingInColumn"><span>Codigo</span></div>
-            <div class="col-lg-1 col-md-1"><span>Nivel</span></div>
-            <div class="col-lg-1 col-md-1"><span>Categoria</span></div>
-            <div class="col-lg-1 col-md-1"><span>Nombre</span></div>
-            <div class="col-lg-1 col-md-1"><span># Horas</span></div>
-            <div class="col-lg-3 col-md-3"><span># Meses</span></div>
-            <div class="col-lg-1 col-md-1"><span># Cursos</span></div>
-            <div class="col-lg-2 col-md-2"><span></span></div>
+    <div class="row viewTitle marginBottomp10px">
+        <div class="col-lg-12 pull-left">
+            <button id="btnNewUsuario" type="button" class="btn btn-success" data-bind="click: LoadCreateViewForModuloUsuario"><i class="fa fa-plus"></i> Nuevo Modulo</button>
         </div>
+    </div>
 
-        <div class="bootstrapDataGridData" data-bind="foreach: modulos">
-            <div class="row paddingBottom5px">
-                <div class="col-lg-1 col-md-1 alignDataWithButton noPaddingInColumn"><span data-bind="text: ModId"></span></div>
-                <div class="col-lg-1 col-md-1 alignDataWithButton"><span data-bind="text: ModCategroria"></span></div>
-                <div class="col-lg-1 col-md-1 alignDataWithButton"><span data-bind="text: ModNivel"></span></div>
-                <div class="col-lg-1 col-md-1 alignDataWithButton"><span data-bind="text: ModNombre"></span></div>
-                <div class="col-lg-1 col-md-1 alignDataWithButton"><span data-bind="text: ModNumHoras"></span></div>
-                <div class="col-lg-3 col-md-3 alignDataWithButton wrapColumnData"><span data-bind="text: ModNumMes"></span></div>
-                <div class="col-lg-1 col-md-1 alignDataWithButton"><span data-bind="text: ModNumCursos"></span></div>
-                <div class="col-lg-1 col-md-1 alignDataWithButton"><span></span></div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Filtros</div>
+        <div class="panel-body filtrosContainer">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-lg-3  col-md-3">
+                            <div class="form-group">
+                                <label for="txtModuloNombre">Modulo</label>
+                                <input type="text" class="form-control" id="txtModuloNombre" name="txtModuloNombre" placeholder="Nombre del Modulo">
+                                @*<input type="text" class="form-control" id="txtPrimerNombre" name="txtPrimerNombre" placeholder="Nombre" data-bind="textInput: usuarioVM.txtPrimerNombre">*@
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <div class="form-group">
+                                <label for="txtModuloCurso">Curso</label>
+                                <input type="text" class="form-control" id="txtModuloCurso" name="txtModuloCurso" placeholder="Curso del Modulo">
+                                @*<input type="text" class="form-control" id="txtApellidoPaterno" name="txtApellidoPaterno" placeholder="Apellido Paterno" data-bind="textInput: usuarioVM.txtApellidoPaterno">*@
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <div class="form-group">
+                                <label for="cboModuloNivel">Nivel</label>
+                                <select class="form-control" id="cboModuloNivel" name="cboModuloNivel">
+                                    <option>Todos</option>
+                                    <option>Basico</option>
+                                    <option>Intermedio</option>
+                                    <option>Avanzado</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <div class="form-group">
+                                <label for="cboModuloCategoria">Categoria</label>
+                                <select class="form-control" id="cboModuloCategoria" name="cboModuloCategoria">
+                                    <option>Todos</option>
+                                    <option>Categoria a</option>
+                                    <option>Categoria b</option>
+                                    <option>Categoria c</option>
+                                    <option>Categoria d</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 hidden-md text-right">
+                    <div class="form-group">
+                        <label for="btnAction">&nbsp;</label>
+                        <div id="btnAction">
+                            <button id="btnSearch" type="button" data-bind="click: searchUsuario" class="btn btn-primary"><i class="fa fa-search "></i> Buscar</button>
+                            <button id="btnReset" type="button" data-bind="click: resetFilters" class="btn btn-primary">Limpiar Filtros</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 visible-md  text-left">
+                    <div class="form-group">
+                        <label for="btnAction">&nbsp;</label>
+                        <div id="btnAction">
+                            <button id="btnSearch" type="button" data-bind="click: searchUsuario" class="btn btn-primary"><i class="fa fa-search "></i> Buscar</button>
+                            <button id="btnReset" type="button" data-bind="click: resetFilters" class="btn btn-primary">Limpiar Filtros</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
 
 </div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Datos del Modulo</div>
+    <div class="panel-body dataContainer">
+        <div class="moduloCursoSubContainer" id="moduloCursoSubContainer">
+
+            <div id="ModuloList" class="row noSideMarginInRow">
+                <div class="col-lg-12">
+                    <div id="bootstrapDataGrid">
+                        <div class="row bootstrapDataGrid-Header marginBottomp5px">
+                            <div class="col-lg-1 col-md-1 noPaddingInColumn"><span>Codigo</span></div>
+                            <div class="col-lg-1 col-md-1"><span>Nivel</span></div>
+                            <div class="col-lg-2 col-md-2"><span>Categoria</span></div>
+                            <div class="col-lg-3 col-md-3"><span>Nombre</span></div>
+                            <div class="col-lg-1 col-md-1"><span># Horas</span></div>
+                            <div class="col-lg-1 col-md-1"><span># Meses</span></div>
+                            <div class="col-lg-1 col-md-1"><span># Cursos</span></div>
+                            <div class="col-lg-2 col-md-2"><span></span></div>
+                        </div>
+
+                        <div class="bootstrapDataGridData" data-bind="foreach: modulos">
+                            <div class="row paddingBottom5px">
+                                <div class="col-lg-1 col-md-1 noPaddingInColumn"><span data-bind="text: ModId"></span></div>
+                                <div class="col-lg-1 col-md-1"><span data-bind="text: ModNivel"></span></div>
+                                <div class="col-lg-2 col-md-2"><span data-bind="text: ModCategroria"></span></div>
+                                <div class="col-lg-3 col-md-3"><span data-bind="text: ModNombre"></span></div>
+                                <div class="col-lg-1 col-md-1"><span data-bind="text: ModNumHoras"></span></div>
+                                <div class="col-lg-1 col-md-1"><span data-bind="text: ModNumMes"></span></div>
+                                <div class="col-lg-1 col-md-1"><span data-bind="text: ModNumCursos"></span></div>
+                                <div class="clearfix"><span></span></div>
+
+                                <div class="bootstrapSubDataGridData">
+                                    <div class="row marginBottomp5px">
+                                        <div class="col-lg-1 col-md-1 noPaddingInColumn"><span></span></div>
+                                        <div style="padding:3px; background-color:#dbc8c8; color:rgba(118, 28, 25, 1); font-weight:bold; margin-left:13px;" class="col-lg-2 col-md-2"><span>Codigo</span></div>
+                                        <div style="padding:3px; background-color:#dbc8c8; color:rgba(118, 28, 25, 1); font-weight:bold;" class="col-lg-5 col-md-5"><span>Nombre del Curso</span></div>
+                                        <div style="padding:3px; background-color:#dbc8c8; color:rgba(118, 28, 25, 1); font-weight:bold;" class="col-lg-2 col-md-2"><span># Horas</span></div>
+                                        <div style="padding:3px; background-color:#dbc8c8; color:rgba(118, 28, 25, 1); font-weight:bold; margin-left:-25px !important;" class="col-lg-1 col-md-1"><span>Precio</span></div>
+                                        <div class="clearfix"><span></span></div>
+                                    </div>
+                                    <div id="CursoList" data-bind="foreach: Cursos">
+                                        <div class="col-lg-1 col-md-1 noPaddingInColumn"><span></span></div>
+                                        <div style="padding:1px; background-color:rgba(242, 222, 222, 1);" class="col-lg-2 col-md-2"><span data-bind="text: CurId"></span></div>
+                                        <div style="padding:1px; background-color:rgba(242, 222, 222, 1);" class="col-lg-5 col-md-5"><span data-bind="text: CurName"></span></div>
+                                        <div style="padding:1px; background-color:rgba(242, 222, 222, 1);" class="col-lg-2 col-md-2"><span data-bind="text: CurNumHoras"></span></div>
+                                        <div style="padding:1px; background-color:rgba(242, 222, 222, 1);" class="col-lg-1 col-md-1"><span data-bind="text: CurPrecio"></span></div>
+                                        <div class="clearfix"><span></span></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">Agregar paginacion</div>
+</div>
+
 
 <script src="@Url.Content("/Scripts/Siga/ModuloCurso/modulocurso.js")" type="text/javascript"></script>
 <script src="@Url.Content("/Scripts/Siga/ModuloCurso/modulocursoDTO.js")" type="text/javascript"></script>
 
 <script>
-
     $(document).ready(function () {
-
-        ko.applyBindings(modulocursoViewModel, $('#ModuloCurso')[0]);
-        //mcVM.getModulos();
-
+        getModulos();
     });
 
 </script>
-

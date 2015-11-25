@@ -32,13 +32,13 @@ namespace SIGA.Controllers.Api
                                               join mc in db.ModuloCategoria
                                               on m.ModCatId equals mc.ModCatId
                                               where m.ModId == modulocurso.Key
-                                              select new { mc.ModCatNombre }).FirstOrDefault().ToString();
+                                              select mc.ModCatNombre).FirstOrDefault().ToString();
 
                     moduloDTO.ModNivel = (from m in db.Modulo
                                           join mn in db.ModuloNivel
                                           on m.ModNivelId equals mn.ModNivelId
                                           where m.ModId == modulocurso.Key
-                                          select new { mn.ModNivelNombre }).FirstOrDefault().ToString();
+                                          select mn.ModNivelNombre).FirstOrDefault().ToString();
 
                     moduloDTO.ModNombre = db.Modulo.Where(m => m.ModId == modulocurso.Key).Select(m => m.ModNombre).FirstOrDefault().ToString();
                     moduloDTO.ModNumHoras = Convert.ToInt32(db.Modulo.Where(m => m.ModId == modulocurso.Key).Select(m => m.ModNumHoras).FirstOrDefault());
@@ -56,42 +56,6 @@ namespace SIGA.Controllers.Api
                                             CurNumHoras = c.CurNumHoras,
                                             CurPrecio = c.CurPrecio,
                                         }).ToList();
-
-                    //db.Modulo.Join(db.ModuloCategoria,
-                    //                                m => m.ModId,
-                    //                                mc => mc.ModCatId,
-                    //                                (m, mn) => new
-                    //                                {
-                    //                                    Modulo = m,
-                    //                                    ModuloCategoria = mn
-                    //                                })
-                    //                                .Where(w => w.Modulo.ModId == modulocurso.Key)
-                    //                                .Select(categoria => categoria.ModuloCategoria.ModCatNombre).FirstOrDefault().ToString();
-
-                    //db.Modulo.Join(db.ModuloNivel, 
-                    //                                m => m.ModId, 
-                    //                                mn => mn.ModNivelId,
-                    //                                (m, mn) => new 
-                    //                                { 
-                    //                                    Modulo = m, 
-                    //                                    ModuloNivel = mn 
-                    //                                })
-                    //                                .Where(w => w.Modulo.ModId == modulocurso.Key)
-                    //                                .Select(nivel => nivel.ModuloNivel.ModNivelNombre).FirstOrDefault().ToString();
-                        
-                    //db.ModuloCurso.Join(db.Curso,
-                    //                                mc => mc.ModId,
-                    //                                c => c.CurId,
-                    //                                (mc, c) => new
-                    //                                {
-                    //                                    ModuloCurso = mc,
-                    //                                    Curso = c
-                    //                                })
-                    //                                .Where(w => w.ModuloCurso.ModId == modulocurso.Key)
-                    //                                .Select(cursos => new 
-                    //                                {
-                                                            
-                    //                                });
 
                     ModulosNestedList.Add(moduloDTO);
                 }

@@ -224,6 +224,41 @@ textarea {
 
 
 /**************************************************************************/
+/****************************   Common Use   ******************************/
+/**************************************************************************/
+
+
+.bootstrapDataGrid-Header{
+    background-color:#7c7a7a;
+    color:white;
+    padding:5px;
+}
+
+.wrapColumnData{
+    text-wrap:normal;
+    word-wrap: break-word;
+}
+
+.bootstrapDataGridData > .row:nth-child(even){
+    background-color: #f3f4f7;
+}
+
+.bootstrapDataGridData > .row:nth-child(odd){
+     background-color: #EFF0F0;
+}
+
+.bootstrapDataGridData > .row:hover {
+   background-color: #E3E8EA;
+}
+
+/*.bootstrapSubDataGridData{
+    background-color: #bd9191 !important;
+}*/
+
+
+
+
+/**************************************************************************/
 /****************************   Usuario Page ******************************/
 /**************************************************************************/
 
@@ -250,30 +285,6 @@ textarea {
 }
 
 
-/* bootstrapDataGrid */
-
-.bootstrapDataGrid-Header{
-    background-color:#7c7a7a;
-    color:white;
-    padding:5px;
-}
-
-.wrapColumnData{
-    text-wrap:normal;
-    word-wrap: break-word;
-}
-
-.bootstrapDataGridData > .row:nth-child(even){
-    background-color: #f3f4f7;
-}
-
-.bootstrapDataGridData > .row:nth-child(odd){
-     background-color: #EFF0F0;
-}
-
-.bootstrapDataGridData > .row:hover {
-   background-color: #E3E8EA;
-}
 
 .opcionesButtomGroup{
     position:relative;
@@ -345,4 +356,23 @@ textarea {
     height: 95%;
     width: 100%;
     overflow-y: scroll;
+}
+
+
+
+/**************************************************************************/
+/****************************   Modulo Curso  *****************************/
+/**************************************************************************/
+
+.cursoGridHeader{
+    background-color:#c0cacc !important;
+}
+
+#ModuloList{
+    line-height:15px;
+}
+
+#CursoList{
+    position:relative;
+    top:-5px;
 }

@@ -8,6 +8,8 @@ function modulocursoViewModel() {
 
     mcVM.modulos = ko.observableArray([]);
    
+    
+
     mcVM.getModulos = function () {
         
         $.ajax({
@@ -15,7 +17,6 @@ function modulocursoViewModel() {
             dataType: "Json",
             data: '',
             success: function (data) {
-                
                 var modulos = $.map(data, function (item) { return new Modulo(item) });
                 mcVM.modulos(modulos);
             },
@@ -24,14 +25,11 @@ function modulocursoViewModel() {
             }
         });
     }
-
 }
 
 
 $(document).ready(function () {
-
-    ko.applyBindings(modulocursoViewModel, $('#ModuloCurso')[0]);
-
+    ko.applyBindings(modulocursoViewModel, $('#moduloCursoSubContainer')[0]);
 });
 
 function getModulos() {
