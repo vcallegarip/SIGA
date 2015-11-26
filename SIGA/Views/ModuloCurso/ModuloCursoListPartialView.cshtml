@@ -1,0 +1,61 @@
+﻿<div id="ModuloList" class="row noSideMarginInRow">
+    <div class="col-lg-12">
+        <div id="bootstrapDataGrid">
+
+            <div class="row bootstrapDataGridHeader marginBottomp5px">
+                <div class="col-lg-1 col-md-1 noPaddingInColumn"><span>Codigo</span></div>
+                <div class="col-lg-1 col-md-1"><span>Nivel</span></div>
+                <div class="col-lg-2 col-md-2"><span>Categoria</span></div>
+                <div class="col-lg-3 col-md-3"><span>Nombre</span></div>
+                <div class="col-lg-1 col-md-1"><span># Horas</span></div>
+                <div class="col-lg-1 col-md-1"><span># Meses</span></div>
+                <div class="col-lg-1 col-md-1"><span># Cursos</span></div>
+                <div class="col-lg-2 col-md-2"><span></span></div>
+            </div>
+
+            <div class="bootstrapDataGridData" data-bind="foreach: modulos">
+                <div class="row paddingBottom5px">
+                    <div class="col-lg-1 col-md-1 alignDataWithButton noPaddingInColumn"><span data-bind="text: ModId"></span></div>
+                    <div class="col-lg-1 col-md-1 alignDataWithButton"><span data-bind="text: ModNivel"></span></div>
+                    <div class="col-lg-2 col-md-2 alignDataWithButton"><span data-bind="text: ModCategroria"></span></div>
+                    <div class="col-lg-3 col-md-3 alignDataWithButton"><span data-bind="text: ModNombre"></span></div>
+                    <div class="col-lg-1 col-md-1 alignDataWithButton"><span data-bind="text: ModNumHoras"></span></div>
+                    <div class="col-lg-1 col-md-1 alignDataWithButton"><span data-bind="text: ModNumMes"></span></div>
+                    <div class="col-lg-1 col-md-1 alignDataWithButton"><span data-bind='html: linkLabelCount'></span><span>&nbsp;</span><a href="#" data-bind='click: toggle, html: linkLabelIcon'></a></div>
+                    <div class="col-lg-2 col-md-2 noPaddingInColumn">
+                        <div class="opcionesButtomGroup">
+                            <a class="btn btn-md btn-default fa fa-trash-o dangerColor pull-right" data-bind='click: $root.removeCurso'></a>
+                            <a class="btn btn-md btn-default fa fa-floppy-o infoColor pull-right"></a>
+                            <a class="btn btn-md btn-default fa fa-pencil-square-o warningColor pull-right"></a>
+                        </div>
+                    </div>
+                    
+                    <div id="CursoListPerModulo" data-bind="visible: expanded">
+                        <br /><br /><br />
+                        <div class="row marginBottomp5px">
+                            <div class="col-lg-1 col-md-1 noPaddingInColumn"><span></span></div>
+                            <div class="col-lg-2 col-md-2 cursoSubGridDataColumn"><span>Codigo</span></div>
+                            <div class="col-lg-5 col-md-5 cursoSubGridDataColumn"><span>Nombre del Curso</span></div>
+                            <div class="col-lg-2 col-md-2 cursoSubGridDataColumn"><span># Horas</span></div>
+                            <div class="col-lg-1 col-md-1 cursoSubGridDataColumn"><span>Precio</span></div>
+                            <div class="clearfix"><span></span></div>
+                        </div>
+                        <div id="CursoList" data-bind="foreach: Cursos">
+                            <div class="row">
+                                <div class="col-lg-1 col-md-1 noPaddingInColumn"><span></span></div>
+                                <div style="padding:1px; background-color:rgba(242, 222, 222, 1);" class="col-lg-2 col-md-2"><span data-bind="text: CurId"></span></div>
+                                <div style="padding:1px; background-color:rgba(242, 222, 222, 1);" class="col-lg-5 col-md-5"><span data-bind="text: CurName"></span></div>
+                                <div style="padding:1px; background-color:rgba(242, 222, 222, 1);" class="col-lg-2 col-md-2"><span data-bind="text: CurNumHoras"></span></div>
+                                <div style="padding:1px; background-color:rgba(242, 222, 222, 1);" class="col-lg-1 col-md-1"><span data-bind="text: CurPrecio"></span></div>
+                                <div class="clearfix"><span></span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

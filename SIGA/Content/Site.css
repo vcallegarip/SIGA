@@ -228,7 +228,7 @@ textarea {
 /**************************************************************************/
 
 
-.bootstrapDataGrid-Header{
+.bootstrapDataGridHeader{
     background-color:#7c7a7a;
     color:white;
     padding:5px;
@@ -365,7 +365,7 @@ textarea {
 /**************************************************************************/
 
 .cursoGridHeader{
-    background-color:#c0cacc !important;
+    background-color:rgba(224, 26, 76, 0.69) !important;
 }
 
 #ModuloList{
@@ -375,4 +375,10 @@ textarea {
 #CursoList{
     position:relative;
     top:-5px;
+}
+
+.cursoSubGridDataColumn{
+    padding:3px; 
+    background-color:rgba(224, 26, 76, 0.69) !important;
+    color:white;
 }

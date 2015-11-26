@@ -36,6 +36,11 @@ namespace SIGA.Controllers
         }
 
 
+        public ActionResult Create()
+        {
+            return PartialView("ModuloCursoCreateEditPartialView");
+        }
+
         //public ActionResult Index()
         //{
         //    ViewBag.Title = "New PAF";

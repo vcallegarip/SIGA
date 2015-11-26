@@ -1,0 +1,158 @@
+﻿
+<div id="ModuloCursoCreateEditContainer">
+
+    <div class="row">
+
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">Datos del Modulo</div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="txtCodigo">Codigo</label>
+                                <input type="text" class="form-control" id="txtCodigo" name="txtCodigo" placeholder="Codigo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="txtModuloNivel">Nivel del Modulo</label>
+                                <input type="text" class="form-control" id="txtModuloNivel" name="txtModuloNivel" placeholder="Nivel del Modulo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="txtModuloCategoria">Categoria del Modulo</label>
+                                <input type="text" class="form-control" id="txtModuloCategoria" name="txtModuloCategoria" placeholder="Categoria del Modulo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="txtModuloNombre">Nombre del Modulo</label>
+                                <input type="text" class="form-control" id="txtModuloNombre" name="txtModuloNombre" placeholder="Nombre del Modulo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="txtModuloNumHoras"># Horas</label>
+                                <input type="text" class="form-control" id="txtModuloNumHoras" name="txtModuloNumHoras" placeholder="Horas">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="txtModuloNumMeses"># Meses</label>
+                                <input type="text" class="form-control" id="txtModuloNumMeses" name="txtModuloNumMeses" placeholder="Meses">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="txtModuloNumCursos"># Cursos</label>
+                                <input type="text" class="form-control" id="txtModuloNumCursos" name="txtModuloNumCursos" placeholder="Cursos">
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <button class="btn btn-success pull-right" data-bind='enable: cursos().length > 0' type='submit'>Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">Cursos del Modulo</div>
+                <div class="panel-body">
+
+                    <div id="CursoList" class="row noSideMarginInRow">
+                        <div class="col-lg-12">
+                            <div class="bootstrapDataGrid">
+                                <div class="row bootstrapDataGridHeader cursoGridHeader marginBottomp5px">
+                                    @*<div class="col-lg-2 col-md-2"><span>Codigo</span></div>*@
+                                    <div class="col-lg-6 col-md-6"><span>Nombre del Curso</span></div>
+                                    <div class="col-lg-2 col-md-2"><span># Horas</span></div>
+                                    <div class="col-lg-2 col-md-2"><span>Precio</span></div>
+                                    <div class="col-lg-2 col-md-2"><span></span></div>
+                                </div>
+                                <div data-bind="foreach: cursos">
+                                    <div class="bootstrapDataGridData">
+                                        <div class="row paddingBottom5px paddingTop5px">
+                                            @*<div class="col-lg-2 col-md-2 noPaddingInColumn"><input class='form-control required' data-bind='value: CurId, uniqueName: true' /></div>*@
+                                            
+                                            <div class="col-lg-6 col-md-6 noPaddingInColumn">
+                                                <div class="input-group">
+                                                    <input type="text" class='form-control required' data-bind='value: CurName, uniqueName: true' aria-label="...">
+                                                    <div class="input-group-btn">
+                                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Buscar <span class="caret"></span></button>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            <li><a href="#">Action</a></li>
+                                                            <li><a href="#">Another action</a></li>
+                                                            <li><a href="#">Something else here</a></li>
+                                                            <li role="separator" class="divider"></li>
+                                                            <li><a href="#">Separated link</a></li>
+                                                        </ul>
+                                                    </div><!-- /btn-group -->
+                                                </div><!-- /input-group -->
+                                            </div><!-- /.col-lg-6 -->
+
+
+
+
+                                            @*<div class="col-lg-4 col-md-4"><input class='form-control required' data-bind='value: CurName, uniqueName: true' /></div>*@
+                                            <div class="col-lg-2 col-md-2"><input class='form-control required' data-bind='value: CurNumHoras, uniqueName: true' /></div>
+                                            <div class="col-lg-2 col-md-2"><input class='form-control required' data-bind='value: CurPrecio, uniqueName: true' /></div>
+                                            <div class="col-lg-2 col-md-2 noPaddingInColumn">
+                                                <div class="opcionesButtomGroup">
+                                                    <a class="btn btn-md btn-default fa fa-trash-o dangerColor pull-right" data-bind='click: $root.removeCurso'></a>
+                                                    <a class="btn btn-md btn-default fa fa-floppy-o infoColor pull-right"></a>
+                                                    <a class="btn btn-md btn-default fa fa-pencil-square-o warningColor pull-right"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <button class="btn btn-default pull-left" data-bind='click: mcVM.addCurso'>Agregar Curso</button>
+                            <button class="btn btn-success pull-right" data-bind='enable: cursos().length > 0' type='submit'>Guardar</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="@Url.Content("/Scripts/Siga/ModuloCurso/modulocurso.js")" type="text/javascript"></script>
+<script src="@Url.Content("/Scripts/Siga/ModuloCurso/modulocursoDTO.js")" type="text/javascript"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        var mcVM = new modulocursoViewModel();
+        ko.applyBindings(mcVM, $('#ModuloCursoCreateEditContainer')[0]);
+
+    });
+
+</script>

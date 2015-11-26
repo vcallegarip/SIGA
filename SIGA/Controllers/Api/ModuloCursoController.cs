@@ -126,39 +126,39 @@ namespace SIGA.Controllers.Api
         }
 
 
-        // POST: api/Events
-        [ResponseType(typeof(Modulo))]
-        public IHttpActionResult PostEvent(Modulo modulo)
-        {
-            string message = "Un error ocurrio cuando se estaba creando el modulo: ";
-            if (!ModelState.IsValid)
-            {
-                message += "Modulo ModelState es no valido.";
-                return BadRequest(ModelState);
-            }
+        //// POST: api/Modulo
+        //[ResponseType(typeof(ModuloDTO))]
+        //public IHttpActionResult PostEvent(ModuloDTO moduloDTO)
+        //{
+        //    string message = "Un error ocurrio cuando se estaba creando el modulo: ";
+        //    if (!ModelState.IsValid)
+        //    {
+        //        message += "Modulo ModelState es no valido.";
+        //        return BadRequest(ModelState);
+        //    }
 
-            db.Modulo.Add(modulo);
+        //    db.Modulo.Add(moduloDTO);
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException ex)
-            {
-                if (ModuloExists(modulo.ModId))
-                {
-                    message = "An error ocurred while creating event: Event with EventId = " + modulo.ModId.ToString() + " " + ex;
-                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Conflict, message));
-                }
-                else
-                {
-                    message = "An error ocurred while creating event: " + ex;
-                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, message));
-                }
-            }
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateException ex)
+        //    {
+        //        if (ModuloExists(moduloDTO.ModId))
+        //        {
+        //            message = "An error ocurred while creating event: Event with EventId = " + moduloDTO.ModId.ToString() + " " + ex;
+        //            throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Conflict, message));
+        //        }
+        //        else
+        //        {
+        //            message = "An error ocurred while creating event: " + ex;
+        //            throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, message));
+        //        }
+        //    }
 
-            return CreatedAtRoute("DefaultApi", new { id = modulo.ModId }, modulo);
-        }
+        //    return CreatedAtRoute("DefaultApi", new { id = moduloDTO.ModId }, moduloDTO);
+        //}
 
 
         // DELETE: api/Events/5
