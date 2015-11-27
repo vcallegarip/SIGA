@@ -32,7 +32,18 @@ function modulocursoViewModel() {
                 alert(getAjaxErrorText(xhr));
             }
         });
-    }
+    };
+
+    mcVM.showCursoInput = function () {
+        
+        $('#nameInput').focusout();
+        $('#nameCurso').val('').focus();
+        if (!$('#nameDefault').hasClass('person-detail')) $('#nameDefault').addClass('person-detail');
+
+        $(this).parent().parent().addClass("active");
+    };
+
+
 
     //mcVM.getNombresCursos = function () {
     //    $.ajax({
