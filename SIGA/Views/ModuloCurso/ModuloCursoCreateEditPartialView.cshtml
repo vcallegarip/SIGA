@@ -91,9 +91,9 @@
                                         <div class="row paddingBottom5px paddingTop5px">
                                             @*<div class="col-lg-2 col-md-2 noPaddingInColumn"><input class='form-control required' data-bind='value: CurId, uniqueName: true' /></div>*@
 
-                                            <div class="col-lg-6 col-md-6"><input id="nameCurso" name="nameCurso" class='form-control required'  /></div>
-                                            <div class="col-lg-2 col-md-2"><input class='form-control required' data-bind='value: CurNumHoras, uniqueName: true' /></div>
-                                            <div class="col-lg-2 col-md-2"><input class='form-control required' data-bind='value: CurPrecio, uniqueName: true' /></div>
+                                            <div class="col-lg-6 col-md-6"><input id="txtCurName" class='form-control txtCurName required' data-bind='value: CurName, uniqueName: true' /></div>
+                                            <div class="col-lg-2 col-md-2"><input id="txtCurNumHoras" class='form-control required' data-bind='value: CurNumHoras, uniqueName: true' /></div>
+                                            <div class="col-lg-2 col-md-2"><input id="txtnameCurso" class='form-control required' data-bind='value: CurPrecio, uniqueName: true' /></div>
                                             <div class="col-lg-2 col-md-2 noPaddingInColumn">
                                                 <div class="opcionesButtomGroup">
                                                     <a class="btn btn-md btn-default fa fa-trash-o dangerColor pull-right" data-bind='click: $root.removeCurso'></a>
@@ -113,7 +113,7 @@
                     <br />
                     <div class="row">
                         <div class="col-lg-12">
-                            <button class="btn btn-default pull-left" data-bind='click: mcVM.addCurso'>Agregar Curso</button>
+                            <button class="btn btn-default pull-left" onclick="addCurso()">Agregar Curso</button>
                             <button class="btn btn-success pull-right" data-bind='enable: cursos().length > 0' type='submit'>Guardar</button>
                         </div>
                     </div>
@@ -135,6 +135,27 @@
 
         var mcVM = new modulocursoViewModel();
         ko.applyBindings(mcVM, $('#ModuloCursoCreateEditContainer')[0]);
+
+        $(".txtCurName").autocomplete({
+            source: function (request, response) {
+                var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                $.ajax({
+                    url: "/api/CursoSearch?search=",
+                    dataType: "json",
+                    success: function (data) {
+                        response($.map(data, function (c, i) {
+                            var text = c.CurName;
+                            if (text && (!request.term || matcher.test(text))) {
+                                return {
+                                    label: c.CurName,
+                                    value: c.CurId
+                                };
+                            }
+                        }));
+                    }
+                });
+            }
+        });
 
     });
 

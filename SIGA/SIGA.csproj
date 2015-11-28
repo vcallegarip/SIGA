@@ -368,7 +368,6 @@
     <Content Include="Views\ModuloCurso\ModuloCursoPartialView.cshtml" />
     <Content Include="Views\ModuloCurso\ModuloCursoCreateEditPartialView.cshtml" />
     <Content Include="Views\ModuloCurso\ModuloCursoListPartialView.cshtml" />
-    <None Include="Views\Shared\_UsuarioPartial.cshtmltxt" />
     <Content Include="Web-Dev.config">
       <SubType>Designer</SubType>
     </Content>

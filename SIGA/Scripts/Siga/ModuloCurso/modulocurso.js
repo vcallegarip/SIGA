@@ -4,48 +4,12 @@ function modulocursoViewModel() {
 
     mcVM = this;
     mcVM.modulos = ko.observableArray([]);
-    mcVM.cursos = ko.observableArray([]);
-
+    mcVM.cursos = ko.observableArray([{ CurId:0, CurName:"", CurNumHoras:"", CurPrecio:"" }]);
     mcVM.nombreCursos = ko.observableArray([]);
 
     mcVM.addCurso = function () {
-        mcVM.cursos.push(new Curso(''));
-        
-        var data = [
-         {
-             value: 1,
-             personal: true,
-             label: 'Java'
-         },
-         {
-             value: 2,
-             personal: false,
-             label: 'C++'
-         },
-         {
-             value: 3,
-             personal: true,
-             label: 'JavaScript'
-         },
-         {
-             value: 4,
-             personal: true,
-             label: 'COBOL'
-         }];
-
-        $("#nameCurso").autocomplete({
-            source: data
-        }).data("autocomplete")._renderItem = function (ul, item) {
-            var listItem = $("<li></li>")
-                .data("item.autocomplete", item)
-                .append("<a>" + item.label + "</a>")
-                .appendTo(ul);
-
-            if (item.personal) {
-                listItem.addClass("personal");
-            };
-        };
-    };
+        addCurso();
+    }
 
     mcVM.removeCurso = function (curso) {
         mcVM.cursos.remove(curso);
@@ -69,16 +33,6 @@ function modulocursoViewModel() {
             }
         });
     };
-
-    mcVM.showCursoInput = function () {
-        
-        $('#nameInput').focusout();
-        $('#nameCurso').val('').focus();
-        if (!$('#nameDefault').hasClass('person-detail')) $('#nameDefault').addClass('person-detail');
-
-        $(this).parent().parent().addClass("active");
-    };
-
 
 
     //mcVM.getNombresCursos = function () {
@@ -140,8 +94,6 @@ function modulocursoViewModel() {
     //    });
     //}
 
-
-
 }
 
 function toggleCursoDiv(item) {
@@ -180,3 +132,35 @@ function loadCreateEditModuloCursoView() {
     $("#mainContainer").load('/ModuloCurso/create');
     return;
 }
+
+function addCurso() {
+
+    for (var i = 0; i < mcVM.cursos().length; i++) {
+        if (mcVM.cursos()[i].CurName == "") {
+            return false;
+        }
+    }
+
+    mcVM.cursos.push(new Curso(''));
+    $(".txtCurName").autocomplete({
+        source: function (request, response) {
+            var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+            $.ajax({
+                url: "/api/CursoSearch?search=",
+                dataType: "json",
+                success: function (data) {
+                    response($.map(data, function (c, i) {
+                        var text = c.CurName;
+                        if (text && (!request.term || matcher.test(text))) {
+                            return {
+                                label: c.CurName,
+                                value: c.CurId
+                            };
+                        }
+                    }));
+                }
+            });
+        }
+    });
+
+};

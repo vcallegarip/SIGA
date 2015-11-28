@@ -28,7 +28,21 @@ namespace SIGA.Models.ViewModels
         public int CurId { get; set; }
         public string CurName { get; set; }
         public int? CurNumHoras { get; set; }
-        public decimal? CurPrecio { get; set; }
+
+        private decimal? _curPrecio;
+        public decimal? CurPrecio
+        {
+            get
+            {
+                if (_curPrecio == (decimal)0.00) _curPrecio = (decimal)0.00;
+                return _curPrecio;
+            }
+            set
+            {
+                _curPrecio = value;
+            }
+
+        }
 
     }
 

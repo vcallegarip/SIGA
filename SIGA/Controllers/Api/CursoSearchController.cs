@@ -15,18 +15,20 @@ namespace SIGA.Controllers.Api
         // GET: api/CursoInfo
         public List<CursoDTO> Get(string search)
         {
-            List<CursoDTO> cursoList = null;
+            List<CursoDTO> cursoList = new List<CursoDTO>();
+
+            if (search == null) search = "";
 
             try
             {
                 using(SIGAEntities db = new SIGAEntities())
 	            {
-		           cursoList = db.Curso.Where(c => c.CurName.Contains(search))
+		           cursoList = db.Curso.Where(c => c.CurName.Contains(search) || c.CurName == "")
                                 .Select(c => new CursoDTO 
                                 { 
                                     CurId = c.CurId,
                                     CurName = c.CurName,
-                                    CurNumHoras = c.CurNumHoras,
+                                    CurNumHoras = (int)c.CurNumHoras,
                                     CurPrecio = c.CurPrecio
                                 }).ToList();
 	            }

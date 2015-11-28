@@ -53,8 +53,8 @@ namespace SIGA.Controllers.Api
                                         {
                                             CurId = c.CurId,
                                             CurName = c.CurName,
-                                            CurNumHoras = c.CurNumHoras,
-                                            CurPrecio = c.CurPrecio,
+                                            CurNumHoras = c.CurNumHoras == null ? 0 : c.CurNumHoras,
+                                            CurPrecio =  c.CurPrecio == null ? (decimal)0.00 : c.CurPrecio,
                                         }).ToList();
 
                     ModulosNestedList.Add(moduloDTO);

@@ -389,13 +389,6 @@ textarea {
 /****************************   AutoComplete  *****************************/
 /**************************************************************************/
 
-.ui-autocomplete-input{
-    background-color: red;
-}
-
-.personal { background-color: yellow; }
-
-
 .ui-autocomplete {
     position: absolute;
     top: 100%;
