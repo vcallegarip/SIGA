@@ -10,6 +10,41 @@ function modulocursoViewModel() {
 
     mcVM.addCurso = function () {
         mcVM.cursos.push(new Curso(''));
+        
+        var data = [
+         {
+             value: 1,
+             personal: true,
+             label: 'Java'
+         },
+         {
+             value: 2,
+             personal: false,
+             label: 'C++'
+         },
+         {
+             value: 3,
+             personal: true,
+             label: 'JavaScript'
+         },
+         {
+             value: 4,
+             personal: true,
+             label: 'COBOL'
+         }];
+
+        $("#nameCurso").autocomplete({
+            source: data
+        }).data("autocomplete")._renderItem = function (ul, item) {
+            var listItem = $("<li></li>")
+                .data("item.autocomplete", item)
+                .append("<a>" + item.label + "</a>")
+                .appendTo(ul);
+
+            if (item.personal) {
+                listItem.addClass("personal");
+            };
+        };
     };
 
     mcVM.removeCurso = function (curso) {
@@ -27,6 +62,7 @@ function modulocursoViewModel() {
                     return new toggleCursoDiv(item);
                 });
                 mcVM.modulos(data);
+
             },
             error: function (xhr, result, status) {
                 alert(getAjaxErrorText(xhr));

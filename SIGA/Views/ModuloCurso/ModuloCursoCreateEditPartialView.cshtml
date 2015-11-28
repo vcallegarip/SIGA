@@ -108,7 +108,7 @@
                         </div>
                     </div>
 
-      
+                    @*<div class="col-lg-6 col-md-6"><input id="nameCurso" name="nameCurso" class='form-control required' /></div>*@
 
                     <br />
                     <div class="row">
@@ -136,78 +136,6 @@
         var mcVM = new modulocursoViewModel();
         ko.applyBindings(mcVM, $('#ModuloCursoCreateEditContainer')[0]);
 
-        
-        //$('#nameCurso').autocomplete({
-        //    autoFocus: true,
-        //    minLength: 3,
-        //    source: function (request, response) {
-        //        debugger
-        //        $.ajax({
-        //            url: "api/CursoSearch?search=" + request.term,
-        //            dataType: "Json",
-        //            data: '',
-        //            success: function (data) {
-        //                var list = [];
-        //                if (data == '3 char min') return;
-        //                $.each(data, function (index, item) {
-        //                    var listItem = '';
-        //                    list.push(listItem)
-        //                });
-        //                response(list);
-        //            },
-        //            error: function (xhr, result, status) {
-        //                alert(getAjaxErrorText(xhr));
-        //            }
-        //        });
-        //    },
-        //    select: function (event, ui) {
-        //        if (ui.item.clock != -1) {
-        //            //crVM.selectedPersonName(ui.item.value);
-        //            //crVM.selectedPersonClock(ui.item.clock)
-        //            //crVM.getEmployeeInfo();
-        //            $(".plum-creation-wrap #next-btn").attr({ style: "pointer-events: initial; background:#0aa66e; color:white;" }).focus();
-        //        }
-        //    },
-        //    open: function () {
-        //    },
-        //    close: function () {
-        //    }
-        //});
-
-        //mcVM.showCursoInput();  // Force showing of the input. remove and click to show will apply
-
     });
-
-
-    $(function () {
-        var availableTags = [
-          "ActionScript",
-          "AppleScript",
-          "Asp",
-          "BASIC",
-          "C",
-          "C++",
-          "Clojure",
-          "COBOL",
-          "ColdFusion",
-          "Erlang",
-          "Fortran",
-          "Groovy",
-          "Haskell",
-          "Java",
-          "JavaScript",
-          "Lisp",
-          "Perl",
-          "PHP",
-          "Python",
-          "Ruby",
-          "Scala",
-          "Scheme"
-        ];
-        $("#nameCurso").autocomplete({
-            source: availableTags
-        });
-    });
-
 
 </script>
