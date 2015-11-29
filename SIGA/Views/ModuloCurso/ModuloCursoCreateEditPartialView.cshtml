@@ -136,25 +136,28 @@
         var mcVM = new modulocursoViewModel();
         ko.applyBindings(mcVM, $('#ModuloCursoCreateEditContainer')[0]);
 
-       
         $(".txtCurName").autocomplete({
+            minlength: 3,
             source: function (request, response) {
                 var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
                 $.ajax({
                     url: "/api/CursoSearch?search=",
                     dataType: "json",
                     success: function (data) {
-                        //var cursos = $.map(data, function (item) { return new Curso(item) });
-                        
                         response($.map(data, function (c, i) {
                             var text = c.CurName;
+                            var index = i;
+                            var cursosFound = c;
                             if (text && (!request.term || matcher.test(text))) {
                                 return {
                                     label: c.CurName,
                                     value: c.CurName,
-                                    curid: c.CurId,
-                                    numHoras: c.CurNumHoras,
-                                    precio: c.CurPrecio,
+                                    CurName: c.CurName,
+                                    CurId: c.CurId,
+                                    CurNumHoras: c.CurNumHoras,
+                                    CurPrecio: c.CurPrecio,
+                                    index: index,
+                                    cursosFound: c
                                 };
                             }
                         }));
@@ -162,12 +165,17 @@
                 });
             },
             select: function (event, ui) {
+                var search = ui.item.CurName;
+                $.ajax({
+                    url: '/api/CursoSearch?search=' + search,
+                    dataType: "json",
+                    success: function (data) {
+                        var curso = $.map(data, function (item) { return new Curso(item) });
+                        mcVM.cursos(curso);
+                    }
+                });
 
-                $('#txtCurName').val(ui.item.label);
-                $('#txtCurNumHoras').val(ui.item.numHoras);
-                $('#txtCurPrecio').val(ui.item.precio);
-
-
+                mcVM.lastPushedCursoName(ui.item.CurName);
             }
         });
         

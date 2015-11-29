@@ -4,7 +4,11 @@ function modulocursoViewModel() {
 
     mcVM = this;
     mcVM.modulos = ko.observableArray([]);
-    mcVM.cursos = ko.observableArray([{ CurId:0, CurName:"", CurNumHoras:"", CurPrecio:"" }]);
+    mcVM.cursos = ko.observableArray([{ CurId: 0, CurName: "", CurNumHoras: "", CurPrecio: "" }]);
+
+    mcVM.cursoPushIndex = ko.observable(0);
+    mcVM.lastPushedCursoName = ko.observable('');
+
     mcVM.nombreCursos = ko.observableArray([]);
 
     mcVM.addCurso = function () {
@@ -135,7 +139,14 @@ function loadCreateEditModuloCursoView() {
 
 function addCurso() {
 
+    var cursoArrayLength = mcVM.cursos().length;
+    if (mcVM.lastPushedCursoName() == "")
+        return false;
+
     mcVM.cursos.push(new Curso(''));
+    mcVM.lastPushedCursoName('');
+    mcVM.cursoPushIndex(cursoArrayLength);
+
     $(".txtCurName").autocomplete({
         source: function (request, response) {
             var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
@@ -145,13 +156,18 @@ function addCurso() {
                 success: function (data) {
                     response($.map(data, function (c, i) {
                         var text = c.CurName;
+                        var index = i;
+                        var cursosFound = c;
                         if (text && (!request.term || matcher.test(text))) {
                             return {
                                 label: c.CurName,
                                 value: c.CurName,
-                                curid: c.CurId,
-                                numHoras: c.CurNumHoras,
-                                precio: c.CurPrecio,
+                                CurName: c.CurName,
+                                CurId: c.CurId,
+                                CurNumHoras: c.CurNumHoras,
+                                CurPrecio: c.CurPrecio,
+                                index: index,
+                                cursosFound: c
                             };
                         }
                     }));
@@ -159,9 +175,19 @@ function addCurso() {
             });
         },
         select: function (event, ui) {
-            $('#txtCurName').val(ui.item.label);
-            $('#txtCurNumHoras').val(ui.item.numHoras);
-            $('#txtCurPrecio').val(ui.item.precio);
+            var search = ui.item.CurName;
+            $.ajax({
+                url: '/api/CursoSearch?search=' + search,
+                dataType: "json",
+                success: function (data) {
+                    mcVM.cursos()[mcVM.cursoPushIndex()].CurId(ui.item.CurId);
+                    mcVM.cursos()[mcVM.cursoPushIndex()].CurName(ui.item.CurName);
+                    mcVM.cursos()[mcVM.cursoPushIndex()].CurNumHoras(ui.item.CurNumHoras);
+                    mcVM.cursos()[mcVM.cursoPushIndex()].CurPrecio(ui.item.CurPrecio);
+                }
+            });
+
+            mcVM.lastPushedCursoName(ui.item.CurName);
         }
     });
 

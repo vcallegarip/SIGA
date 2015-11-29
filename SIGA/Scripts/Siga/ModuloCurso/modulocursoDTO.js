@@ -11,9 +11,9 @@ var Modulo = function (data) {
     return this;
 }
 var Curso = function (data) {
-    this.CurId = data.CurId || '';
-    this.CurName = data.CurName || '';
-    this.CurNumHoras = data.CurNumHoras || '';
-    this.CurPrecio = data.CurPrecio || '';
+    this.CurId = ko.observable(data.CurId || '');
+    this.CurName = ko.observable(data.CurName || '');
+    this.CurNumHoras = ko.observable(data.CurNumHoras || '');
+    this.CurPrecio = ko.observable(data.CurPrecio || '');
     //this.SelectedEvent =  data.SelectedEvent || false);
 }
