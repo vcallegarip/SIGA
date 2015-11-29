@@ -135,12 +135,6 @@ function loadCreateEditModuloCursoView() {
 
 function addCurso() {
 
-    for (var i = 0; i < mcVM.cursos().length; i++) {
-        if (mcVM.cursos()[i].CurName == "") {
-            return false;
-        }
-    }
-
     mcVM.cursos.push(new Curso(''));
     $(".txtCurName").autocomplete({
         source: function (request, response) {
@@ -154,12 +148,20 @@ function addCurso() {
                         if (text && (!request.term || matcher.test(text))) {
                             return {
                                 label: c.CurName,
-                                value: c.CurId
+                                value: c.CurName,
+                                curid: c.CurId,
+                                numHoras: c.CurNumHoras,
+                                precio: c.CurPrecio,
                             };
                         }
                     }));
                 }
             });
+        },
+        select: function (event, ui) {
+            $('#txtCurName').val(ui.item.label);
+            $('#txtCurNumHoras').val(ui.item.numHoras);
+            $('#txtCurPrecio').val(ui.item.precio);
         }
     });
 
