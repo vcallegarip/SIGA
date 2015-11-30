@@ -1,8 +1,8 @@
 ﻿
 var Modulo = function (data) {
     this.ModId = data.ModId || '';
-    this.ModCategroria = data.ModCategroria || '';
     this.ModNivel = data.ModNivel || '';
+    this.ModCategroria = data.ModCategroria || '';
     this.ModNombre = data.ModNombre || '';
     this.ModNumHoras = data.ModNumHoras || '';
     this.ModNumMes = data.ModNumMes || '';
@@ -10,6 +10,7 @@ var Modulo = function (data) {
     this.Cursos = $.map(data.Cursos, function (item) { return new Curso(item) });
     return this;
 }
+
 var Curso = function (data) {
     this.CurId = ko.observable(data.CurId || '');
     this.CurName = ko.observable(data.CurName || '');

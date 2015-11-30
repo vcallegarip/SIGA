@@ -3,9 +3,24 @@
 function modulocursoViewModel() {
 
     mcVM = this;
+
+    /////////////////////
+    //// modulo form ////
+    /////////////////////
+    //mcVM.ModId = ko.observable('');
+    //mcVM.ModCategroria = ko.observable('');
+    //mcVM.ModNivel = ko.observable('');
+    //mcVM.ModNombre = ko.observable('');
+    //mcVM.ModNumHoras = ko.observable('');
+    //mcVM.ModNumMes = ko.observable('');
+    //mcVM.ModNumCursos = ko.observable('');
+    /////////////////////
+
+    //mcVM.modulo = ko.observable(new Modulo(''));
+
+
     mcVM.modulos = ko.observableArray([]);
     mcVM.cursos = ko.observableArray([{ CurId: 0, CurName: "", CurNumHoras: "", CurPrecio: "" }]);
-
     mcVM.cursoPushIndex = ko.observable(0);
     mcVM.lastPushedCursoName = ko.observable('');
 
@@ -37,6 +52,29 @@ function modulocursoViewModel() {
             }
         });
     };
+
+    mcVM.guardarModulo = function () {
+        debugger
+        var postData = mcVM.modulos;
+        var url = "api/ModuloCurso";
+        $.ajax({
+            url: url,
+            type: 'Post',
+            dataType: "Json",
+            contentType: 'application/json;charset=utf-8',
+            data: ko.toJSON(postData),
+            success: function (data) {
+                //var request = new Request(data.Request);
+                //crVM.request(request);
+                //crVM.LoggedInUser = data.UserName;
+                //crVM.modulePaneLoad(request.MappedRequestModules[0]); // load the first module for display
+                //crVM.step3ActiveModuleTab(request.MappedRequestModules[0]);
+            },
+            error: function (xhr, result, status) {
+                alert(getAjaxErrorText(xhr));
+            }
+        });
+    }
 
 
     //mcVM.getNombresCursos = function () {
@@ -76,27 +114,6 @@ function modulocursoViewModel() {
     //    });
     //}
 
-    //crVM.createModulo = function () {
-    //    var postData = mcVM.modulos;
-    //    var url = "api/CreateModulo";
-    //    $.ajax({
-    //        url: url,
-    //        type: 'Post',
-    //        dataType: "Json",
-    //        contentType: 'application/json;charset=utf-8',
-    //        data: ko.toJSON(postData),
-    //        success: function (data) {
-    //            //var request = new Request(data.Request);
-    //            //crVM.request(request);
-    //            //crVM.LoggedInUser = data.UserName;
-    //            //crVM.modulePaneLoad(request.MappedRequestModules[0]); // load the first module for display
-    //            //crVM.step3ActiveModuleTab(request.MappedRequestModules[0]);
-    //        },
-    //        error: function (xhr, result, status) {
-    //            alert(getAjaxErrorText(xhr));
-    //        }
-    //    });
-    //}
 
 }
 
