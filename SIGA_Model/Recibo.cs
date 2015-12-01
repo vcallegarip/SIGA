@@ -14,6 +14,7 @@ namespace SIGA_Model
     
     public partial class Recibo
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Recibo()
         {
             this.Matricula = new HashSet<Matricula>();
@@ -23,6 +24,7 @@ namespace SIGA_Model
         public int User_Id { get; set; }
         public int Pag_Id { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Matricula> Matricula { get; set; }
         public virtual Pago Pago { get; set; }
     }

@@ -51,43 +51,5 @@ namespace SIGA.Controllers.Api
             }
         }
 
-
-        //[HttpGet]
-        //[Route("api/NewHireSearch")]
-        //public List<NewHireDTO> getNewHireSearch(string search)
-        //{
-        //    try
-        //    {
-        //        string NTLogin = Identity.GetUser().NTLogin;
-        //        NewHireSearchInputParams NewHireSearchInputParams = new NewHireSearchInputParams()
-        //        {
-        //            SearchText = search == null ? "all" : search,
-        //            NTLogin = NTLogin,
-        //            EmployeeId = 0
-        //        };
-
-        //        NewHireSearchCollection results = NewHireSearch.Execute(NewHireSearchInputParams);
-
-        //        if (results.NewHireSearchResults.Count() == 0)
-        //        {
-        //            List<NewHireDTO> notFound = new List<NewHireDTO>();
-        //            var nf = new NewHireDTO { Name = "No match found", PayRollJobTitle = "", LoginID = "", Location = "", DistrictNumber = "0" };
-        //            notFound.Add(nf);
-        //            return notFound;
-        //        }
-
-        //        var newHires = results.NewHireSearchResults.Select(e => new NewHireDTO { Name = e.Name, PayRollJobTitle = e.PayRollJobTitle, LoginID = e.LoginID, Location = e.Location, DistrictNumber = e.DistrictNumber }).ToList();
-        //        var notInList = new NewHireDTO { Name = "Add new employee", PayRollJobTitle = "", LoginID = "", Location = "", DistrictNumber = "0" };
-        //        newHires.Add(notInList);
-        //        return newHires;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        string message = ExceptionHelper.GetFullMessage(ex, "An error ocurred while getting new hire list: ");
-        //        log.Error(message);
-        //        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, message));
-        //    }
-        //}                                                     
-
     }
 }

@@ -79,9 +79,9 @@ namespace SIGA.Models.ViewModels
         public int ModCatId { get; set; }
         public int ModNivelId { get; set; }
         public string ModNombre { get; set; }
-        public string ModNumHoras { get; set; }
-        public string ModNumMes { get; set; }
-        public string ModNumCursos { get; set; }
+        public int ModNumHoras { get; set; }
+        public int ModNumMes { get; set; }
+        public int ModNumCursos { get; set; }
 
     }
 

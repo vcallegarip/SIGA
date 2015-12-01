@@ -14,6 +14,7 @@ namespace SIGA_Model
     
     public partial class Persona
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Persona()
         {
             this.Usuario = new HashSet<Usuario>();
@@ -31,6 +32,7 @@ namespace SIGA_Model
         public string Per_Email { get; set; }
         public Nullable<System.DateTime> Per_FechaNacimiento { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usuario> Usuario { get; set; }
     }
 }

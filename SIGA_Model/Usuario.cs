@@ -14,6 +14,7 @@ namespace SIGA_Model
     
     public partial class Usuario
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuario()
         {
             this.Administrador = new HashSet<Administrador>();
@@ -28,9 +29,12 @@ namespace SIGA_Model
         public string User_Pass { get; set; }
         public Nullable<bool> User_Inactivo { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Administrador> Administrador { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Alumno> Alumno { get; set; }
         public virtual Persona Persona { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Profesor> Profesor { get; set; }
         public virtual TipoUsuario TipoUsuario { get; set; }
     }

@@ -41,9 +41,9 @@ namespace SIGA.Controllers.Api
                                           select mn.ModNivelNombre).FirstOrDefault().ToString();
 
                     moduloDTO.ModNombre = db.Modulo.Where(m => m.ModId == modulocurso.Key).Select(m => m.ModNombre).FirstOrDefault().ToString();
-                    moduloDTO.ModNumHoras = Convert.ToInt32(db.Modulo.Where(m => m.ModId == modulocurso.Key).Select(m => m.ModNumHoras).FirstOrDefault());
-                    moduloDTO.ModNumMes = Convert.ToInt32(db.Modulo.Where(m => m.ModId == modulocurso.Key).Select(m => m.ModNumMes).FirstOrDefault());   
-                    moduloDTO.ModNumCursos = Convert.ToInt32(db.Modulo.Where(m => m.ModId == modulocurso.Key).Select(m => m.ModNumCursos).FirstOrDefault());
+                    moduloDTO.ModNumHoras = db.Modulo.Where(m => m.ModId == modulocurso.Key).Select(m => m.ModNumHoras).FirstOrDefault();
+                    moduloDTO.ModNumMes = db.Modulo.Where(m => m.ModId == modulocurso.Key).Select(m => m.ModNumMes).FirstOrDefault();   
+                    moduloDTO.ModNumCursos = db.Modulo.Where(m => m.ModId == modulocurso.Key).Select(m => m.ModNumCursos).FirstOrDefault();
 
                     moduloDTO.Cursos = (from m in db.ModuloCurso
                                         join c in db.Curso
@@ -71,17 +71,62 @@ namespace SIGA.Controllers.Api
 
 
         // GET: api/Modulo/5
-        [ResponseType(typeof(Modulo))]
+        [ResponseType(typeof(ModuloDTO))]
         public IHttpActionResult GetModulo(int id)
         {
+
+            ModuloDTO moduloDTO = new ModuloDTO();
+            
+
             Modulo modulo = db.Modulo.Find(id);
-            if (modulo == null)
+
+            if (modulo != null)
+            {
+
+                moduloDTO.ModId = modulo.ModId;
+                moduloDTO.ModCategroria = (from m in db.Modulo
+                                           join mc in db.ModuloCategoria
+                                           on m.ModCatId equals mc.ModCatId
+                                           select mc.ModCatNombre).FirstOrDefault().ToString();
+
+                moduloDTO.ModNivel = (from m in db.Modulo
+                                      join mn in db.ModuloNivel
+                                      on m.ModNivelId equals mn.ModNivelId
+                                      select mn.ModNivelNombre).FirstOrDefault().ToString();
+
+                moduloDTO.ModNombre = modulo.ModNombre;
+                moduloDTO.ModNumHoras = modulo.ModNumHoras;
+                moduloDTO.ModNumMes = modulo.ModNumMes;
+                moduloDTO.ModNumCursos = modulo.ModNumCursos;
+
+                moduloDTO.Cursos = (from m in db.ModuloCurso
+                                    join c in db.Curso
+                                    on m.CurId equals c.CurId
+                                    select new CursoDTO
+                                    {
+                                        CurId = c.CurId,
+                                        CurName = c.CurName,
+                                        CurNumHoras = c.CurNumHoras == null ? 0 : c.CurNumHoras,
+                                        CurPrecio = c.CurPrecio == null ? (decimal)0.00 : c.CurPrecio,
+                                    }).ToList();
+            }
+
+            if (id == 0)
+            {
+                moduloDTO.Cursos = new List<CursoDTO>();
+                moduloDTO.Cursos.Add(new CursoDTO());
+
+                return Ok(moduloDTO);
+            }
+
+            
+            if (modulo == null || id != 0)
             {
                 string message = string.Format("No se encontro el modulo con id = {0}.", id.ToString());
                 throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, message));
             }
 
-            return Ok(modulo);
+            return Ok(moduloDTO);
         }
 
 
@@ -137,7 +182,7 @@ namespace SIGA.Controllers.Api
                 return BadRequest(ModelState);
             }
 
-            
+
 
             try
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIGA_Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,7 @@ namespace SIGA.Controllers
 
         public ActionResult Index()
         {
-            return PartialView("ModuloCursoPartialView");
+            return PartialView("ModuloCursoPartialView", new ModuloCurso());
         }
 
         public ActionResult Dashboard()

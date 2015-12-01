@@ -90,9 +90,9 @@
           <Property Name="ModCatId" Type="int" Nullable="false" />
           <Property Name="ModNivelId" Type="int" Nullable="false" />
           <Property Name="ModNombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ModNumHoras" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ModNumMes" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ModNumCursos" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ModNumHoras" Type="int" Nullable="false" />
+          <Property Name="ModNumMes" Type="int" Nullable="false" />
+          <Property Name="ModNumCursos" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ModuloCategoria">
           <Key>
@@ -637,9 +637,9 @@
           <Property Name="ModCatId" Type="Int32" Nullable="false" />
           <Property Name="ModNivelId" Type="Int32" Nullable="false" />
           <Property Name="ModNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ModNumHoras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ModNumMes" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ModNumCursos" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ModNumHoras" Type="Int32" Nullable="false" />
+          <Property Name="ModNumMes" Type="Int32" Nullable="false" />
+          <Property Name="ModNumCursos" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ModuloCategoria" Relationship="Self.FK_Modulo_ModuloCategoria" FromRole="Modulo" ToRole="ModuloCategoria" />
           <NavigationProperty Name="ModuloNivel" Relationship="Self.FK_Modulo_ModuloNivel" FromRole="Modulo" ToRole="ModuloNivel" />
           <NavigationProperty Name="ModuloCurso" Relationship="Self.FK_ModuloCurso_Modulo" FromRole="Modulo" ToRole="ModuloCurso" />

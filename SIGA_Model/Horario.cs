@@ -14,6 +14,7 @@ namespace SIGA_Model
     
     public partial class Horario
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Horario()
         {
             this.Programa = new HashSet<Programa>();
@@ -27,6 +28,7 @@ namespace SIGA_Model
         public Nullable<System.TimeSpan> HorHoraIni { get; set; }
         public Nullable<System.TimeSpan> HorHoraFin { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Programa> Programa { get; set; }
     }
 }

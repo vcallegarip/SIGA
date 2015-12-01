@@ -12,7 +12,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="txtCodigo">Codigo</label>
-                                <input type="text" class="form-control" id="txtCodigo" name="txtCodigo" placeholder="Codigo" data-bind="value: modulos.ModId">
+                                <input type="text" class="form-control" id="txtCodigo" name="txtCodigo" placeholder="Codigo" data-bind="value: modulo.ModId">
                             </div>
                         </div>
                     </div>
@@ -20,7 +20,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="txtModuloNivel">Nivel del Modulo</label>
-                                <input type="text" class="form-control" id="txtModuloNivel" name="txtModuloNivel" placeholder="Nivel del Modulo" data-bind="value: modulos.ModNivel">
+                                <input type="text" class="form-control" id="txtModuloNivel" name="txtModuloNivel" placeholder="Nivel del Modulo" data-bind="value: modulo.ModNivel">
                             </div>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="txtModuloCategoria">Categoria del Modulo</label>
-                                <input type="text" class="form-control" id="txtModuloCategoria" name="txtModuloCategoria" placeholder="Categoria del Modulo" data-bind="value: modulos.ModCategroria">
+                                <input type="text" class="form-control" id="txtModuloCategoria" name="txtModuloCategoria" placeholder="Categoria del Modulo" data-bind="value: modulo.ModCategroria">
                             </div>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="txtModuloNombre">Nombre del Modulo</label>
-                                <input type="text" class="form-control" id="txtModuloNombre" name="txtModuloNombre" placeholder="Nombre del Modulo" data-bind="value: modulos.ModNombre">
+                                <input type="text" class="form-control" id="txtModuloNombre" name="txtModuloNombre" placeholder="Nombre del Modulo" data-bind="value: modulo.ModNombre">
                             </div>
                         </div>
                     </div>
@@ -44,19 +44,19 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="txtModuloNumHoras"># Horas</label>
-                                <input type="text" class="form-control" id="txtModuloNumHoras" name="txtModuloNumHoras" placeholder="Horas" data-bind="value: modulos.ModNumHoras">
+                                <input type="text" class="form-control" id="txtModuloNumHoras" name="txtModuloNumHoras" placeholder="Horas" data-bind="value: modulo.ModNumHoras">
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="txtModuloNumMeses"># Meses</label>
-                                <input type="text" class="form-control" id="txtModuloNumMeses" name="txtModuloNumMeses" placeholder="Meses" data-bind="value: modulos.ModNumMes">
+                                <input type="text" class="form-control" id="txtModuloNumMeses" name="txtModuloNumMeses" placeholder="Meses" data-bind="value: modulo.ModNumMes">
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="txtModuloNumCursos"># Cursos</label>
-                                <input type="text" class="form-control" id="txtModuloNumCursos" name="txtModuloNumCursos" placeholder="Cursos" data-bind="value: modulos.ModNumCursos">
+                                <input type="text" class="form-control" id="txtModuloNumCursos" name="txtModuloNumCursos" placeholder="Cursos" data-bind="value: modulo.ModNumCursos">
                             </div>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                                     <div class="col-lg-2 col-md-2"><span>Precio</span></div>
                                     <div class="col-lg-2 col-md-2"><span></span></div>
                                 </div>
-                                <div data-bind="foreach: cursos">
+                                <div data-bind="foreach: modulo.Cursos">
                                     <div class="bootstrapDataGridData">
                                         <div class="row paddingBottom5px paddingTop5px">
                                             @*<div class="col-lg-2 col-md-2 noPaddingInColumn"><input class='form-control required' data-bind='value: CurId, uniqueName: true' /></div>*@
@@ -114,7 +114,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <button class="btn btn-default pull-left" onclick="addCurso()">Agregar Curso</button>
-                            <button class="btn btn-success pull-right" data-bind='enable: cursos().length > 0' type='submit'>Guardar</button>
+                            <button class="btn btn-success pull-right" data-bind='click: function() { guardarModulo() }' type='submit'>Guardar</button>
                         </div>
                     </div>
 

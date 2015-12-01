@@ -14,6 +14,7 @@ namespace SIGA_Model
     
     public partial class Aula
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Aula()
         {
             this.Programa = new HashSet<Programa>();
@@ -23,6 +24,7 @@ namespace SIGA_Model
         public Nullable<int> AulNumero { get; set; }
         public Nullable<int> AulCapacidad { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Programa> Programa { get; set; }
     }
 }

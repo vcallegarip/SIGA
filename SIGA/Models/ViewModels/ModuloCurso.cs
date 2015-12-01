@@ -12,56 +12,91 @@ namespace SIGA.Models.ViewModels
 {
     public class ModuloDTO
     {
-        [JsonProperty(PropertyName = "ModId")]
+        //[JsonProperty(PropertyName = "ModId")]
         public int ModId { get; set; }
 
-        [JsonProperty(PropertyName = "ModCategroria")]
+        //[JsonProperty(PropertyName = "ModCategroria")]
         public string ModCategroria { get; set; }
 
-        [JsonProperty(PropertyName = "ModNivel")]
+        //[JsonProperty(PropertyName = "ModNivel")]
         public string ModNivel { get; set; }
 
-        [JsonProperty(PropertyName = "ModNombre")]
+        //[JsonProperty(PropertyName = "ModNombre")]
         public string ModNombre { get; set; }
 
-        [JsonProperty(PropertyName = "ModNumHoras")]
+        //[JsonProperty(PropertyName = "ModNumHoras")]
         public int ModNumHoras { get; set; }
 
-        [JsonProperty(PropertyName = "ModNumMes")]
+        //[JsonProperty(PropertyName = "ModNumMes")]
         public int ModNumMes { get; set; }
 
-        [JsonProperty(PropertyName = "ModNumCursos")]
+        //[JsonProperty(PropertyName = "ModNumCursos")]
         public int ModNumCursos { get; set; }
 
-        [JsonProperty(PropertyName = "Cursos")]
+        //[JsonProperty(PropertyName = "Cursos")]
         public List<CursoDTO> Cursos { get; set; }
     }
 
     public class CursoDTO
     {
-        [JsonProperty(PropertyName = "CurId")]
-        public int CurId { get; set; }
+        private int _curId { get; set; }
+        public int CurId
+        {
+            get
+            {
+                if (_curId == null) _curId = 0;
+                return _curId;
+            }
 
-        [JsonProperty(PropertyName = "CurName")]
-        public string CurName { get; set; }
+            set
+            {
+                _curId = value;
+            }
+        }
 
-        [JsonProperty(PropertyName = "CurNumHoras")]
-        public int? CurNumHoras { get; set; }
+        private string _curName { get; set; }
+        public string CurName
+        {
+            get
+            {
+                if (_curName == null) _curName = "nombre";
+                return _curName;
+            }
 
-        [JsonProperty(PropertyName = "CurPrecio")]
+            set
+            {
+                _curName = value;
+            }
+        }
+
+        private int? _curNumHoras { get; set; }
+        public int? CurNumHoras
+        {
+            get
+            {
+                if (_curNumHoras == null) _curNumHoras = 10;
+                return _curNumHoras;
+            }
+
+            set
+            {
+                _curNumHoras = value;
+            }
+        }
+
         private decimal? _curPrecio;
         public decimal? CurPrecio
         {
             get
             {
-                if (_curPrecio == (decimal)0.00) _curPrecio = (decimal)0.00;
+                if(_curPrecio == null) _curPrecio = (decimal)0.00;
                 return _curPrecio;
             }
+
             set
             {
                 _curPrecio = value;
             }
-
         }
 
     }
