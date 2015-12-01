@@ -173,7 +173,7 @@ namespace SIGA.Controllers.Api
 
         // POST: api/Modulo
         [ResponseType(typeof(ModuloDTO))]
-        public IHttpActionResult PostModulo(ModuloDTO moduloDTO)
+        public IHttpActionResult PostModulo([FromBody] ModuloDTO moduloDTO)
         {
             string message = "Un error ocurrio cuando se estaba creando el modulo: ";
             if (!ModelState.IsValid)
@@ -181,7 +181,6 @@ namespace SIGA.Controllers.Api
                 message += "Modulo ModelState es no valido.";
                 return BadRequest(ModelState);
             }
-
 
 
             try

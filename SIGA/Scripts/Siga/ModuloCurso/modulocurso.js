@@ -4,44 +4,47 @@ function modulocursoViewModel() {
 
     mcVM = this;
 
-    /////////////////////
-    //// modulo form ////
-    /////////////////////
-    //mcVM.ModId = ko.observable('');
-    //mcVM.ModCategroria = ko.observable('');
-    //mcVM.ModNivel = ko.observable('');
-    //mcVM.ModNombre = ko.observable('');
-    //mcVM.ModNumHoras = ko.observable('');
-    //mcVM.ModNumMes = ko.observable('');
-    //mcVM.ModNumCursos = ko.observable('');
-    /////////////////////
+    mcVM.modulo = ko.observableArray([]);
 
-    //mcVM.modulo = ko.observable(new Modulo(''));
-
-    mcVM.modulo = ko.observable();
     mcVM.modulos = ko.observableArray([]);
-    //mcVM.cursos = ko.observableArray([{ CurId: 0, CurName: "", CurNumHoras: "", CurPrecio: "" }]);
+
+    mcVM.moduloCursos = ko.observableArray([new Curso('')]);
+
     mcVM.cursoPushIndex = ko.observable(0);
     mcVM.lastPushedCursoName = ko.observable('');
 
     mcVM.addCurso = function () {
-        addCurso();
+        
+        for (var i = 0; i < mcVM.moduloCursos().length; i++) {
+            if (mcVM.moduloCursos()[i].CurName() == "") {
+                return false;
+            }
+        };
+
+        mcVM.moduloCursos.push(new Curso(''));
+        mcVM.lastPushedCursoName('');
+        mcVM.cursoPushIndex(mcVM.cursoPushIndex() + 1);
+
+        enableAutoComplete();
     }
 
     mcVM.removeCurso = function (curso) {
-        mcVM.cursos.remove(curso);
+        mcVM.moduloCursos.remove(curso);
+        mcVM.cursoPushIndex(mcVM.cursoPushIndex() - 1)
     };
 
     mcVM.getModulo = function (id) {
-        
         $.ajax({
             url: "/api/ModuloCurso?id=" + id,
             dataType: "Json",
             type: 'GET',
             data: '',
             success: function (data) {
-                debugger
                 mcVM.modulo(data);
+                if (id == 0) {
+                    mcVM.lastPushedCursoName("")
+                }
+                enableAutoComplete();
             },
             error: function (xhr, result, status) {
                 alert(getAjaxErrorText(xhr));
@@ -49,24 +52,24 @@ function modulocursoViewModel() {
         });
     };
 
-    //mcVM.getModulos = function () {
-    //    $.ajax({
-    //        url: "/api/ModuloCurso",
-    //        dataType: "Json",
-    //        data: '',
-    //        success: function (data) {
-    //            var modulos = $.map(data, function (item) { return new Modulo(item) });
-    //            var data = ko.utils.arrayMap(modulos, function (item) {
-    //                return new toggleCursoDiv(item);
-    //            });
-    //            mcVM.modulos(data);
+    mcVM.getModulos = function () {
+        $.ajax({
+            url: "/api/ModuloCurso",
+            dataType: "Json",
+            data: '',
+            success: function (data) {
+                var modulos = $.map(data, function (item) { return new Modulo(item) });
+                var data = ko.utils.arrayMap(modulos, function (item) {
+                    return new toggleCursoDiv(item);
+                });
+                mcVM.modulos(data);
 
-    //        },
-    //        error: function (xhr, result, status) {
-    //            alert(getAjaxErrorText(xhr));
-    //        }
-    //    });
-    //};
+            },
+            error: function (xhr, result, status) {
+                alert(getAjaxErrorText(xhr));
+            }
+        });
+    };
 
     mcVM.guardarModulo = function () {
         debugger
@@ -100,39 +103,24 @@ function modulocursoViewModel() {
         });
     }
 
-    //mcVM.getNombresCursos = function () {
-    //    $.ajax({
-    //        url: "/api/GetNombresdeCursos",
-    //        dataType: "Json",
-    //        data: '',
-    //        success: function (data) {
-    //            var nombres = $.map(data, function (item) { return new Modulo(item) });
-    //            mcVM.nombreCursos(data)
-    //        },
-    //        error: function (xhr, result, status) {
-    //            alert(getAjaxErrorText(xhr));
-    //        }
-    //    });
-    //}
-
-    //crVM.crearCurso = function () {
-    //    var postData = mcVM.modulos;
-    //    var url = "api/CreateModulo";
+    //crvm.crearcurso = function () {
+    //    var postdata = mcvm.modulos;
+    //    var url = "api/createmodulo";
     //    $.ajax({
     //        url: url,
-    //        type: 'Post',
-    //        dataType: "Json",
-    //        contentType: 'application/json;charset=utf-8',
-    //        data: ko.toJSON(postData),
+    //        type: 'post',
+    //        datatype: "json",
+    //        contenttype: 'application/json;charset=utf-8',
+    //        data: ko.tojson(postdata),
     //        success: function (data) {
-    //            //var request = new Request(data.Request);
-    //            //crVM.request(request);
-    //            //crVM.LoggedInUser = data.UserName;
-    //            //crVM.modulePaneLoad(request.MappedRequestModules[0]); // load the first module for display
-    //            //crVM.step3ActiveModuleTab(request.MappedRequestModules[0]);
+    //            //var request = new request(data.request);
+    //            //crvm.request(request);
+    //            //crvm.loggedinuser = data.username;
+    //            //crvm.modulepaneload(request.mappedrequestmodules[0]); // load the first module for display
+    //            //crvm.step3activemoduletab(request.mappedrequestmodules[0]);
     //        },
     //        error: function (xhr, result, status) {
-    //            alert(getAjaxErrorText(xhr));
+    //            alert(getajaxerrortext(xhr));
     //        }
     //    });
     //}
@@ -177,15 +165,7 @@ function loadCreateEditModuloCursoView() {
     return;
 }
 
-function addCurso() {
-
-    var cursoArrayLength = mcVM.cursos().length;
-    if (mcVM.lastPushedCursoName() == "")
-        return false;
-
-    mcVM.cursos.push(new Curso(''));
-    mcVM.lastPushedCursoName('');
-    mcVM.cursoPushIndex(cursoArrayLength);
+function enableAutoComplete() {
 
     $(".txtCurName").autocomplete({
         source: function (request, response) {
@@ -215,19 +195,17 @@ function addCurso() {
             });
         },
         select: function (event, ui) {
-            var search = ui.item.CurName;
-            $.ajax({
-                url: '/api/CursoSearch?search=' + search,
-                dataType: "json",
-                success: function (data) {
-                    mcVM.cursos()[mcVM.cursoPushIndex()].CurId(ui.item.CurId);
-                    mcVM.cursos()[mcVM.cursoPushIndex()].CurName(ui.item.CurName);
-                    mcVM.cursos()[mcVM.cursoPushIndex()].CurNumHoras(ui.item.CurNumHoras);
-                    mcVM.cursos()[mcVM.cursoPushIndex()].CurPrecio(ui.item.CurPrecio);
-                }
-            });
 
-            mcVM.lastPushedCursoName(ui.item.CurName);
+            for (var j = 0; j < mcVM.moduloCursos().length; j++) {
+                if (ui.item.CurName == mcVM.moduloCursos()[j].CurName()) {
+                    return false;
+                }
+            }
+
+            mcVM.moduloCursos()[mcVM.cursoPushIndex()].CurId(ui.item.CurId);
+            mcVM.moduloCursos()[mcVM.cursoPushIndex()].CurName(ui.item.CurName);
+            mcVM.moduloCursos()[mcVM.cursoPushIndex()].CurNumHoras(ui.item.CurNumHoras);
+            mcVM.moduloCursos()[mcVM.cursoPushIndex()].CurPrecio(ui.item.CurPrecio);
         }
     });
 

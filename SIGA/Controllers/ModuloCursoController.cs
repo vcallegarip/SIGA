@@ -12,7 +12,7 @@ namespace SIGA.Controllers
 
         public ActionResult Index()
         {
-            return PartialView("ModuloCursoPartialView", new ModuloCurso());
+            return PartialView("ModuloCursoPartialView");
         }
 
         public ActionResult Dashboard()

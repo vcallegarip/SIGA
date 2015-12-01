@@ -59,7 +59,7 @@ namespace SIGA.Models.ViewModels
         {
             get
             {
-                if (_curName == null) _curName = "nombre";
+                if (_curName == null) _curName = "";
                 return _curName;
             }
 
@@ -74,7 +74,7 @@ namespace SIGA.Models.ViewModels
         {
             get
             {
-                if (_curNumHoras == null) _curNumHoras = 10;
+                if (_curNumHoras == null) _curNumHoras = 0;
                 return _curNumHoras;
             }
 
