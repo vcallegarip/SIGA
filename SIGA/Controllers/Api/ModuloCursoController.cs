@@ -24,31 +24,31 @@ namespace SIGA.Controllers.Api
             {
                 List<ModuloDTO> ModulosNestedList = new List<ModuloDTO>();
 
-                foreach (var modulocurso in db.ModuloCurso.GroupBy(mc => mc.ModId).OrderBy(mc => mc.Key))
+                foreach (var modulocurso in db.Modulo)
                 {
                     ModuloDTO moduloDTO = new ModuloDTO();
-                    moduloDTO.ModId = modulocurso.Key;
+                    moduloDTO.ModId = modulocurso.ModId;
                     moduloDTO.ModCategroria = (from m in db.Modulo
                                               join mc in db.ModuloCategoria
                                               on m.ModCatId equals mc.ModCatId
-                                              where m.ModId == modulocurso.Key
+                                               where m.ModId == modulocurso.ModId
                                               select mc.ModCatNombre).FirstOrDefault().ToString();
 
                     moduloDTO.ModNivel = (from m in db.Modulo
                                           join mn in db.ModuloNivel
                                           on m.ModNivelId equals mn.ModNivelId
-                                          where m.ModId == modulocurso.Key
+                                          where m.ModId == modulocurso.ModId
                                           select mn.ModNivelNombre).FirstOrDefault().ToString();
 
-                    moduloDTO.ModNombre = db.Modulo.Where(m => m.ModId == modulocurso.Key).Select(m => m.ModNombre).FirstOrDefault().ToString();
-                    moduloDTO.ModNumHoras = db.Modulo.Where(m => m.ModId == modulocurso.Key).Select(m => m.ModNumHoras).FirstOrDefault();
-                    moduloDTO.ModNumMes = db.Modulo.Where(m => m.ModId == modulocurso.Key).Select(m => m.ModNumMes).FirstOrDefault();   
-                    moduloDTO.ModNumCursos = db.Modulo.Where(m => m.ModId == modulocurso.Key).Select(m => m.ModNumCursos).FirstOrDefault();
+                    moduloDTO.ModNombre = modulocurso.ModNombre;
+                    moduloDTO.ModNumHoras = modulocurso.ModNumHoras;
+                    moduloDTO.ModNumMes = modulocurso.ModNumMes;
+                    moduloDTO.ModNumCursos = modulocurso.ModNumCursos;
 
                     moduloDTO.Cursos = (from m in db.ModuloCurso
                                         join c in db.Curso
                                         on m.CurId equals c.CurId
-                                        where m.ModId == modulocurso.Key
+                                        where m.ModId == modulocurso.ModId
                                         select new CursoDTO
                                         {
                                             CurId = c.CurId,
@@ -106,8 +106,8 @@ namespace SIGA.Controllers.Api
                                     {
                                         CurId = c.CurId,
                                         CurName = c.CurName,
-                                        CurNumHoras = c.CurNumHoras == null ? 0 : c.CurNumHoras,
-                                        CurPrecio = c.CurPrecio == null ? (decimal)0.00 : c.CurPrecio,
+                                        CurNumHoras = c.CurNumHoras,
+                                        CurPrecio = c.CurPrecio,
                                     }).ToList();
             }
 
@@ -171,8 +171,7 @@ namespace SIGA.Controllers.Api
         }
 
 
-        // POST: api/Modulo
-        [ResponseType(typeof(ModuloDTO))]
+        // POST: api/ModuloCurso
         public IHttpActionResult PostModulo([FromBody] ModuloDTO moduloDTO)
         {
             string message = "Un error ocurrio cuando se estaba creando el modulo: ";
@@ -182,9 +181,50 @@ namespace SIGA.Controllers.Api
                 return BadRequest(ModelState);
             }
 
-
             try
             {
+                Modulo modulo = new Modulo();
+                modulo.ModNivelId = (int)db.ModuloNivel.Where(mn => mn.ModNivelNombre == moduloDTO.ModNivel).Select(id => id.ModNivelId).FirstOrDefault();
+                modulo.ModCatId = (int)db.ModuloCategoria.Where(mn => mn.ModCatNombre == moduloDTO.ModCategroria).Select(id => id.ModCatId).FirstOrDefault();
+                modulo.ModNombre = moduloDTO.ModNombre;
+                modulo.ModNumHoras = moduloDTO.ModNumHoras;
+                modulo.ModNumMes = moduloDTO.ModNumMes;
+                modulo.ModNumCursos = moduloDTO.ModNumCursos;
+
+                db.Modulo.Add(modulo);
+
+                if (moduloDTO.Cursos.Count() > 0)
+                {
+                    List<Curso> cursoList = new List<Curso>();
+                    foreach (var moduloCursoItem in moduloDTO.Cursos)
+	                {
+                        if (!String.IsNullOrEmpty(moduloCursoItem.CurName))
+                        {
+
+                            var cursoFound = db.Curso.Where(c => c.CurName == moduloCursoItem.CurName).FirstOrDefault();
+
+                            Curso curso = new Curso();
+                            if (cursoFound == null)
+                            {
+                                curso.CurName = moduloCursoItem.CurName;
+                                curso.CurNumHoras = moduloCursoItem.CurNumHoras;
+                                curso.CurPrecio = moduloCursoItem.CurPrecio;
+                                db.Curso.Add(curso);
+                                db.SaveChanges();
+                            }
+
+                            cursoList.Add(curso);
+
+                            ModuloCurso moduloCurso = new ModuloCurso();
+                            moduloCurso.MCFechaRegistro = DateTime.UtcNow;
+                            moduloCurso.ModId = modulo.ModId;
+                            moduloCurso.CurId = curso.CurId;
+
+                            db.ModuloCurso.Add(moduloCurso);
+                        }
+	                }
+                }
+
                 db.SaveChanges();
             }
             catch (DbUpdateException ex)
@@ -192,6 +232,11 @@ namespace SIGA.Controllers.Api
                 if (ModuloExists(moduloDTO.ModId))
                 {
                     message = "An error ocurred while creating event: Event with EventId = " + moduloDTO.ModId.ToString() + " " + ex;
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Conflict, message));
+                }
+                else if (moduloDTO.ModNivel == "-- Elegir ModuloNivel --")
+                {
+                    message = "Elegir el Nivel del Modulo";
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Conflict, message));
                 }
                 else

@@ -212,6 +212,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="GoodPractices\ApiGoodPatrcice.cs" />
     <Compile Include="Helpers\CustomClassAttributes.cs" />
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Helpers\MvcHelpers.cs" />

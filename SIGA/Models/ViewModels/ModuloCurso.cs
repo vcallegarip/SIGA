@@ -12,92 +12,79 @@ namespace SIGA.Models.ViewModels
 {
     public class ModuloDTO
     {
-        //[JsonProperty(PropertyName = "ModId")]
         public int ModId { get; set; }
-
-        //[JsonProperty(PropertyName = "ModCategroria")]
+        public string ModNivel { get; set; }
         public string ModCategroria { get; set; }
 
-        //[JsonProperty(PropertyName = "ModNivel")]
-        public string ModNivel { get; set; }
-
-        //[JsonProperty(PropertyName = "ModNombre")]
+        [Required(ErrorMessage = "Apellido Paterno es requerido.")]
         public string ModNombre { get; set; }
-
-        //[JsonProperty(PropertyName = "ModNumHoras")]
         public int ModNumHoras { get; set; }
-
-        //[JsonProperty(PropertyName = "ModNumMes")]
         public int ModNumMes { get; set; }
-
-        //[JsonProperty(PropertyName = "ModNumCursos")]
         public int ModNumCursos { get; set; }
-
-        //[JsonProperty(PropertyName = "Cursos")]
         public List<CursoDTO> Cursos { get; set; }
     }
 
     public class CursoDTO
     {
-        private int _curId { get; set; }
-        public int CurId
-        {
-            get
-            {
-                if (_curId == null) _curId = 0;
-                return _curId;
-            }
+        public int CurId { get; set; }
+        //public int CurId
+        //{
+        //    get
+        //    {
+        //        if (_curId == null) _curId = 0;
+        //        return _curId;
+        //    }
 
-            set
-            {
-                _curId = value;
-            }
-        }
+        //    set
+        //    {
+        //        _curId = value;
+        //    }
+        //}
 
-        private string _curName { get; set; }
-        public string CurName
-        {
-            get
-            {
-                if (_curName == null) _curName = "";
-                return _curName;
-            }
+        public string CurName { get; set; }
+        //public string CurName
+        //{
+        //    get
+        //    {
+        //        if (_curName == null) _curName = "";
+        //        return _curName;
+        //    }
 
-            set
-            {
-                _curName = value;
-            }
-        }
+        //    set
+        //    {
+        //        _curName = value;
+        //    }
+        //}
 
-        private int? _curNumHoras { get; set; }
-        public int? CurNumHoras
-        {
-            get
-            {
-                if (_curNumHoras == null) _curNumHoras = 0;
-                return _curNumHoras;
-            }
+        public int? CurNumHoras { get; set; }
+        //public int? CurNumHoras
+        //{
+        //    get
+        //    {
+        //        if (_curNumHoras == null) _curNumHoras = 0;
+        //        return _curNumHoras;
+        //    }
 
-            set
-            {
-                _curNumHoras = value;
-            }
-        }
+        //    set
+        //    {
+        //        _curNumHoras = value;
+        //    }
+        //}
 
-        private decimal? _curPrecio;
-        public decimal? CurPrecio
-        {
-            get
-            {
-                if(_curPrecio == null) _curPrecio = (decimal)0.00;
-                return _curPrecio;
-            }
+        public decimal? CurPrecio;
+        //public decimal? CurPrecio
+        //{
+        //    get
+        //    {
+        //        if(_curPrecio == null) _curPrecio = (decimal)0.00;
+        //        return _curPrecio;
+        //    }
 
-            set
-            {
-                _curPrecio = value;
-            }
-        }
+        //    set
+        //    {
+        //        _curPrecio = value;
+        //    }
+        //}
 
     }
 

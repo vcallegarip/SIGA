@@ -10,6 +10,8 @@ namespace SIGA.Controllers
     public class ModuloCursoController : Controller
     {
 
+        private SIGAEntities db = new SIGAEntities();
+
         public ActionResult Index()
         {
             return PartialView("ModuloCursoPartialView");
@@ -39,6 +41,41 @@ namespace SIGA.Controllers
 
         public ActionResult Create()
         {
+
+            List<SelectListItem> selectListNivelItem = new List<SelectListItem>();
+            var moduloNivelList = (from mn in db.ModuloNivel
+                               select new SelectListItem
+                               {
+                                   Text = mn.ModNivelNombre,
+                                   Value = mn.ModNivelNombre
+                               }).ToList();
+
+            selectListNivelItem.Add(new SelectListItem { Text = "-- Elegir Nivel --", Value = "-- Elegir Nivel --" });
+
+            foreach (var moduloNivel in moduloNivelList)
+            {
+                selectListNivelItem.Add(new SelectListItem { Text = moduloNivel.Value, Value = moduloNivel.Value });
+            }
+
+            ViewBag.ModuloNivelList = selectListNivelItem;
+
+            List<SelectListItem> selectListCategoriItem = new List<SelectListItem>();
+            var moduloCategoriaList = (from mc in db.ModuloCategoria
+                                   select new SelectListItem
+                                   {
+                                       Text = mc.ModCatNombre,
+                                       Value = mc.ModCatNombre
+                                   }).ToList();
+
+            selectListCategoriItem.Add(new SelectListItem { Text = "-- Elegir Categoria --", Value = "-- Elegir Categoria --" });
+
+            foreach (var moduloCategoria in moduloCategoriaList)
+            {
+                selectListCategoriItem.Add(new SelectListItem { Text = moduloCategoria.Value, Value = moduloCategoria.Value });
+            }
+
+            ViewBag.ModuloCategoriaList = selectListCategoriItem;
+
             return PartialView("ModuloCursoCreateEditPartialView");
         }
 

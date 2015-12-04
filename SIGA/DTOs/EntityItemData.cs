@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SIGA_WebApplication.DTOs
+namespace SIGA.DTOs
 {
     public class EntityItemData
     {

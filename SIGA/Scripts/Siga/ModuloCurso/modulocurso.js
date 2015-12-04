@@ -1,27 +1,28 @@
 ﻿var mcVM = null;
 
 function modulocursoViewModel() {
-
     mcVM = this;
 
     mcVM.modulo = ko.observableArray([]);
-
     mcVM.modulos = ko.observableArray([]);
-
-    mcVM.moduloCursos = ko.observableArray([new Curso('')]);
-
+    mcVM.Cursos = ko.observableArray([]);
     mcVM.cursoPushIndex = ko.observable(0);
     mcVM.lastPushedCursoName = ko.observable('');
 
     mcVM.addCurso = function () {
         
-        for (var i = 0; i < mcVM.moduloCursos().length; i++) {
-            if (mcVM.moduloCursos()[i].CurName() == "") {
-                return false;
-            }
-        };
+        //for (var i = 0; i < mcVM.Cursos().length; i++) {
+        //    if (mcVM.Cursos()[i].CurName == "") {
+        //        return false;
+        //    }
+        //};
 
-        mcVM.moduloCursos.push(new Curso(''));
+        //mcVM.Cursos = ko.observableArray(ko.utils.arrayMap(mcVM.modulo().Cursos, function (curso) {
+        //    return new Curso(curso)
+        //}));
+
+        //mcVM.modulo().Cursos.push.apply(mcVM.modulo().Cursos, [new Curso({ CurId: 0, CurName: "", CurNumHoras: "", CurPrecio: "" })]);
+        mcVM.Cursos.push(new Curso(''));
         mcVM.lastPushedCursoName('');
         mcVM.cursoPushIndex(mcVM.cursoPushIndex() + 1);
 
@@ -29,7 +30,7 @@ function modulocursoViewModel() {
     }
 
     mcVM.removeCurso = function (curso) {
-        mcVM.moduloCursos.remove(curso);
+        mcVM.Cursos.remove(curso);
         mcVM.cursoPushIndex(mcVM.cursoPushIndex() - 1)
     };
 
@@ -59,11 +60,10 @@ function modulocursoViewModel() {
             data: '',
             success: function (data) {
                 var modulos = $.map(data, function (item) { return new Modulo(item) });
-                var data = ko.utils.arrayMap(modulos, function (item) {
+                var dataMapped = ko.utils.arrayMap(modulos, function (item) {
                     return new toggleCursoDiv(item);
                 });
-                mcVM.modulos(data);
-
+                mcVM.modulos(dataMapped);
             },
             error: function (xhr, result, status) {
                 alert(getAjaxErrorText(xhr));
@@ -72,24 +72,19 @@ function modulocursoViewModel() {
     };
 
     mcVM.guardarModulo = function () {
-        debugger
-        var postData = ko.toJSON(mcVM.modulo());
+
+        mcVM.modulo().Cursos.splice(0, 1);
+        var cursoObservableUnwrapped = ko.toJS(mcVM.Cursos());
+        mcVM.modulo().Cursos.push.apply(mcVM.modulo().Cursos, cursoObservableUnwrapped);
+        var postData = mcVM.modulo();
+
         var url = "api/ModuloCurso";
         $.ajax({
             url: url,
             type: 'POST',
             dataType: "Json",
-            //contentType: 'application/json; charset=utf-8',
-            data: postData,
-            //data: ({
-            //    ModId: '10',
-            //    ModNivel: 'sdfs',
-            //    ModCategroria: 'sdfsd',
-            //    ModNombre: 'sdfs',
-            //    ModNumHoras: '12',
-            //    ModNumMes: '2',
-            //    ModNumCursos: '2',
-            //}),
+            data: JSON.stringify(postData),
+            contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 //var request = new Request(data.Request);
                 //crVM.request(request);
@@ -129,14 +124,14 @@ function modulocursoViewModel() {
 
 function toggleCursoDiv(item) {
     var self = this;
-    self.ModId = ko.observable(item.ModId);
-    self.ModCategroria = ko.observable(item.ModCategroria);
-    self.ModNivel = ko.observable(item.ModNivel);
-    self.ModNombre = ko.observable(item.ModNombre);
-    self.ModNumHoras = ko.observable(item.ModNumHoras);
-    self.ModNumMes = ko.observable(item.ModNumMes);
-    self.ModNumCursos = ko.observable(item.ModNumCursos);
-    self.Cursos = ko.observable(item.Cursos);
+    self.ModId = item.ModId || '';
+    self.ModCategroria = item.ModCategroria || '';
+    self.ModNivel = item.ModNivel || '';
+    self.ModNombre = item.ModNombre || '';
+    self.ModNumHoras = item.ModNumHoras || '';
+    self.ModNumMes = item.ModNumMes || '';
+    self.ModNumCursos = item.ModNumCursos || '';
+    self.Cursos = item.Cursos || '';
     
     self.expanded = ko.observable(false);
     self.toggle = function (item) {
@@ -196,16 +191,16 @@ function enableAutoComplete() {
         },
         select: function (event, ui) {
 
-            for (var j = 0; j < mcVM.moduloCursos().length; j++) {
-                if (ui.item.CurName == mcVM.moduloCursos()[j].CurName()) {
-                    return false;
-                }
-            }
+            //for (var j = 0; j < mcVM.modulo().Cursos.length; j++) {
+            //    if (ui.item.CurName == mcVM.modulo().Cursos[j].CurName()) {
+            //        return false;
+            //    }
+            //}
 
-            mcVM.moduloCursos()[mcVM.cursoPushIndex()].CurId(ui.item.CurId);
-            mcVM.moduloCursos()[mcVM.cursoPushIndex()].CurName(ui.item.CurName);
-            mcVM.moduloCursos()[mcVM.cursoPushIndex()].CurNumHoras(ui.item.CurNumHoras);
-            mcVM.moduloCursos()[mcVM.cursoPushIndex()].CurPrecio(ui.item.CurPrecio);
+            mcVM.modulo().Cursos[mcVM.cursoPushIndex()].CurId   = ui.item.CurId;
+            mcVM.modulo().Cursos[mcVM.cursoPushIndex()].CurName      = ui.item.CurName;
+            mcVM.modulo().Cursos[mcVM.cursoPushIndex()].CurNumHoras  = ui.item.CurNumHoras;
+            mcVM.modulo().Cursos[mcVM.cursoPushIndex()].CurPrecio    = ui.item.CurPrecio;
         }
     });
 
