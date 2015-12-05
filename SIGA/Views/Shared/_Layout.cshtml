@@ -79,12 +79,12 @@
                 </ul>
             </div>
         </li>
-        <li>
+        <li class="menuMainHeader">
             <span><i class="fa fa-cogs fa-lg"></i>&nbsp;&nbsp;Procesos</span>
             <a href="#procesoMenuCollapse" data-toggle="collapse" aria-expanded="false" aria-controls="procesoMenuCollapse">
                 <i class="fa fa-plus-square-o pull-right plus-collapse"></i>
             </a>
-            <div class="collapse collapse-custom" id="procesoMenuCollapse">
+            <div class="collapse menuMainHeaderItems" id="procesoMenuCollapse">
                 <ul data-bind="foreach: procesoMenuitems">
                     <li>
                         <a data-bind="text: name, click: $root.menuClick"></a>
@@ -92,7 +92,7 @@
                 </ul>
             </div>
         </li>
-        <li>
+        @*<li>
             <span><i class="fa fa-calendar fa-lg"></i>&nbsp;&nbsp;Horarios</span>
             <a href="#horarioMenuCollapse" data-toggle="collapse" aria-expanded="false" aria-controls="horarioMenuCollapse">
                 <i class="fa fa-plus-square-o pull-right plus-collapse"></i>
@@ -104,13 +104,13 @@
                     </li>
                 </ul>
             </div>
-        </li>
-        <li>
+        </li>*@
+        <li class="menuMainHeader">
             <span><i class="fa fa-credit-card fa-lg"></i>&nbsp;&nbsp;Pagos</span>
             <a href="#pagoMenuCollapse" data-toggle="collapse" aria-expanded="false" aria-controls="pagoMenuCollapse">
                 <i class="fa fa-plus-square-o pull-right plus-collapse"></i>
             </a>
-            <div class="collapse collapse-custom" id="pagoMenuCollapse">
+            <div class="collapse cmenuMainHeaderItems" id="pagoMenuCollapse">
                 <ul data-bind="foreach: pagoMenuitems">
                     <li>
                         <a data-bind="text: name, click: $root.menuClick"></a>
@@ -121,6 +121,7 @@
     </ul>
 
 </script>
+
 <script type="text/html" id="breadCrumTemplate">
 
     <div class="row">

@@ -1,0 +1,80 @@
+﻿@model IEnumerable<SIGA_Model.Matricula>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MatriFecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MatriEstado)
+        </th>
+        <th>
+            @Html.Raw("Alumno")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Curso.CurName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Modulo.ModNombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Programa.ProgNombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Recibo.RecId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    
+    SIGA_Model.SIGAEntities db = new SIGA_Model.SIGAEntities();
+
+    string alumnoNombre = (from a in db.Alumno
+                           join u in db.Usuario
+                           on a.User_Id equals u.User_Id
+                           join p in db.Persona
+                           on u.Per_Id equals p.Per_Id
+                           where a.Alu_Id == item.Alumno.Alu_Id
+                           select p.Per_Nombre + " " + p.Per_ApeMaterno).FirstOrDefault().ToString(); 
+    
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MatriFecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MatriEstado)
+        </td>
+        <td>
+            @Html.Raw(alumnoNombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Curso.CurName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Modulo.ModNombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Programa.ProgNombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Recibo.RecId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MatriId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MatriId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MatriId })
+        </td>
+    </tr>
+}
+
+</table>

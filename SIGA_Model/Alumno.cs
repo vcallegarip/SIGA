@@ -14,6 +14,11 @@ namespace SIGA_Model
     
     public partial class Alumno
     {
+        public Alumno()
+        {
+            this.Matricula = new HashSet<Matricula>();
+        }
+    
         public int Alu_Id { get; set; }
         public int User_Id { get; set; }
         public string Alu_Apoderado { get; set; }
@@ -23,5 +28,6 @@ namespace SIGA_Model
         public System.DateTime Alu_FechaRegistro { get; set; }
     
         public virtual Usuario Usuario { get; set; }
+        public virtual ICollection<Matricula> Matricula { get; set; }
     }
 }

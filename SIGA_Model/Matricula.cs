@@ -14,15 +14,19 @@ namespace SIGA_Model
     
     public partial class Matricula
     {
-        public int Mat_Id { get; set; }
-        public int Cur_Id { get; set; }
-        public int User_Id { get; set; }
-        public int Rec_Id { get; set; }
-        public string Mat_Tipo { get; set; }
-        public System.DateTime Mat_Fecha { get; set; }
-        public bool Mat_Estado { get; set; }
+        public int MatriId { get; set; }
+        public int ProgId { get; set; }
+        public int ModId { get; set; }
+        public int CurId { get; set; }
+        public int Alu_Id { get; set; }
+        public int RecId { get; set; }
+        public System.DateTime MatriFecha { get; set; }
+        public bool MatriEstado { get; set; }
     
+        public virtual Alumno Alumno { get; set; }
         public virtual Curso Curso { get; set; }
+        public virtual Modulo Modulo { get; set; }
+        public virtual Programa Programa { get; set; }
         public virtual Recibo Recibo { get; set; }
     }
 }

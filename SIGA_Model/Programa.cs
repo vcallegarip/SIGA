@@ -14,6 +14,11 @@ namespace SIGA_Model
     
     public partial class Programa
     {
+        public Programa()
+        {
+            this.Matricula = new HashSet<Matricula>();
+        }
+    
         public int ProgId { get; set; }
         public string ProgNombre { get; set; }
         public string ProgDescripcion { get; set; }
@@ -27,6 +32,7 @@ namespace SIGA_Model
     
         public virtual Aula Aula { get; set; }
         public virtual Horario Horario { get; set; }
+        public virtual ICollection<Matricula> Matricula { get; set; }
         public virtual Modulo Modulo { get; set; }
     }
 }

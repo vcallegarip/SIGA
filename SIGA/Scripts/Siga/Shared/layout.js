@@ -72,8 +72,8 @@ var layoutViewModel = function () {
             loadProgramacion();
         }
         else if (data.name == "Registro Matricula") {
-            $('#mainContainer').load("/Usuario/Index")
-
+            location.href = 'http://dev-sigaeducando.com/Matricula';
+            //window.location.href = "http://dev-sigaeducando.com/Matricula";
         }
     };
     

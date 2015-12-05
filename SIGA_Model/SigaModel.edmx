@@ -72,15 +72,16 @@
         </EntityType>
         <EntityType Name="Matricula">
           <Key>
-            <PropertyRef Name="Mat_Id" />
+            <PropertyRef Name="MatriId" />
           </Key>
-          <Property Name="Mat_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Cur_Id" Type="int" Nullable="false" />
-          <Property Name="User_Id" Type="int" Nullable="false" />
-          <Property Name="Rec_Id" Type="int" Nullable="false" />
-          <Property Name="Mat_Tipo" Type="varchar" MaxLength="50" />
-          <Property Name="Mat_Fecha" Type="datetime" Nullable="false" />
-          <Property Name="Mat_Estado" Type="bit" Nullable="false" />
+          <Property Name="MatriId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProgId" Type="int" Nullable="false" />
+          <Property Name="ModId" Type="int" Nullable="false" />
+          <Property Name="CurId" Type="int" Nullable="false" />
+          <Property Name="Alu_Id" Type="int" Nullable="false" />
+          <Property Name="RecId" Type="int" Nullable="false" />
+          <Property Name="MatriFecha" Type="datetime" Nullable="false" />
+          <Property Name="MatriEstado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Modulo">
           <Key>
@@ -122,11 +123,11 @@
         </EntityType>
         <EntityType Name="Pago">
           <Key>
-            <PropertyRef Name="Pag_Id" />
+            <PropertyRef Name="PagoId" />
           </Key>
-          <Property Name="Pag_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Alu_Id" Type="int" />
-          <Property Name="Pag_Fech" Type="datetime" />
+          <Property Name="PagoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PagoFecha" Type="datetime" Nullable="false" />
+          <Property Name="PagoMonto" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="Persona">
           <Key>
@@ -170,11 +171,11 @@
         </EntityType>
         <EntityType Name="Recibo">
           <Key>
-            <PropertyRef Name="Rec_Id" />
+            <PropertyRef Name="RecId" />
           </Key>
-          <Property Name="Rec_Id" Type="int" Nullable="false" />
+          <Property Name="RecId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="User_Id" Type="int" Nullable="false" />
-          <Property Name="Pag_Id" Type="int" Nullable="false" />
+          <Property Name="PagoId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -241,6 +242,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Matricula_Alumno">
+          <End Role="Alumno" Type="Self.Alumno" Multiplicity="1" />
+          <End Role="Matricula" Type="Self.Matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumno">
+              <PropertyRef Name="Alu_Id" />
+            </Principal>
+            <Dependent Role="Matricula">
+              <PropertyRef Name="Alu_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Matricula_Curso">
           <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
           <End Role="Matricula" Type="Self.Matricula" Multiplicity="*" />
@@ -249,7 +262,31 @@
               <PropertyRef Name="CurId" />
             </Principal>
             <Dependent Role="Matricula">
-              <PropertyRef Name="Cur_Id" />
+              <PropertyRef Name="CurId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matricula_Modulo">
+          <End Role="Modulo" Type="Self.Modulo" Multiplicity="1" />
+          <End Role="Matricula" Type="Self.Matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modulo">
+              <PropertyRef Name="ModId" />
+            </Principal>
+            <Dependent Role="Matricula">
+              <PropertyRef Name="ModId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matricula_Programa">
+          <End Role="Programa" Type="Self.Programa" Multiplicity="1" />
+          <End Role="Matricula" Type="Self.Matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Programa">
+              <PropertyRef Name="ProgId" />
+            </Principal>
+            <Dependent Role="Matricula">
+              <PropertyRef Name="ProgId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -258,10 +295,10 @@
           <End Role="Matricula" Type="Self.Matricula" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Recibo">
-              <PropertyRef Name="Rec_Id" />
+              <PropertyRef Name="RecId" />
             </Principal>
             <Dependent Role="Matricula">
-              <PropertyRef Name="Rec_Id" />
+              <PropertyRef Name="RecId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -378,10 +415,10 @@
           <End Role="Recibo" Type="Self.Recibo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pago">
-              <PropertyRef Name="Pag_Id" />
+              <PropertyRef Name="PagoId" />
             </Principal>
             <Dependent Role="Recibo">
-              <PropertyRef Name="Pag_Id" />
+              <PropertyRef Name="PagoId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -479,8 +516,20 @@
             <End Role="Curso" EntitySet="Curso" />
             <End Role="Calificacion" EntitySet="Calificacion" />
           </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Alumno" Association="Self.FK_Matricula_Alumno">
+            <End Role="Alumno" EntitySet="Alumno" />
+            <End Role="Matricula" EntitySet="Matricula" />
+          </AssociationSet>
           <AssociationSet Name="FK_Matricula_Curso" Association="Self.FK_Matricula_Curso">
             <End Role="Curso" EntitySet="Curso" />
+            <End Role="Matricula" EntitySet="Matricula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Modulo" Association="Self.FK_Matricula_Modulo">
+            <End Role="Modulo" EntitySet="Modulo" />
+            <End Role="Matricula" EntitySet="Matricula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Programa" Association="Self.FK_Matricula_Programa">
+            <End Role="Programa" EntitySet="Programa" />
             <End Role="Matricula" EntitySet="Matricula" />
           </AssociationSet>
           <AssociationSet Name="FK_Matricula_Recibo" Association="Self.FK_Matricula_Recibo">
@@ -564,6 +613,7 @@
           <Property Name="Alu_FechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Alu_FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Alumno_Usuario" FromRole="Alumno" ToRole="Usuario" />
+          <NavigationProperty Name="Matricula" Relationship="Self.FK_Matricula_Alumno" FromRole="Alumno" ToRole="Matricula" />
         </EntityType>
         <EntityType Name="Aula">
           <Key>
@@ -617,16 +667,20 @@
         </EntityType>
         <EntityType Name="Matricula">
           <Key>
-            <PropertyRef Name="Mat_Id" />
+            <PropertyRef Name="MatriId" />
           </Key>
-          <Property Name="Mat_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Cur_Id" Type="Int32" Nullable="false" />
-          <Property Name="User_Id" Type="Int32" Nullable="false" />
-          <Property Name="Rec_Id" Type="Int32" Nullable="false" />
-          <Property Name="Mat_Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Mat_Fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Mat_Estado" Type="Boolean" Nullable="false" />
+          <Property Name="MatriId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProgId" Type="Int32" Nullable="false" />
+          <Property Name="ModId" Type="Int32" Nullable="false" />
+          <Property Name="CurId" Type="Int32" Nullable="false" />
+          <Property Name="Alu_Id" Type="Int32" Nullable="false" />
+          <Property Name="RecId" Type="Int32" Nullable="false" />
+          <Property Name="MatriFecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MatriEstado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Alumno" Relationship="Self.FK_Matricula_Alumno" FromRole="Matricula" ToRole="Alumno" />
           <NavigationProperty Name="Curso" Relationship="Self.FK_Matricula_Curso" FromRole="Matricula" ToRole="Curso" />
+          <NavigationProperty Name="Modulo" Relationship="Self.FK_Matricula_Modulo" FromRole="Matricula" ToRole="Modulo" />
+          <NavigationProperty Name="Programa" Relationship="Self.FK_Matricula_Programa" FromRole="Matricula" ToRole="Programa" />
           <NavigationProperty Name="Recibo" Relationship="Self.FK_Matricula_Recibo" FromRole="Matricula" ToRole="Recibo" />
         </EntityType>
         <EntityType Name="Modulo">
@@ -640,6 +694,7 @@
           <Property Name="ModNumHoras" Type="Int32" Nullable="false" />
           <Property Name="ModNumMes" Type="Int32" Nullable="false" />
           <Property Name="ModNumCursos" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Matricula" Relationship="Self.FK_Matricula_Modulo" FromRole="Modulo" ToRole="Matricula" />
           <NavigationProperty Name="ModuloCategoria" Relationship="Self.FK_Modulo_ModuloCategoria" FromRole="Modulo" ToRole="ModuloCategoria" />
           <NavigationProperty Name="ModuloNivel" Relationship="Self.FK_Modulo_ModuloNivel" FromRole="Modulo" ToRole="ModuloNivel" />
           <NavigationProperty Name="ModuloCurso" Relationship="Self.FK_ModuloCurso_Modulo" FromRole="Modulo" ToRole="ModuloCurso" />
@@ -677,11 +732,11 @@
         </EntityType>
         <EntityType Name="Pago">
           <Key>
-            <PropertyRef Name="Pag_Id" />
+            <PropertyRef Name="PagoId" />
           </Key>
-          <Property Name="Pag_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Alu_Id" Type="Int32" />
-          <Property Name="Pag_Fech" Type="DateTime" Precision="3" />
+          <Property Name="PagoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PagoFecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PagoMonto" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <NavigationProperty Name="Recibo" Relationship="Self.FK_Recibo_Pago" FromRole="Pago" ToRole="Recibo" />
         </EntityType>
         <EntityType Name="Persona">
@@ -728,15 +783,16 @@
           <Property Name="EsVigente" Type="Boolean" />
           <NavigationProperty Name="Aula" Relationship="Self.FK_ProgramacionModulo_Aula" FromRole="Programa" ToRole="Aula" />
           <NavigationProperty Name="Horario" Relationship="Self.FK_ProgramacionModulo_Horario" FromRole="Programa" ToRole="Horario" />
+          <NavigationProperty Name="Matricula" Relationship="Self.FK_Matricula_Programa" FromRole="Programa" ToRole="Matricula" />
           <NavigationProperty Name="Modulo" Relationship="Self.FK_ProgramacionModulo_Modulo" FromRole="Programa" ToRole="Modulo" />
         </EntityType>
         <EntityType Name="Recibo">
           <Key>
-            <PropertyRef Name="Rec_Id" />
+            <PropertyRef Name="RecId" />
           </Key>
-          <Property Name="Rec_Id" Type="Int32" Nullable="false" />
+          <Property Name="RecId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="User_Id" Type="Int32" Nullable="false" />
-          <Property Name="Pag_Id" Type="Int32" Nullable="false" />
+          <Property Name="PagoId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Matricula" Relationship="Self.FK_Matricula_Recibo" FromRole="Recibo" ToRole="Matricula" />
           <NavigationProperty Name="Pago" Relationship="Self.FK_Recibo_Pago" FromRole="Recibo" ToRole="Pago" />
         </EntityType>
@@ -799,6 +855,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Matricula_Alumno">
+          <End Role="Alumno" Type="Self.Alumno" Multiplicity="1" />
+          <End Role="Matricula" Type="Self.Matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumno">
+              <PropertyRef Name="Alu_Id" />
+            </Principal>
+            <Dependent Role="Matricula">
+              <PropertyRef Name="Alu_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProgramacionModulo_Aula">
           <End Role="Aula" Type="Self.Aula" Multiplicity="1" />
           <End Role="Programa" Type="Self.Programa" Multiplicity="*" />
@@ -831,7 +899,7 @@
               <PropertyRef Name="CurId" />
             </Principal>
             <Dependent Role="Matricula">
-              <PropertyRef Name="Cur_Id" />
+              <PropertyRef Name="CurId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -871,15 +939,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Matricula_Modulo">
+          <End Role="Modulo" Type="Self.Modulo" Multiplicity="1" />
+          <End Role="Matricula" Type="Self.Matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modulo">
+              <PropertyRef Name="ModId" />
+            </Principal>
+            <Dependent Role="Matricula">
+              <PropertyRef Name="ModId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matricula_Programa">
+          <End Role="Programa" Type="Self.Programa" Multiplicity="1" />
+          <End Role="Matricula" Type="Self.Matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Programa">
+              <PropertyRef Name="ProgId" />
+            </Principal>
+            <Dependent Role="Matricula">
+              <PropertyRef Name="ProgId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Matricula_Recibo">
           <End Role="Recibo" Type="Self.Recibo" Multiplicity="1" />
           <End Role="Matricula" Type="Self.Matricula" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Recibo">
-              <PropertyRef Name="Rec_Id" />
+              <PropertyRef Name="RecId" />
             </Principal>
             <Dependent Role="Matricula">
-              <PropertyRef Name="Rec_Id" />
+              <PropertyRef Name="RecId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -936,10 +1028,10 @@
           <End Role="Recibo" Type="Self.Recibo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pago">
-              <PropertyRef Name="Pag_Id" />
+              <PropertyRef Name="PagoId" />
             </Principal>
             <Dependent Role="Recibo">
-              <PropertyRef Name="Pag_Id" />
+              <PropertyRef Name="PagoId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1007,6 +1099,10 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Alumno" EntitySet="Alumno" />
           </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Alumno" Association="Self.FK_Matricula_Alumno">
+            <End Role="Alumno" EntitySet="Alumno" />
+            <End Role="Matricula" EntitySet="Matricula" />
+          </AssociationSet>
           <AssociationSet Name="FK_ProgramacionModulo_Aula" Association="Self.FK_ProgramacionModulo_Aula">
             <End Role="Aula" EntitySet="Aula" />
             <End Role="Programa" EntitySet="Programa" />
@@ -1030,6 +1126,14 @@
           <AssociationSet Name="FK_ProgramacionModulo_Horario" Association="Self.FK_ProgramacionModulo_Horario">
             <End Role="Horario" EntitySet="Horario" />
             <End Role="Programa" EntitySet="Programa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Modulo" Association="Self.FK_Matricula_Modulo">
+            <End Role="Modulo" EntitySet="Modulo" />
+            <End Role="Matricula" EntitySet="Matricula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Programa" Association="Self.FK_Matricula_Programa">
+            <End Role="Programa" EntitySet="Programa" />
+            <End Role="Matricula" EntitySet="Matricula" />
           </AssociationSet>
           <AssociationSet Name="FK_Matricula_Recibo" Association="Self.FK_Matricula_Recibo">
             <End Role="Recibo" EntitySet="Recibo" />
@@ -1195,13 +1299,14 @@
           <EntitySetMapping Name="Matricula">
             <EntityTypeMapping TypeName="SIGAModel.Matricula">
               <MappingFragment StoreEntitySet="Matricula">
-                <ScalarProperty Name="Mat_Id" ColumnName="Mat_Id" />
-                <ScalarProperty Name="Cur_Id" ColumnName="Cur_Id" />
-                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
-                <ScalarProperty Name="Rec_Id" ColumnName="Rec_Id" />
-                <ScalarProperty Name="Mat_Tipo" ColumnName="Mat_Tipo" />
-                <ScalarProperty Name="Mat_Fecha" ColumnName="Mat_Fecha" />
-                <ScalarProperty Name="Mat_Estado" ColumnName="Mat_Estado" />
+                <ScalarProperty Name="MatriId" ColumnName="MatriId" />
+                <ScalarProperty Name="ProgId" ColumnName="ProgId" />
+                <ScalarProperty Name="ModId" ColumnName="ModId" />
+                <ScalarProperty Name="CurId" ColumnName="CurId" />
+                <ScalarProperty Name="Alu_Id" ColumnName="Alu_Id" />
+                <ScalarProperty Name="RecId" ColumnName="RecId" />
+                <ScalarProperty Name="MatriFecha" ColumnName="MatriFecha" />
+                <ScalarProperty Name="MatriEstado" ColumnName="MatriEstado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1249,9 +1354,9 @@
           <EntitySetMapping Name="Pago">
             <EntityTypeMapping TypeName="SIGAModel.Pago">
               <MappingFragment StoreEntitySet="Pago">
-                <ScalarProperty Name="Pag_Id" ColumnName="Pag_Id" />
-                <ScalarProperty Name="Alu_Id" ColumnName="Alu_Id" />
-                <ScalarProperty Name="Pag_Fech" ColumnName="Pag_Fech" />
+                <ScalarProperty Name="PagoId" ColumnName="PagoId" />
+                <ScalarProperty Name="PagoFecha" ColumnName="PagoFecha" />
+                <ScalarProperty Name="PagoMonto" ColumnName="PagoMonto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1301,9 +1406,9 @@
           <EntitySetMapping Name="Recibo">
             <EntityTypeMapping TypeName="SIGAModel.Recibo">
               <MappingFragment StoreEntitySet="Recibo">
-                <ScalarProperty Name="Rec_Id" ColumnName="Rec_Id" />
+                <ScalarProperty Name="RecId" ColumnName="RecId" />
                 <ScalarProperty Name="User_Id" ColumnName="User_Id" />
-                <ScalarProperty Name="Pag_Id" ColumnName="Pag_Id" />
+                <ScalarProperty Name="PagoId" ColumnName="PagoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

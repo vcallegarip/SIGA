@@ -1,0 +1,75 @@
+﻿@model SIGA_Model.Matricula
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>Matricula</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MatriFecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MatriFecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MatriEstado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MatriEstado)
+        </dd>
+
+        <dt>
+            @Html.Raw("Alumno")
+        </dt>
+
+        <dd>
+            @Html.Raw(ViewBag.AlumnoNombre)
+            @*@Html.DisplayFor(model => model.Alumno.Alu_Apoderado)*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Curso.CurName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Curso.CurName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Modulo.ModNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Modulo.ModNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Programa.ProgNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Programa.ProgNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Recibo.RecId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Recibo.RecId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Editar", new { id = Model.MatriId }) |
+    @Html.ActionLink("Regresar a la Lista", "Index")
+</p>
