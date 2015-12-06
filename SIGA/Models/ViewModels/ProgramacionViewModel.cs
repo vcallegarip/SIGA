@@ -28,69 +28,122 @@ namespace SIGA.Models.ViewModels
 
     public class ProgramacionItem
     {
+        [JsonProperty(PropertyName = "Prog_Id")]
         public int Prog_Id { get; set; }
+
+        [JsonProperty(PropertyName = "ModId")]
         public int ModId { get; set; }
+
+        [JsonProperty(PropertyName = "AulId")]
         public int AulId { get; set; }
+
+        [JsonProperty(PropertyName = "HorId")]
         public int HorId { get; set; }
+
+        [JsonProperty(PropertyName = "ProgNombre")]
         public string ProgNombre { get; set; }
-        private DateTime? _progFechaInicio { get; set; }
-        public DateTime? ProgFechaInicio
-        {
-            get
-            {
-                if (_progFechaInicio == null) _progFechaInicio = DateTime.Now.Date;
-                return _progFechaInicio.Value.Date;
-            }
-            set
-            {
-                _progFechaInicio = value;
-    
-            }
-        }
+
+        [JsonProperty(PropertyName = "ProgDescripcion")]
+        public string ProgDescripcion { get; set; }
+
+        [JsonProperty(PropertyName = "ProgFechaRegistro")]
+        public DateTime? ProgFechaRegistro { get; set; }
+
+        [Required(ErrorMessage = "Fecha de Inicio es requerido.")]
+        [JsonProperty(PropertyName = "ProgFechaInicio")]
+        public DateTime? ProgFechaInicio { get; set; }
+
+        [Required(ErrorMessage = "Fecha de Fin es requerido.")]
+        [JsonProperty(PropertyName = "ProgFechaFin")]
+        public DateTime? ProgFechaFin { get; set; }
+
+
+        [JsonProperty(PropertyName = "EsVigente")]
+        public bool EsVigente { get; set; }
+
+        [JsonProperty(PropertyName = "AulaItem")]
         public AulaItem AulaItem { get; set; }
+
+        [JsonProperty(PropertyName = "HorarioItem")]
         public HorarioItem HorarioItem { get; set; }
+
+        [JsonProperty(PropertyName = "ModuloItem")]
         public ModuloItem ModuloItem { get; set; }
+
+        [JsonProperty(PropertyName = "ModuloCursoList")]
         public List<ModuloCursoItem> ModuloCursoList { get; set; }
     }
 
     public class AulaItem
     {
+        [JsonProperty(PropertyName = "AulId")]
         public int AulId { get; set; }
+
+        [JsonProperty(PropertyName = "AulNumero")]
         public int? AulNumero { get; set; }
+
+        [JsonProperty(PropertyName = "AulCapacidad")]
         public int? AulCapacidad { get; set; }
 
     }
 
     public class HorarioItem
     {
-
+        [JsonProperty(PropertyName = "HorId")]
         public int HorId { get; set; }
+
+        [JsonProperty(PropertyName = "HorTurno")]
         public string HorTurno { get; set; }
+
+        [JsonProperty(PropertyName = "HorDia")]
         public string HorDia { get; set; }
+
+        [JsonProperty(PropertyName = "HorHoraIni")]
         public Nullable<System.TimeSpan> HorHoraIni { get; set; }
+
+        [JsonProperty(PropertyName = "HorHoraFin")]
         public Nullable<System.TimeSpan> HorHoraFin { get; set; }
 
     }
 
     public class ModuloItem
     {
-
+        [JsonProperty(PropertyName = "ModId")]
         public int ModId { get; set; }
+
+        [JsonProperty(PropertyName = "ModCatId")]
         public int ModCatId { get; set; }
+
+        [JsonProperty(PropertyName = "ModNivelId")]
         public int ModNivelId { get; set; }
+
+        [JsonProperty(PropertyName = "ModNombre")]
         public string ModNombre { get; set; }
+
+        [JsonProperty(PropertyName = "ModNumHoras")]
         public int ModNumHoras { get; set; }
+
+        [JsonProperty(PropertyName = "ModNumMes")]
         public int ModNumMes { get; set; }
+
+        [JsonProperty(PropertyName = "ModNumCursos")]
         public int ModNumCursos { get; set; }
 
     }
 
     public class ModuloCursoItem
     {
-        public int CudID { get; set; }
+        [JsonProperty(PropertyName = "CurId")]
+        public int CurId { get; set; }
+
+        [JsonProperty(PropertyName = "CurNombre")]
         public string CurNombre { get; set; }
-        public int CurNumHoras { get; set; }
-        public decimal CurPrecio { get; set; }
+
+        [JsonProperty(PropertyName = "CurNumHoras")]
+        public int? CurNumHoras { get; set; }
+
+        [JsonProperty(PropertyName = "CurPrecio")]
+        public decimal? CurPrecio { get; set; }
 
     }
 

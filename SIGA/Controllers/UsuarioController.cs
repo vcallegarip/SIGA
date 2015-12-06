@@ -67,6 +67,13 @@ namespace SIGA.Controllers
                                                       Alu_FechaIngreso = u.Alu_FechaIngreso,
                                                       Alu_FechaRegistro = u.Alu_FechaRegistro,
                                                       Alu_Apoderado = u.Alu_Apoderado,
+                                                  },
+                                                  ProfesorItem = new ProfesorItem
+                                                  {
+                                                      Cur_Id = u.Cur_Id,
+                                                      Prof_Especialidad = u.Prof_Especialidad,
+                                                      Prof_Procedencia = u.Prof_Procedencia,
+                                                      Prof_LugarEstudio = u.Prof_LugarEstudio,
                                                   }
                                               }).ToList();
 
@@ -96,7 +103,14 @@ namespace SIGA.Controllers
                                 Alu_FechaIngreso = usuarioViewModel.UsuarioItemList[0].AlumnoItem.Alu_FechaIngreso == null ? (DateTime?)null : usuarioViewModel.UsuarioItemList[0].AlumnoItem.Alu_FechaIngreso,
                                 Alu_FechaRegistro = usuarioViewModel.UsuarioItemList[0].AlumnoItem.Alu_FechaRegistro == null ? (DateTime?)null : usuarioViewModel.UsuarioItemList[0].AlumnoItem.Alu_FechaRegistro,
                                 Alu_Apoderado = usuarioViewModel.UsuarioItemList[0].AlumnoItem.Alu_Apoderado == null ? "" : usuarioViewModel.UsuarioItemList[0].AlumnoItem.Alu_Apoderado,
-                           }
+                           },
+                ProfesorItem = new ProfesorItem
+                {
+                    Cur_Id = usuarioViewModel.UsuarioItemList[0].ProfesorItem.Cur_Id == null ? 0 : usuarioViewModel.UsuarioItemList[0].ProfesorItem.Cur_Id,
+                    Prof_Especialidad = usuarioViewModel.UsuarioItemList[0].ProfesorItem.Prof_Especialidad == null ? "" : usuarioViewModel.UsuarioItemList[0].ProfesorItem.Prof_Especialidad,
+                    Prof_Procedencia = usuarioViewModel.UsuarioItemList[0].ProfesorItem.Prof_Procedencia == null ? "" : usuarioViewModel.UsuarioItemList[0].ProfesorItem.Prof_Procedencia,
+                    Prof_LugarEstudio = usuarioViewModel.UsuarioItemList[0].ProfesorItem.Prof_LugarEstudio == null ? "" : usuarioViewModel.UsuarioItemList[0].ProfesorItem.Prof_LugarEstudio,
+                }
             };
 
             return usuarioViewModel;

@@ -25,10 +25,10 @@ namespace SIGA.Controllers.Api
             using (var db = new SIGAEntities())
             {
 
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
+                //if (!ModelState.IsValid)
+                //{
+                //    return BadRequest(ModelState);
+                //}
 
                 try
                 {
@@ -72,7 +72,11 @@ namespace SIGA.Controllers.Api
                     if (tipoUserValue == "Profesor")
                     {
                         Profesor profesor = new Profesor();
-                        // add code
+                        profesor.User_Id = usuario.User_Id;
+                        profesor.Cur_Id = usuarioViewModel.UsuarioItem.ProfesorItem.Cur_Id;
+                        profesor.Prof_Especialidad = usuarioViewModel.UsuarioItem.ProfesorItem.Prof_Especialidad;
+                        profesor.Prof_Procedencia = usuarioViewModel.UsuarioItem.ProfesorItem.Prof_Procedencia;
+                        profesor.Prof_LugarEstudio = usuarioViewModel.UsuarioItem.ProfesorItem.Prof_LugarEstudio;
 
                         db.Profesor.Add(profesor);
                     }
@@ -129,11 +133,32 @@ namespace SIGA.Controllers.Api
                     persona.Per_Tel = usuarioViewModel.UsuarioItem.Per_Tel; // collection["UsuarioItem.Per_Tel"];
                     persona.Per_Email = usuarioViewModel.UsuarioItem.Per_Email; // collection["UsuarioItem.Per_Email"];
 
-                    Alumno alumno = db.Alumno.First(a => a.User_Id == usuarioViewModel.UsuarioItem.User_Id);
-                    alumno.Alu_Apoderado = usuarioViewModel.UsuarioItem.AlumnoItem.Alu_Apoderado; // collection["UsuarioItem.AlumnoItem.Alu_Apoderado"];
-                    alumno.Alu_FechaIngreso = Convert.ToDateTime(usuarioViewModel.UsuarioItem.AlumnoItem.Alu_FechaIngreso); // Convert.ToDateTime(collection["UsuarioItem.AlumnoItem.Alu_FechaIngreso"]);
-                    alumno.Alu_FechaRegistro = Convert.ToDateTime(usuarioViewModel.UsuarioItem.AlumnoItem.Alu_FechaRegistro); // Convert.ToDateTime(collection["UsuarioItem.AlumnoItem.Alu_FechaRegistro"]);  //DateTime.UtcNow;
-                    alumno.Alu_Estado = true;
+
+                    if (tipoUserValue == "Alumno")
+                    {
+                        Alumno alumno = db.Alumno.First(a => a.User_Id == usuarioViewModel.UsuarioItem.User_Id);
+                        alumno.Alu_Apoderado = usuarioViewModel.UsuarioItem.AlumnoItem.Alu_Apoderado; // collection["UsuarioItem.AlumnoItem.Alu_Apoderado"];
+                        alumno.Alu_FechaIngreso = Convert.ToDateTime(usuarioViewModel.UsuarioItem.AlumnoItem.Alu_FechaIngreso); // Convert.ToDateTime(collection["UsuarioItem.AlumnoItem.Alu_FechaIngreso"]);
+                        alumno.Alu_FechaRegistro = Convert.ToDateTime(usuarioViewModel.UsuarioItem.AlumnoItem.Alu_FechaRegistro); // Convert.ToDateTime(collection["UsuarioItem.AlumnoItem.Alu_FechaRegistro"]);  //DateTime.UtcNow;
+                        alumno.Alu_Estado = true;
+                    }
+
+                    if (tipoUserValue == "Profesor")
+                    {
+                        Profesor profesor = db.Profesor.First(a => a.User_Id == usuarioViewModel.UsuarioItem.User_Id);
+                        profesor.Cur_Id = usuarioViewModel.UsuarioItem.ProfesorItem.Cur_Id;
+                        profesor.Prof_Especialidad = usuarioViewModel.UsuarioItem.ProfesorItem.Prof_Especialidad;
+                        profesor.Prof_Procedencia = usuarioViewModel.UsuarioItem.ProfesorItem.Prof_Procedencia;
+                        profesor.Prof_LugarEstudio = usuarioViewModel.UsuarioItem.ProfesorItem.Prof_LugarEstudio;
+                    }
+
+                    if (tipoUserValue == "Administrador")
+                    {
+                        Administrador administrador = new Administrador();
+                        // add code
+
+                        db.Administrador.Add(administrador);
+                    }
 
                     db.SaveChanges();
 

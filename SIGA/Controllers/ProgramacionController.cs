@@ -83,7 +83,7 @@ namespace SIGA.Controllers
                                                                          where mc.ModId == p.Modulo.ModId
                                                                          select new ModuloCursoItem
                                                                          {
-                                                                             CudID = c.CurId,
+                                                                             CurId = c.CurId,
                                                                              CurNombre = c.CurName,
                                                                              CurNumHoras = (int)c.CurNumHoras,
 
@@ -108,10 +108,10 @@ namespace SIGA.Controllers
                              select new ModuloCursoItem
                              {
 
-                                 CudID = c.CurId,
+                                 CurId = c.CurId,
                                  CurNombre = c.CurName,
-                                 CurNumHoras = (int)c.CurNumHoras,
-                                 //CurPrecio = Convert.ToDecimal(c.CurPrecio)
+                                 CurNumHoras = c.CurNumHoras,
+                                 CurPrecio = c.CurPrecio
 
                              }).ToList();
 

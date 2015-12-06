@@ -102,9 +102,9 @@
                 <div class="col-lg-12">
 
                     <ul class="nav nav-tabs">
-                        <li data-bind="visible: tipoUsuarioSelected == 'Alumno'" id="liAlumno"><a data-bind="click: function () { setTipoUsuarioSelected('Alumno') }">Alumno</a></li>
-                        <li data-bind="visible: tipoUsuarioSelected == 'Profesor'" id=" liprofesor"><a data-bind="click: function () { setTipoUsuarioSelected('Profesor') }">Profesor</a></li>
-                        <li data-bind="visible: tipoUsuarioSelected == 'Administrador'" id="liAdministrador"><a data-bind="click: function () { setTipoUsuarioSelected('Administrador') }">Administrador</a></li>
+                        <li data-bind="visible: tipoUsuarioSelected == 'Alumno'" id="liAlumno"><a data-bind="visible: tipoUsuarioSelected() == 'Alumno', click: function () { setTipoUsuarioSelected('Alumno') }">Alumno</a></li>
+                        <li data-bind="visible: tipoUsuarioSelected == 'Profesor'" id=" liprofesor"><a data-bind="visible: tipoUsuarioSelected() == 'Profesor', click: function () { setTipoUsuarioSelected('Profesor') }">Profesor</a></li>
+                        <li data-bind="visible: tipoUsuarioSelected == 'Administrador'" id="liAdministrador"><a data-bind="visible: tipoUsuarioSelected() == 'Administrador', click: function () { setTipoUsuarioSelected('Administrador') }">Administrador</a></li>
                     </ul>
 
                     <div class="row">
@@ -158,7 +158,60 @@
                                 </div>
                             </div>
                             <div data-bind="visible: tipoUsuarioSelected() == 'Profesor'">
-                                <h1>Profesor</h1>
+                                <div class="row">
+                                    <div class="col-lg-3 text-center">
+                                        <a href="#" class="thumbnail center-block" style="width:150px;height:150px">
+                                            <img src="~/Content/images/usuario.png" />
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <div class="row paddingBottom5px">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.UsuarioItem.User_Nombre, "Usuario Alias", htmlAttributes: new { @class = "control-label col-md-3 text-right" })
+                                                <div class="col-md-9">
+                                                    @Html.EditorFor(model => model.UsuarioItem.User_Nombre, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuarioData.UsuarioItem.User_Nombre", @disabled = "disabled", @readonly = "readonly" } })
+                                                    @Html.ValidationMessageFor(model => model.UsuarioItem.User_Nombre, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row paddingBottom5px">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.UsuarioItem.ProfesorItem.Cur_Id, "Curso", htmlAttributes: new { @class = "control-label col-md-3 text-right" })
+                                                <div class="col-md-9">
+                                                    @Html.EditorFor(model => model.UsuarioItem.ProfesorItem.Cur_Id, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuarioData.UsuarioItem.ProfesorItem.Cur_Id", @disabled = "disabled", @readonly = "readonly" } })
+                                                    @Html.ValidationMessageFor(model => model.UsuarioItem.ProfesorItem.Cur_Id, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row paddingBottom5px">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.UsuarioItem.ProfesorItem.Prof_Especialidad, "Especialidad", htmlAttributes: new { @class = "control-label col-md-3 text-right" })
+                                                <div class="col-md-9">
+                                                    @Html.EditorFor(model => model.UsuarioItem.ProfesorItem.Prof_Especialidad, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuarioData.UsuarioItem.ProfesorItem.Prof_Especialidad", @disabled = "disabled", @readonly = "readonly" } })
+                                                    @Html.ValidationMessageFor(model => model.UsuarioItem.ProfesorItem.Prof_Especialidad, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row paddingBottom5px">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.UsuarioItem.ProfesorItem.Prof_Procedencia, "Lugar Procedencia", htmlAttributes: new { @class = "control-label col-md-3 text-right" })
+                                                <div class="col-md-9">
+                                                    @Html.EditorFor(model => model.UsuarioItem.ProfesorItem.Prof_Procedencia, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuarioData.UsuarioItem.ProfesorItem.Prof_Procedencia", @disabled = "disabled", @readonly = "readonly" } })
+                                                    @Html.ValidationMessageFor(model => model.UsuarioItem.ProfesorItem.Prof_Procedencia, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row paddingBottom5px">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.UsuarioItem.ProfesorItem.Prof_LugarEstudio, "Lugar de Estudio", htmlAttributes: new { @class = "control-label col-md-3 text-right" })
+                                                <div class="col-md-9">
+                                                    @Html.EditorFor(model => model.UsuarioItem.ProfesorItem.Prof_LugarEstudio, new { htmlAttributes = new { @class = "form-control", data_bind = "value: usuarioData.UsuarioItem.ProfesorItem.Prof_LugarEstudio", @disabled = "disabled", @readonly = "readonly" } })
+                                                    @Html.ValidationMessageFor(model => model.UsuarioItem.ProfesorItem.Prof_LugarEstudio, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div data-bind="visible: tipoUsuarioSelected() == 'Administrador'">
                                 <h1>Administrador</h1>

@@ -43,7 +43,12 @@ function programacionViewModel(programacion) {
             AulId : ko.observable(programacion.ProgramacionItem.AulId),
             HorId : ko.observable(programacion.ProgramacionItem.HorId),
             ProgNombre : ko.observable(programacion.ProgramacionItem.ProgNombre),
-            ProgFechaInicio : ko.observable(programacion.ProgramacionItem.ProgFechaInicio),
+            ProgDescripcion: ko.observable(programacion.ProgramacionItem.ProgDescripcion),
+            ProgFechaRegistro: ko.observable(programacion.ProgramacionItem.ProgFechaRegistro),
+            ProgFechaInicio: ko.observable(programacion.ProgramacionItem.ProgFechaInicio),
+            ProgFechaFin: ko.observable(programacion.ProgramacionItem.ProgFechaFin),
+            EsVigente: ko.observable(programacion.ProgramacionItem.EsVigente),
+
             //AulaItem : {
             //    AulId : ko.observable(programacion.AulaItem.AulId),
             //    AulCapacidad : ko.observable(programacion.AulaItem.AulCapacidad)

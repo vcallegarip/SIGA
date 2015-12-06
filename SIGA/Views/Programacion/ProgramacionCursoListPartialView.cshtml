@@ -15,23 +15,20 @@
         {
             <div id="bootstrapDataGrid">
                 <div class="row bootstrapDataGridHeader marginBottomp5px">
-                    <div class="col-lg-1 col-md-1 noPaddingInColumn"><span>Codigo</span></div>
-                    <div class="col-lg-1 col-md-1"><span>Nombre Curso</span></div>
-                    <div class="col-lg-1 col-md-1"><span>Numero de Horas</span></div>
-                    <div class="col-lg-1 col-md-1"><span>Precio</span></div>
-                    <div class="col-lg-2 col-md-2"><span></span></div>
+                    <div class="col-lg-2 col-md-2 noPaddingInColumn"><span>Codigo</span></div>
+                    <div class="col-lg-5 col-md-5"><span>Nombre Curso</span></div>
+                    <div class="col-lg-2 col-md-2"><span>Numero de Horas</span></div>
+                    <div class="col-lg-3 col-md-3"><span>Precio</span></div>
                 </div>
                 @foreach (var item in Model.ProgramacionItem.ModuloCursoList)
                 {
                     <div class="bootstrapDataGridData">
 
                         <div class="row paddingBottom5px">
-                            <div class="col-lg-1 col-md-1 alignDataWithButton noPaddingInColumn"><span>@item.CudID</span></div>
-                            <div class="col-lg-1 col-md-1 alignDataWithButton"><span>@item.CurNombre</span></div>
-                            <div class="col-lg-1 col-md-1 alignDataWithButton"><span>@item.CurNumHoras</span></div>
-                            <div class="col-lg-1 col-md-1 alignDataWithButton"><span>@item.CurPrecio</span></div>
-                            <div class="col-lg-1 col-md-1 alignDataWithButton"><span></span></div>
-                            
+                            <div class="col-lg-2 col-md-2 alignDataWithButton noPaddingInColumn"><span>@item.CurId</span></div>
+                            <div class="col-lg-5 col-md-5 alignDataWithButton"><span>@item.CurNombre</span></div>
+                            <div class="col-lg-2 col-md-2 alignDataWithButton"><span>@item.CurNumHoras</span></div>
+                            <div class="col-lg-3 col-md-3 alignDataWithButton"><span>@item.CurPrecio</span></div>
                         </div>
                     </div>
 

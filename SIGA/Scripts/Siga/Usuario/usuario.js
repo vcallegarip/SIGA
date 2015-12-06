@@ -64,7 +64,7 @@ function usuarioViewModel(usuario) {
     usuarioVM.isCreating = usuario.UsuarioItem.User_Id == 0;
  
     activeUserTabOnDetail(usuario.UsuarioItem.TipoUser_Descrip);
-
+    
     usuarioVM.usuarioData = {
         UsuarioItem: {
             User_Id: usuario.UsuarioItem.User_Id,
@@ -79,6 +79,34 @@ function usuarioViewModel(usuario) {
             Per_Sexo: ko.observable(usuario.UsuarioItem.Per_Sexo),
             User_Nombre: ko.observable(usuario.UsuarioItem.User_Nombre),
             TipoUser_Descrip: ko.observable(usuarioVM.tipoUsuarioSelected),
+            AlumnoItem: {
+                Alu_FechaIngreso: ko.observable(usuario.UsuarioItem.AlumnoItem.Alu_FechaIngreso),
+                Alu_FechaRegistro: ko.observable(usuario.UsuarioItem.AlumnoItem.Alu_FechaRegistro),
+                Alu_Apoderado: ko.observable(usuario.UsuarioItem.AlumnoItem.Alu_Apoderado),
+            },
+            ProfesorItem: {
+                Cur_Id: ko.observable(usuario.UsuarioItem.ProfesorItem.Cur_Id),
+                Prof_Especialidad: ko.observable(usuario.UsuarioItem.ProfesorItem.Prof_Especialidad),
+                Prof_Procedencia: ko.observable(usuario.UsuarioItem.ProfesorItem.Prof_Procedencia),
+                Prof_LugarEstudio: ko.observable(usuario.UsuarioItem.ProfesorItem.Prof_LugarEstudio),
+            }
+        }
+    }
+
+    usuarioVM.usuarioAlumnoData = {
+        UsuarioItem: {
+            User_Id: usuarioVM.usuarioData.UsuarioItem.User_Id, // usuario.UsuarioItem.User_Id,
+            Per_Nombre: usuarioVM.usuarioData.UsuarioItem.Per_Nombre, //ko.observable(usuario.UsuarioItem.Per_Nombre),
+            Per_ApePaterno: usuarioVM.usuarioData.UsuarioItem.Per_ApePaterno, //ko.observable(usuario.UsuarioItem.Per_ApePaterno),
+            Per_ApeMaterno: usuarioVM.usuarioData.UsuarioItem.Per_ApeMaterno, //ko.observable(usuario.UsuarioItem.Per_ApeMaterno),
+            Per_Email: usuarioVM.usuarioData.UsuarioItem.Per_Email, //ko.observable(usuario.UsuarioItem.Per_Email),
+            Per_Dni: usuarioVM.usuarioData.UsuarioItem.Per_Dni, //ko.observable(usuario.UsuarioItem.Per_Dni),
+            Per_Dir: usuarioVM.usuarioData.UsuarioItem.Per_Dir, //ko.observable(usuario.UsuarioItem.Per_Dir),
+            Per_Cel: usuarioVM.usuarioData.UsuarioItem.Per_Cel, //ko.observable(usuario.UsuarioItem.Per_Cel),
+            Per_Tel: usuarioVM.usuarioData.UsuarioItem.Per_Tel, //ko.observable(usuario.UsuarioItem.Per_Tel),
+            Per_Sexo: usuarioVM.usuarioData.UsuarioItem.Per_Sexo, //ko.observable(usuario.UsuarioItem.Per_Sexo),
+            User_Nombre: usuarioVM.usuarioData.UsuarioItem.User_Nombre, //ko.observable(usuario.UsuarioItem.User_Nombre),
+            TipoUser_Descrip: usuarioVM.usuarioData.UsuarioItem.TipoUser_Descrip, //ko.observable(usuarioVM.tipoUsuarioSelected),
             AlumnoItem : {
                 Alu_FechaIngreso: ko.observable(usuario.UsuarioItem.AlumnoItem.Alu_FechaIngreso),
                 Alu_FechaRegistro: ko.observable(usuario.UsuarioItem.AlumnoItem.Alu_FechaRegistro),
@@ -87,20 +115,63 @@ function usuarioViewModel(usuario) {
         }
     }
 
-    usuarioVM.validateAndSave = function (form) {
-        if (!$(form).valid())
-            return false;
-        usuarioVM.sending(true);
 
-        $.ajax({
-            url: '/api/usuario',
-            type: (usuarioVM.isCreating) ? 'Post' : 'Put',
-            contentType: 'application/json',
-            data: ko.toJSON(usuarioVM.usuarioData)
-        }) 
-        .success(usuarioVM.successfulSave) 
+    usuarioVM.usuarioProfesorData = {
+        UsuarioItem: {
+            User_Id: usuarioVM.usuarioData.UsuarioItem.User_Id, // usuario.UsuarioItem.User_Id,
+            Per_Nombre: usuarioVM.usuarioData.UsuarioItem.Per_Nombre, //ko.observable(usuario.UsuarioItem.Per_Nombre),
+            Per_ApePaterno: usuarioVM.usuarioData.UsuarioItem.Per_ApePaterno, //ko.observable(usuario.UsuarioItem.Per_ApePaterno),
+            Per_ApeMaterno: usuarioVM.usuarioData.UsuarioItem.Per_ApeMaterno, //ko.observable(usuario.UsuarioItem.Per_ApeMaterno),
+            Per_Email: usuarioVM.usuarioData.UsuarioItem.Per_Email, //ko.observable(usuario.UsuarioItem.Per_Email),
+            Per_Dni: usuarioVM.usuarioData.UsuarioItem.Per_Dni, //ko.observable(usuario.UsuarioItem.Per_Dni),
+            Per_Dir: usuarioVM.usuarioData.UsuarioItem.Per_Dir, //ko.observable(usuario.UsuarioItem.Per_Dir),
+            Per_Cel: usuarioVM.usuarioData.UsuarioItem.Per_Cel, //ko.observable(usuario.UsuarioItem.Per_Cel),
+            Per_Tel: usuarioVM.usuarioData.UsuarioItem.Per_Tel, //ko.observable(usuario.UsuarioItem.Per_Tel),
+            Per_Sexo: usuarioVM.usuarioData.UsuarioItem.Per_Sexo, //ko.observable(usuario.UsuarioItem.Per_Sexo),
+            User_Nombre: usuarioVM.usuarioData.UsuarioItem.User_Nombre, //ko.observable(usuario.UsuarioItem.User_Nombre),
+            TipoUser_Descrip: usuarioVM.usuarioData.UsuarioItem.TipoUser_Descrip, //ko.observable(usuarioVM.tipoUsuarioSelected),
+            ProfesorItem: {
+                Cur_Id: ko.observable(usuario.UsuarioItem.ProfesorItem.Cur_Id),
+                Prof_Especialidad: ko.observable(usuario.UsuarioItem.ProfesorItem.Prof_Especialidad),
+                Prof_Procedencia: ko.observable(usuario.UsuarioItem.ProfesorItem.Prof_Procedencia),
+                Prof_LugarEstudio: ko.observable(usuario.UsuarioItem.ProfesorItem.Prof_LugarEstudio),
+            }
+        }
+    }
+    
+
+    usuarioVM.validateAndSave = function (form) {
+        //if (!$(form).valid())
+        //    return false;
+        usuarioVM.sending(true);
+        
+        if (usuarioVM.tipoUsuarioSelected() == "Alumno") {
+            
+            $.ajax({
+                url: '/api/usuario',
+                type: (usuarioVM.isCreating) ? 'Post' : 'Put',
+                contentType: 'application/json',
+                data: ko.toJSON(usuarioVM.usuarioAlumnoData)
+            })
+        .success(usuarioVM.successfulSave)
         .error(usuarioVM.errorSave)
         .complete(function () { usuarioVM.sending(false) });
+        }
+
+        if (usuarioVM.tipoUsuarioSelected() == "Profesor") {
+            
+            $.ajax({
+                url: '/api/usuario',
+                type: (usuarioVM.isCreating) ? 'Post' : 'Put',
+                contentType: 'application/json',
+                data: ko.toJSON(usuarioVM.usuarioProfesorData)
+            })
+        .success(usuarioVM.successfulSave)
+        .error(usuarioVM.errorSave)
+        .complete(function () { usuarioVM.sending(false) });
+        }
+
+        
     };
 
     usuarioVM.successfulSave = function () {

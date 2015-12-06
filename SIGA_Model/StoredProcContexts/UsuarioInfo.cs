@@ -45,7 +45,6 @@ namespace SIGA_Model.StoredProcContexts
         [StoredProcAttributes.Size(100)]
         public String Email { get; set; }
 
-
         [StoredProcAttributes.ParameterType(System.Data.SqlDbType.VarChar)]
         [StoredProcAttributes.Size(50)]
         public String TipoUsuario { get; set; }
@@ -315,6 +314,71 @@ namespace SIGA_Model.StoredProcContexts
             set
             {
                 _alu_FechaRegistro = value;
+            }
+        }
+
+
+        //Profesor
+
+        [StoredProcAttributes.Name("Cur_Id")]
+        private int _cur_Id;
+        public int Cur_Id
+        {
+            get
+            {
+                if (_cur_Id == null) _cur_Id = 0;
+                return _cur_Id;
+            }
+            set
+            {
+                _cur_Id = value;
+            }
+        }
+
+
+        [StoredProcAttributes.Name("Prof_Especialidad")]
+        private string _prof_Especialidad;
+        public string Prof_Especialidad
+        {
+            get
+            {
+                if (_prof_Especialidad == null) _prof_Especialidad = "";
+                return _prof_Especialidad;
+            }
+            set
+            {
+                _prof_Especialidad = value;
+            }
+        }
+
+        [StoredProcAttributes.Name("Prof_Especialidad")]
+        private string _prof_Procedencia;
+        public string Prof_Procedencia
+        {
+            get
+            {
+                if (_prof_Procedencia == null) _prof_Procedencia = "";
+                return _prof_Procedencia;
+            }
+            set
+            {
+                _prof_Procedencia = value;
+            }
+        }
+
+
+        [StoredProcAttributes.Name("Prof_Especialidad")]
+        private string _prof_LugarEstudio;
+        public string Prof_LugarEstudio
+        {
+            get
+            {
+                if (_prof_LugarEstudio == null) _prof_LugarEstudio = "";
+                return _prof_LugarEstudio;
+            }
+            set
+            {
+                _prof_LugarEstudio = value;
             }
         }
 

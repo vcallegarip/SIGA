@@ -7,7 +7,7 @@ using System.Web;
 namespace SIGA.Models.ViewModels
 {
 
-    //public class MatriculaDTO
+    //public class CalificacionDTO
     //{
     //    public int MatriId { get; set; }
     //    public string Programa { get; set; }
@@ -18,10 +18,11 @@ namespace SIGA.Models.ViewModels
     //    public bool MatriEstado { get; set; }
     //}
 
-    public class AlumnoForDDL
-    {
-        public int Alu_Id { get; set; }
-        public string Alu_Apoderado { get; set; }
-    }
+    //public class AlumnoForDDL
+    //{
+    //    public int Alu_Id { get; set; }
+    //    public string Alu_Apoderado { get; set; }
+    //}
+
 
 }

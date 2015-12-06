@@ -16,6 +16,7 @@ namespace SIGA_Model
     {
         public Modulo()
         {
+            this.Calificacion = new HashSet<Calificacion>();
             this.Matricula = new HashSet<Matricula>();
             this.ModuloCurso = new HashSet<ModuloCurso>();
             this.Programa = new HashSet<Programa>();
@@ -29,6 +30,7 @@ namespace SIGA_Model
         public int ModNumMes { get; set; }
         public int ModNumCursos { get; set; }
     
+        public virtual ICollection<Calificacion> Calificacion { get; set; }
         public virtual ICollection<Matricula> Matricula { get; set; }
         public virtual ModuloCategoria ModuloCategoria { get; set; }
         public virtual ModuloNivel ModuloNivel { get; set; }

@@ -28,6 +28,7 @@ namespace SIGA.Models.ViewModels
             this.UsuarioItem = new UsuarioItem();
             this.UsuarioItemList = new List<UsuarioItem>();
             this.UsuarioItem.AlumnoItem = new AlumnoItem();
+            this.UsuarioItem.ProfesorItem = new ProfesorItem();
 
             //var tipoUsuarios = db.TipoUsuario.ToList();
             //this.TipoUsuario.Add(new SelectListItem { Text = "-- Elegir --", Value = "-- Elegir --" });
@@ -82,7 +83,10 @@ namespace SIGA.Models.ViewModels
         public string TipoUser_Descrip { get; set; }
 
         [JsonProperty(PropertyName = "AlumnoItem")]
-        public AlumnoItem AlumnoItem { get; set; } 
+        public AlumnoItem AlumnoItem { get; set; }
+
+        [JsonProperty(PropertyName = "ProfesorItem")]
+        public ProfesorItem ProfesorItem { get; set; } 
 
     }
 
@@ -98,6 +102,23 @@ namespace SIGA.Models.ViewModels
 
         [JsonProperty(PropertyName = "Alu_FechaRegistro")]
         public DateTime? Alu_FechaRegistro { get; set; }
+
+    }
+
+    public class ProfesorItem
+    {
+
+        [JsonProperty(PropertyName = "Cur_Id")]
+        public int Cur_Id { get; set; }
+
+        [JsonProperty(PropertyName = "Prof_Especialidad")]
+        public string Prof_Especialidad { get; set; }
+
+        [JsonProperty(PropertyName = "Prof_Procedencia")]
+        public string Prof_Procedencia { get; set; }
+
+        [JsonProperty(PropertyName = "Prof_LugarEstudio")]
+        public string Prof_LugarEstudio { get; set; }
 
     }  
 

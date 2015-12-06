@@ -59,7 +59,7 @@
                                 <div class="row">
                                     @Html.LabelFor(model => model.ProgramacionItem.HorId, "Horario a Estudiar", htmlAttributes: new { @class = "control-label col-md-5 text-right" })
                                     <div class="col-md-7">
-                                        @Html.DropDownList("HorId", null, htmlAttributes: new { @class = "form-control", data_bind = "value: programacionData.ProgramacionItem.AulId" })
+                                        @Html.DropDownList("HorId", null, htmlAttributes: new { @class = "form-control", data_bind = "value: programacionData.ProgramacionItem.HorId" })
                                         @Html.ValidationMessageFor(model => model.ProgramacionItem.HorId, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -78,6 +78,18 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    @Html.LabelFor(model => model.ProgramacionItem.ProgFechaFin, "Fecha de Fin", htmlAttributes: new { @class = "control-label col-md-5 text-right" })
+                                    <div class="col-md-7">
+                                        @Html.EditorFor(model => model.ProgramacionItem.ProgFechaFin, new { htmlAttributes = new { @class = "form-control", data_bind = "value: programacionData.ProgramacionItem.ProgFechaFin" } })
+                                        @Html.ValidationMessageFor(model => model.ProgramacionItem.ProgFechaFin, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -89,7 +101,22 @@
                         @Html.Partial("ProgramacionCursoListPartialView", Model)
                     </div>
                 </div>
-                <div class="panel-footer">Agregar paginacion</div>
+                @*<div class="panel-footer">Agregar paginacion</div>*@
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-12" data-bind="visible: !sending()">
+                    <input type="submit" value="@if (isCreating) { @Html.Raw("Crear Programacion") } else { @Html.Raw("Actualizar Programacion") }" class="btn btn-success" />
+                </div>
+
+                <div class="progress" data-bind="visible: sending">
+                    <div class="progress-bar progress-bar-info progress-bar-striped active"
+                         role="progressbar" aria-valuenow="100"
+                         aria-valuemin="0" aria-valuemax="100"
+                         style="width: 100%">
+                        <span class="sr-only"></span>
+                    </div>
+                </div>
             </div>
         }
 

@@ -73,7 +73,9 @@ var layoutViewModel = function () {
         }
         else if (data.name == "Registro Matricula") {
             location.href = 'http://dev-sigaeducando.com/Matricula';
-            //window.location.href = "http://dev-sigaeducando.com/Matricula";
+        }
+        else if (data.name == "Calificaciones") {
+            location.href = 'http://dev-sigaeducando.com/Calificacion';
         }
     };
     

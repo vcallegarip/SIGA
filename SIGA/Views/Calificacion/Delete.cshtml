@@ -1,0 +1,116 @@
+﻿@model SIGA_Model.Calificacion
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2>Eliminar</h2>
+
+<h3>Estas seguro que quieres eliminar esta calificacion?</h3>
+<div>
+    <h4>Calificacion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cal_Fech)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cal_Fech)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cal_N1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cal_N1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cal_N2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cal_N2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cal_N3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cal_N3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cal_N4)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cal_N4)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cal_N5)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cal_N5)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cal_N6)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cal_N6)
+        </dd>
+
+        <dt>
+            @Html.Raw("Alumno")
+            @*@Html.DisplayNameFor(model => model.Alumno.Alu_Apoderado)*@
+        </dt>
+
+        <dd>
+            @Html.Raw(ViewBag.AlumnoNombre)
+            @*@Html.DisplayFor(model => model.Alumno.Alu_Apoderado)*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Curso.CurName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Curso.CurName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Modulo.ModNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Modulo.ModNombre)
+        </dd>
+
+        <dt>
+            @Html.Raw("Profesor")
+            @*@Html.DisplayNameFor(model => model.Profesor.Prof_Especialidad)*@
+        </dt>
+
+        <dd>
+            @Html.Raw(ViewBag.ProfesorNombre)
+            @*@Html.DisplayFor(model => model.Profesor.Prof_Especialidad)*@
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

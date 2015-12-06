@@ -37,17 +37,20 @@
         </EntityType>
         <EntityType Name="Calificacion">
           <Key>
-            <PropertyRef Name="User_Id" />
-            <PropertyRef Name="Cur_Id" />
+            <PropertyRef Name="CalifId" />
           </Key>
-          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="CalifId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Prof_Id" Type="int" Nullable="false" />
+          <Property Name="Alu_Id" Type="int" Nullable="false" />
+          <Property Name="ModId" Type="int" Nullable="false" />
           <Property Name="Cur_Id" Type="int" Nullable="false" />
           <Property Name="Cal_Fech" Type="datetime" />
-          <Property Name="Cal_Condicion" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Cal_Practica" Type="decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="Cal_Teorica" Type="decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="Cal_Oral" Type="decimal" Precision="12" Scale="2" />
-          <Property Name="Cal_Otros" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="Cal_N1" Type="varchar" MaxLength="50" />
+          <Property Name="Cal_N2" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="Cal_N3" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="Cal_N4" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="Cal_N5" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="Cal_N6" Type="decimal" Precision="12" Scale="2" />
         </EntityType>
         <EntityType Name="Curso">
           <Key>
@@ -152,7 +155,9 @@
           <Property Name="Prof_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="User_Id" Type="int" Nullable="false" />
           <Property Name="Cur_Id" Type="int" Nullable="false" />
-          <Property Name="Prof_Especialidad" Type="varchar" MaxLength="50" />
+          <Property Name="Prof_Especialidad" Type="varchar" MaxLength="100" />
+          <Property Name="Prof_Procedencia" Type="varchar" MaxLength="100" />
+          <Property Name="Prof_LugarEstudio" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Programa">
           <Key>
@@ -230,6 +235,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Calificacion_Alumno">
+          <End Role="Alumno" Type="Self.Alumno" Multiplicity="1" />
+          <End Role="Calificacion" Type="Self.Calificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumno">
+              <PropertyRef Name="Alu_Id" />
+            </Principal>
+            <Dependent Role="Calificacion">
+              <PropertyRef Name="Alu_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Calificacion_Curso">
           <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
           <End Role="Calificacion" Type="Self.Calificacion" Multiplicity="*" />
@@ -239,6 +256,30 @@
             </Principal>
             <Dependent Role="Calificacion">
               <PropertyRef Name="Cur_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Calificacion_Modulo">
+          <End Role="Modulo" Type="Self.Modulo" Multiplicity="1" />
+          <End Role="Calificacion" Type="Self.Calificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modulo">
+              <PropertyRef Name="ModId" />
+            </Principal>
+            <Dependent Role="Calificacion">
+              <PropertyRef Name="ModId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Calificacion_Profesor">
+          <End Role="Profesor" Type="Self.Profesor" Multiplicity="1" />
+          <End Role="Calificacion" Type="Self.Calificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesor">
+              <PropertyRef Name="Prof_Id" />
+            </Principal>
+            <Dependent Role="Calificacion">
+              <PropertyRef Name="Prof_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -512,8 +553,20 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Alumno" EntitySet="Alumno" />
           </AssociationSet>
+          <AssociationSet Name="FK_Calificacion_Alumno" Association="Self.FK_Calificacion_Alumno">
+            <End Role="Alumno" EntitySet="Alumno" />
+            <End Role="Calificacion" EntitySet="Calificacion" />
+          </AssociationSet>
           <AssociationSet Name="FK_Calificacion_Curso" Association="Self.FK_Calificacion_Curso">
             <End Role="Curso" EntitySet="Curso" />
+            <End Role="Calificacion" EntitySet="Calificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Calificacion_Modulo" Association="Self.FK_Calificacion_Modulo">
+            <End Role="Modulo" EntitySet="Modulo" />
+            <End Role="Calificacion" EntitySet="Calificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Calificacion_Profesor" Association="Self.FK_Calificacion_Profesor">
+            <End Role="Profesor" EntitySet="Profesor" />
             <End Role="Calificacion" EntitySet="Calificacion" />
           </AssociationSet>
           <AssociationSet Name="FK_Matricula_Alumno" Association="Self.FK_Matricula_Alumno">
@@ -613,6 +666,7 @@
           <Property Name="Alu_FechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Alu_FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Alumno_Usuario" FromRole="Alumno" ToRole="Usuario" />
+          <NavigationProperty Name="Calificacion" Relationship="Self.FK_Calificacion_Alumno" FromRole="Alumno" ToRole="Calificacion" />
           <NavigationProperty Name="Matricula" Relationship="Self.FK_Matricula_Alumno" FromRole="Alumno" ToRole="Matricula" />
         </EntityType>
         <EntityType Name="Aula">
@@ -626,18 +680,24 @@
         </EntityType>
         <EntityType Name="Calificacion">
           <Key>
-            <PropertyRef Name="User_Id" />
-            <PropertyRef Name="Cur_Id" />
+            <PropertyRef Name="CalifId" />
           </Key>
-          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="CalifId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Prof_Id" Type="Int32" Nullable="false" />
+          <Property Name="Alu_Id" Type="Int32" Nullable="false" />
+          <Property Name="ModId" Type="Int32" Nullable="false" />
           <Property Name="Cur_Id" Type="Int32" Nullable="false" />
           <Property Name="Cal_Fech" Type="DateTime" Precision="3" />
-          <Property Name="Cal_Condicion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Cal_Practica" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="Cal_Teorica" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="Cal_Oral" Type="Decimal" Precision="12" Scale="2" />
-          <Property Name="Cal_Otros" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Cal_N1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Cal_N2" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Cal_N3" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Cal_N4" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Cal_N5" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Cal_N6" Type="Decimal" Precision="12" Scale="2" />
+          <NavigationProperty Name="Alumno" Relationship="Self.FK_Calificacion_Alumno" FromRole="Calificacion" ToRole="Alumno" />
           <NavigationProperty Name="Curso" Relationship="Self.FK_Calificacion_Curso" FromRole="Calificacion" ToRole="Curso" />
+          <NavigationProperty Name="Modulo" Relationship="Self.FK_Calificacion_Modulo" FromRole="Calificacion" ToRole="Modulo" />
+          <NavigationProperty Name="Profesor" Relationship="Self.FK_Calificacion_Profesor" FromRole="Calificacion" ToRole="Profesor" />
         </EntityType>
         <EntityType Name="Curso">
           <Key>
@@ -694,6 +754,7 @@
           <Property Name="ModNumHoras" Type="Int32" Nullable="false" />
           <Property Name="ModNumMes" Type="Int32" Nullable="false" />
           <Property Name="ModNumCursos" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Calificacion" Relationship="Self.FK_Calificacion_Modulo" FromRole="Modulo" ToRole="Calificacion" />
           <NavigationProperty Name="Matricula" Relationship="Self.FK_Matricula_Modulo" FromRole="Modulo" ToRole="Matricula" />
           <NavigationProperty Name="ModuloCategoria" Relationship="Self.FK_Modulo_ModuloCategoria" FromRole="Modulo" ToRole="ModuloCategoria" />
           <NavigationProperty Name="ModuloNivel" Relationship="Self.FK_Modulo_ModuloNivel" FromRole="Modulo" ToRole="ModuloNivel" />
@@ -763,7 +824,10 @@
           <Property Name="Prof_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="User_Id" Type="Int32" Nullable="false" />
           <Property Name="Cur_Id" Type="Int32" Nullable="false" />
-          <Property Name="Prof_Especialidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Prof_Especialidad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Prof_Procedencia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Prof_LugarEstudio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Calificacion" Relationship="Self.FK_Calificacion_Profesor" FromRole="Profesor" ToRole="Calificacion" />
           <NavigationProperty Name="Curso" Relationship="Self.FK_Profesor_Curso" FromRole="Profesor" ToRole="Curso" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Profesor_Usuario1" FromRole="Profesor" ToRole="Usuario" />
         </EntityType>
@@ -855,6 +919,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Calificacion_Alumno">
+          <End Role="Alumno" Type="Self.Alumno" Multiplicity="1" />
+          <End Role="Calificacion" Type="Self.Calificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumno">
+              <PropertyRef Name="Alu_Id" />
+            </Principal>
+            <Dependent Role="Calificacion">
+              <PropertyRef Name="Alu_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Matricula_Alumno">
           <End Role="Alumno" Type="Self.Alumno" Multiplicity="1" />
           <End Role="Matricula" Type="Self.Matricula" Multiplicity="*" />
@@ -888,6 +964,30 @@
             </Principal>
             <Dependent Role="Calificacion">
               <PropertyRef Name="Cur_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Calificacion_Modulo">
+          <End Role="Modulo" Type="Self.Modulo" Multiplicity="1" />
+          <End Role="Calificacion" Type="Self.Calificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modulo">
+              <PropertyRef Name="ModId" />
+            </Principal>
+            <Dependent Role="Calificacion">
+              <PropertyRef Name="ModId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Calificacion_Profesor">
+          <End Role="Profesor" Type="Self.Profesor" Multiplicity="1" />
+          <End Role="Calificacion" Type="Self.Calificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesor">
+              <PropertyRef Name="Prof_Id" />
+            </Principal>
+            <Dependent Role="Calificacion">
+              <PropertyRef Name="Prof_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1099,6 +1199,10 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Alumno" EntitySet="Alumno" />
           </AssociationSet>
+          <AssociationSet Name="FK_Calificacion_Alumno" Association="Self.FK_Calificacion_Alumno">
+            <End Role="Alumno" EntitySet="Alumno" />
+            <End Role="Calificacion" EntitySet="Calificacion" />
+          </AssociationSet>
           <AssociationSet Name="FK_Matricula_Alumno" Association="Self.FK_Matricula_Alumno">
             <End Role="Alumno" EntitySet="Alumno" />
             <End Role="Matricula" EntitySet="Matricula" />
@@ -1109,6 +1213,14 @@
           </AssociationSet>
           <AssociationSet Name="FK_Calificacion_Curso" Association="Self.FK_Calificacion_Curso">
             <End Role="Curso" EntitySet="Curso" />
+            <End Role="Calificacion" EntitySet="Calificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Calificacion_Modulo" Association="Self.FK_Calificacion_Modulo">
+            <End Role="Modulo" EntitySet="Modulo" />
+            <End Role="Calificacion" EntitySet="Calificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Calificacion_Profesor" Association="Self.FK_Calificacion_Profesor">
+            <End Role="Profesor" EntitySet="Profesor" />
             <End Role="Calificacion" EntitySet="Calificacion" />
           </AssociationSet>
           <AssociationSet Name="FK_Matricula_Curso" Association="Self.FK_Matricula_Curso">
@@ -1262,14 +1374,18 @@
           <EntitySetMapping Name="Calificacion">
             <EntityTypeMapping TypeName="SIGAModel.Calificacion">
               <MappingFragment StoreEntitySet="Calificacion">
-                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="CalifId" ColumnName="CalifId" />
+                <ScalarProperty Name="Prof_Id" ColumnName="Prof_Id" />
+                <ScalarProperty Name="Alu_Id" ColumnName="Alu_Id" />
+                <ScalarProperty Name="ModId" ColumnName="ModId" />
                 <ScalarProperty Name="Cur_Id" ColumnName="Cur_Id" />
                 <ScalarProperty Name="Cal_Fech" ColumnName="Cal_Fech" />
-                <ScalarProperty Name="Cal_Condicion" ColumnName="Cal_Condicion" />
-                <ScalarProperty Name="Cal_Practica" ColumnName="Cal_Practica" />
-                <ScalarProperty Name="Cal_Teorica" ColumnName="Cal_Teorica" />
-                <ScalarProperty Name="Cal_Oral" ColumnName="Cal_Oral" />
-                <ScalarProperty Name="Cal_Otros" ColumnName="Cal_Otros" />
+                <ScalarProperty Name="Cal_N1" ColumnName="Cal_N1" />
+                <ScalarProperty Name="Cal_N2" ColumnName="Cal_N2" />
+                <ScalarProperty Name="Cal_N3" ColumnName="Cal_N3" />
+                <ScalarProperty Name="Cal_N4" ColumnName="Cal_N4" />
+                <ScalarProperty Name="Cal_N5" ColumnName="Cal_N5" />
+                <ScalarProperty Name="Cal_N6" ColumnName="Cal_N6" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1384,6 +1500,8 @@
                 <ScalarProperty Name="User_Id" ColumnName="User_Id" />
                 <ScalarProperty Name="Cur_Id" ColumnName="Cur_Id" />
                 <ScalarProperty Name="Prof_Especialidad" ColumnName="Prof_Especialidad" />
+                <ScalarProperty Name="Prof_Procedencia" ColumnName="Prof_Procedencia" />
+                <ScalarProperty Name="Prof_LugarEstudio" ColumnName="Prof_LugarEstudio" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -37,6 +37,48 @@ namespace SIGA.Controllers.Api
             }
 
         }
+
+
+        // POST: api/Authors
+        [ResponseType(typeof(ProgramacionViewModel))]
+        public IHttpActionResult Post(ProgramacionViewModel programacionViewModel)
+        {
+
+            using (var db = new SIGAEntities())
+            {
+                try
+                {
+                    Programa programa = new Programa();
+                    programa.ProgNombre = programacionViewModel.ProgramacionItem.ProgNombre;
+                    programa.ProgDescripcion = programacionViewModel.ProgramacionItem.ProgDescripcion;
+                    programa.ProgFechaRegistro = DateTime.UtcNow;
+                    programa.ProgFechaInicio = DateTime.UtcNow; //Convert.ToDateTime(programacionViewModel.ProgramacionItem.ProgFechaInicio);
+                    programa.ProgFechaFin = DateTime.UtcNow; // Convert.ToDateTime(programacionViewModel.ProgramacionItem.ProgFechaFin);
+                    programa.ModId = programacionViewModel.ProgramacionItem.ModId;
+                    programa.AulId = programacionViewModel.ProgramacionItem.AulId;
+                    programa.HorId = programacionViewModel.ProgramacionItem.HorId;
+                    programa.EsVigente = programacionViewModel.ProgramacionItem.EsVigente;
+
+                    db.Programa.Add(programa);
+
+                    db.SaveChanges();
+
+                }
+                catch (Exception e)
+                {
+                    throw;
+                }
+
+                return CreatedAtRoute("DefaultApi", new { id = programacionViewModel.ProgramacionItem.Prog_Id }, programacionViewModel);
+            }
+
+
+        }
+
+
+
+
+
     }
 
 }

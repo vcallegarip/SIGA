@@ -1,0 +1,126 @@
+﻿@model IEnumerable<SIGA_Model.Calificacion>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista <small>Calificacion</small></h2>
+
+<p>
+    @Html.ActionLink("Crear Nueva Calificacion", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.Raw("Fecha Registro")
+            @*@Html.DisplayNameFor(model => model.Cal_Fech)*@
+        </th>
+        <th>
+            @Html.Raw("Nota 1")
+            @*@Html.DisplayNameFor(model => model.Cal_N1)*@
+        </th>
+        <th>
+            @Html.Raw("Nota 2")
+            @*@Html.DisplayNameFor(model => model.Cal_N2)*@
+        </th>
+        <th>
+            @Html.Raw("Nota 3")
+            @*@Html.DisplayNameFor(model => model.Cal_N3)*@
+        </th>
+        <th>
+            @Html.Raw("Nota 4")
+            @*@Html.DisplayNameFor(model => model.Cal_N4)*@
+        </th>
+        <th>
+            @Html.Raw("Nota 5")
+            @*@Html.DisplayNameFor(model => model.Cal_N5)*@
+        </th>
+        <th>
+            @Html.Raw("Nota 6")
+            @*@Html.DisplayNameFor(model => model.Cal_N6)*@
+        </th>
+        <th>
+            @Html.Raw("Alumno")
+            @*@Html.DisplayNameFor(model => model.Alumno.Alu_Apoderado)*@
+        </th>
+        <th>
+            @Html.Raw("Curso")
+            @*@Html.DisplayNameFor(model => model.Curso.CurName)*@
+        </th>
+        <th>
+            @Html.Raw("Modulo")
+            @*@Html.DisplayNameFor(model => model.Modulo.ModNombre)*@
+        </th>
+        <th>
+            @Html.Raw("Profesor")
+            @*@Html.DisplayNameFor(model => model.Profesor.Prof_Especialidad)*@
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+
+    SIGA_Model.SIGAEntities db = new SIGA_Model.SIGAEntities();
+
+    string alumnoNombre = (from a in db.Alumno
+                           join u in db.Usuario
+                           on a.User_Id equals u.User_Id
+                           join p in db.Persona
+                           on u.Per_Id equals p.Per_Id
+                           where a.Alu_Id == item.Alumno.Alu_Id
+                           select p.Per_Nombre + " " + p.Per_ApeMaterno).FirstOrDefault().ToString();
+
+
+    string profesorNombre = (from a in db.Profesor
+                             join u in db.Usuario
+                             on a.User_Id equals u.User_Id
+                             join p in db.Persona
+                             on u.Per_Id equals p.Per_Id
+                             where a.Prof_Id == item.Profesor.Prof_Id
+                             select p.Per_Nombre + " " + p.Per_ApeMaterno).FirstOrDefault().ToString(); 
+    
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cal_Fech)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cal_N1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cal_N2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cal_N3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cal_N4)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cal_N5)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cal_N6)
+        </td>
+        <td>
+            @Html.Raw(alumnoNombre)
+            @*@Html.DisplayFor(modelItem => item.Alumno.Alu_Apoderado)*@
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Curso.CurName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Modulo.ModNombre)
+        </td>
+        <td>
+            @Html.Raw(profesorNombre)
+            @*@Html.DisplayFor(modelItem => item.Profesor.Prof_Especialidad)*@
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.CalifId }) |
+            @Html.ActionLink("Detalles", "Details", new { id = item.CalifId }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.CalifId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -14,11 +14,19 @@ namespace SIGA_Model
     
     public partial class Profesor
     {
+        public Profesor()
+        {
+            this.Calificacion = new HashSet<Calificacion>();
+        }
+    
         public int Prof_Id { get; set; }
         public int User_Id { get; set; }
         public int Cur_Id { get; set; }
         public string Prof_Especialidad { get; set; }
+        public string Prof_Procedencia { get; set; }
+        public string Prof_LugarEstudio { get; set; }
     
+        public virtual ICollection<Calificacion> Calificacion { get; set; }
         public virtual Curso Curso { get; set; }
         public virtual Usuario Usuario { get; set; }
     }

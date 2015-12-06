@@ -16,6 +16,7 @@ namespace SIGA_Model
     {
         public Alumno()
         {
+            this.Calificacion = new HashSet<Calificacion>();
             this.Matricula = new HashSet<Matricula>();
         }
     
@@ -28,6 +29,7 @@ namespace SIGA_Model
         public System.DateTime Alu_FechaRegistro { get; set; }
     
         public virtual Usuario Usuario { get; set; }
+        public virtual ICollection<Calificacion> Calificacion { get; set; }
         public virtual ICollection<Matricula> Matricula { get; set; }
     }
 }

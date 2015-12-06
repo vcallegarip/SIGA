@@ -35,13 +35,15 @@ namespace SIGA_WebApplication.Controllers
                 return HttpNotFound();
             }
 
-            var alumnos = (from u in db.Usuario
+            matricula.Alu_Id = db.Alumno.Where(a => a.Alu_Id == matricula.Alu_Id).Select(c => c.User_Id).SingleOrDefault();
+
+            var alumno = (from u in db.Usuario
                            join p in db.Persona
                            on u.Per_Id equals p.Per_Id
-                           where u.TipoUser_Id == 1
-                           select new AlumnoForDDL { Alu_Id = u.User_Id, Alu_Apoderado = p.Per_Nombre + " " + p.Per_ApePaterno + " " + p.Per_ApeMaterno }).ToList();
+                           where u.TipoUser_Id == 1 && u.User_Id == matricula.Alu_Id
+                           select new AlumnoMatriForDDL { AluNombre = p.Per_Nombre + " " + p.Per_ApePaterno + " " + p.Per_ApeMaterno }).SingleOrDefault();
 
-            ViewBag.AlumnoNombre = alumnos[0].Alu_Apoderado;
+            ViewBag.AlumnoNombre = alumno.AluNombre;
 
             return View(matricula);
         }
@@ -53,9 +55,9 @@ namespace SIGA_WebApplication.Controllers
                            join p in db.Persona
                            on u.Per_Id equals p.Per_Id
                            where u.TipoUser_Id == 1
-                           select new AlumnoForDDL { Alu_Id = u.User_Id, Alu_Apoderado = p.Per_Nombre + " " + p.Per_ApePaterno + " " + p.Per_ApeMaterno }).ToList();
+                           select new AlumnoMatriForDDL { Alu_Id = u.User_Id, AluNombre = p.Per_Nombre + " " + p.Per_ApePaterno + " " + p.Per_ApeMaterno }).ToList();
 
-            ViewBag.Alu_Id = new SelectList(alumnos, "Alu_Id", "Alu_Apoderado");
+            ViewBag.Alu_Id = new SelectList(alumnos, "Alu_Id", "AluNombre");
             ViewBag.CurId = new SelectList(db.Curso, "CurId", "CurName");
             ViewBag.ModId = new SelectList(db.Modulo, "ModId", "ModNombre");
             ViewBag.ProgId = new SelectList(db.Programa, "ProgId", "ProgNombre");
@@ -79,7 +81,13 @@ namespace SIGA_WebApplication.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Alu_Id = new SelectList(db.Alumno, "Alu_Id", "Alu_Apoderado", matricula.Alu_Id);
+            var alumnos = (from u in db.Usuario
+                           join p in db.Persona
+                           on u.Per_Id equals p.Per_Id
+                           where u.TipoUser_Id == 1
+                           select new AlumnoMatriForDDL { Alu_Id = u.User_Id, AluNombre = p.Per_Nombre + " " + p.Per_ApePaterno + " " + p.Per_ApeMaterno }).ToList();
+
+            ViewBag.Alu_Id = new SelectList(alumnos, "Alu_Id", "AluNombre", matricula.Alu_Id);
             ViewBag.CurId = new SelectList(db.Curso, "CurId", "CurName", matricula.CurId);
             ViewBag.ModId = new SelectList(db.Modulo, "ModId", "ModNombre", matricula.ModId);
             ViewBag.ProgId = new SelectList(db.Programa, "ProgId", "ProgNombre", matricula.ProgId);
@@ -100,13 +108,15 @@ namespace SIGA_WebApplication.Controllers
                 return HttpNotFound();
             }
 
+            matricula.Alu_Id = db.Alumno.Where(a => a.Alu_Id == matricula.Alu_Id).Select(c => c.User_Id).SingleOrDefault();
+
             var alumnos = (from u in db.Usuario
                            join p in db.Persona
                            on u.Per_Id equals p.Per_Id
                            where u.TipoUser_Id == 1
-                           select new AlumnoForDDL { Alu_Id = u.User_Id, Alu_Apoderado = p.Per_Nombre + " " + p.Per_ApePaterno + " " + p.Per_ApeMaterno }).ToList();
+                           select new AlumnoMatriForDDL { Alu_Id = u.User_Id, AluNombre = p.Per_Nombre + " " + p.Per_ApePaterno + " " + p.Per_ApeMaterno }).ToList();
 
-            ViewBag.Alu_Id = new SelectList(alumnos, "Alu_Id", "Alu_Apoderado", matricula.Alu_Id);
+            ViewBag.Alu_Id = new SelectList(alumnos, "Alu_Id", "AluNombre", matricula.Alu_Id);
             ViewBag.CurId = new SelectList(db.Curso, "CurId", "CurName", matricula.CurId);
             ViewBag.ModId = new SelectList(db.Modulo, "ModId", "ModNombre", matricula.ModId);
             ViewBag.ProgId = new SelectList(db.Programa, "ProgId", "ProgNombre", matricula.ProgId);
@@ -121,9 +131,8 @@ namespace SIGA_WebApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "MatriId,ProgId,ModId,CurId,Alu_Id,RecId,MatriFecha,MatriEstado")] Matricula matricula)
         {
-            var aluId = (from u in db.Alumno where u.User_Id == matricula.Alu_Id select u).FirstOrDefault();
-
-            matricula.Alu_Id = aluId.Alu_Id;
+            //var aluId = (from u in db.Alumno where u.User_Id == matricula.Alu_Id select u).FirstOrDefault();
+            matricula.Alu_Id = db.Alumno.Where(a => a.User_Id == matricula.Alu_Id).Select(c => c.Alu_Id).SingleOrDefault();
 
             if (ModelState.IsValid)
             {
@@ -136,9 +145,9 @@ namespace SIGA_WebApplication.Controllers
                            join p in db.Persona
                            on u.Per_Id equals p.Per_Id
                            where u.TipoUser_Id == 1
-                           select new AlumnoForDDL { Alu_Id = u.User_Id, Alu_Apoderado = p.Per_Nombre + " " + p.Per_ApePaterno + " " + p.Per_ApeMaterno }).ToList();
+                           select new AlumnoMatriForDDL { Alu_Id = u.User_Id, AluNombre = p.Per_Nombre + " " + p.Per_ApePaterno + " " + p.Per_ApeMaterno }).ToList();
 
-            ViewBag.Alu_Id = new SelectList(alumnos, "Alu_Id", "Alu_Apoderado", matricula.Alu_Id);
+            ViewBag.Alu_Id = new SelectList(alumnos, "Alu_Id", "AluNombre", matricula.Alu_Id);
             ViewBag.CurId = new SelectList(db.Curso, "CurId", "CurName", matricula.CurId);
             ViewBag.ModId = new SelectList(db.Modulo, "ModId", "ModNombre", matricula.ModId);
             ViewBag.ProgId = new SelectList(db.Programa, "ProgId", "ProgNombre", matricula.ProgId);
@@ -159,13 +168,15 @@ namespace SIGA_WebApplication.Controllers
                 return HttpNotFound();
             }
 
-            var alumnos = (from u in db.Usuario
-                           join p in db.Persona
-                           on u.Per_Id equals p.Per_Id
-                           where u.TipoUser_Id == 1
-                           select new AlumnoForDDL { Alu_Id = u.User_Id, Alu_Apoderado = p.Per_Nombre + " " + p.Per_ApePaterno + " " + p.Per_ApeMaterno }).ToList();
+            matricula.Alu_Id = db.Alumno.Where(a => a.Alu_Id == matricula.Alu_Id).Select(c => c.User_Id).SingleOrDefault();
 
-            ViewBag.AlumnoNombre = alumnos[0].Alu_Apoderado;
+            var alumno = (from u in db.Usuario
+                          join p in db.Persona
+                          on u.Per_Id equals p.Per_Id
+                          where u.TipoUser_Id == 1 && u.User_Id == matricula.Alu_Id
+                          select new AlumnoMatriForDDL { AluNombre = p.Per_Nombre + " " + p.Per_ApePaterno + " " + p.Per_ApeMaterno }).SingleOrDefault();
+
+            ViewBag.AlumnoNombre = alumno.AluNombre;
 
             return View(matricula);
         }
@@ -189,6 +200,12 @@ namespace SIGA_WebApplication.Controllers
             }
             base.Dispose(disposing);
         }
+    }
+
+    public class AlumnoMatriForDDL
+    {
+        public int Alu_Id { get; set; }
+        public string AluNombre { get; set; }
     }
 
     
