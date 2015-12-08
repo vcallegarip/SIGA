@@ -1,42 +1,38 @@
-﻿@model IEnumerable<SIGA_Model.Matricula>
+﻿@model IEnumerable<SIGA_Model.Recibo>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Crear Matricula", "Create")
+    @Html.ActionLink("Crear Recibo", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.MatriFecha)
+            @Html.Raw("# Recibo")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MatriEstado)
+            @Html.Raw("Fecha Registro")
+        </th>
+        <th>
+            @Html.Raw("Descripcion")
         </th>
         <th>
             @Html.Raw("Alumno")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Curso.CurName)
+            @Html.Raw("Curso")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Modulo.ModNombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Programa.ProgNombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Recibo.RecId)
+            @Html.Raw("Modulo")
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    
+
     SIGA_Model.SIGAEntities db = new SIGA_Model.SIGAEntities();
 
     string alumnoNombre = (from a in db.Alumno
@@ -49,10 +45,13 @@
     
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.MatriFecha)
+            @Html.DisplayFor(modelItem => item.RecId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.MatriEstado)
+            @Html.DisplayFor(modelItem => item.FechaRegistro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
         </td>
         <td>
             @Html.Raw(alumnoNombre)
@@ -64,15 +63,9 @@
             @Html.DisplayFor(modelItem => item.Modulo.ModNombre)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Programa.ProgNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Recibo.RecId)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.MatriId }) |
-            @Html.ActionLink("Detalles", "Details", new { id=item.MatriId }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.MatriId })
+            @Html.ActionLink("Editar", "Edit", new { id=item.RecId }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.RecId }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.RecId })
         </td>
     </tr>
 }
