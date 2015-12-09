@@ -25,10 +25,7 @@ namespace SIGA.Controllers.Api
             using (var db = new SIGAEntities())
             {
 
-                //if (!ModelState.IsValid)
-                //{
-                //    return BadRequest(ModelState);
-                //}
+                
 
                 try
                 {
@@ -59,6 +56,7 @@ namespace SIGA.Controllers.Api
 
                     if (tipoUserValue == "Alumno")
                     {
+
                         Alumno alumno = new Alumno();
                         alumno.User_Id = usuario.User_Id;
                         alumno.Alu_Apoderado = usuarioViewModel.UsuarioItem.AlumnoItem.Alu_Apoderado;

@@ -141,12 +141,12 @@ function usuarioViewModel(usuario) {
     
 
     usuarioVM.validateAndSave = function (form) {
-        //if (!$(form).valid())
-        //    return false;
         usuarioVM.sending(true);
-        
+        if (!$(form).valid())
+            return false;
+
         if (usuarioVM.tipoUsuarioSelected() == "Alumno") {
-            
+           
             $.ajax({
                 url: '/api/usuario',
                 type: (usuarioVM.isCreating) ? 'Post' : 'Put',
@@ -155,11 +155,10 @@ function usuarioViewModel(usuario) {
             })
         .success(usuarioVM.successfulSave)
         .error(usuarioVM.errorSave)
-        .complete(function () { usuarioVM.sending(false) });
+        .complete(function () { usuarioVM.sending(false)});
         }
 
         if (usuarioVM.tipoUsuarioSelected() == "Profesor") {
-            
             $.ajax({
                 url: '/api/usuario',
                 type: (usuarioVM.isCreating) ? 'Post' : 'Put',

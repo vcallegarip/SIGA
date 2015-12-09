@@ -57,10 +57,7 @@ var layoutViewModel = function () {
     ]);
 
     layoutVM.pagoMenuitems = ko.observableArray([
-<<<<<<< HEAD
         { name: 'Generar # Recibo' },
-=======
->>>>>>> origin/master
         { name: 'Registrar Pago' }
     ]);
 
@@ -80,12 +77,9 @@ var layoutViewModel = function () {
         else if (data.name == "Calificaciones") {
             location.href = 'http://dev-sigaeducando.com/Calificacion';
         }
-<<<<<<< HEAD
         else if (data.name == "Generar # Recibo") {
             location.href = 'http://dev-sigaeducando.com/Recibo';
         }
-=======
->>>>>>> origin/master
         else if (data.name == "Registrar Pago") {
             location.href = 'http://dev-sigaeducando.com/Pago';
         }
