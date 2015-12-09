@@ -54,6 +54,7 @@ namespace SIGA.Controllers
                                                       HorId = h.HorId,
                                                       ProgNombre = p.ProgNombre,
                                                       ProgFechaInicio = p.ProgFechaInicio,
+                                                      ProgFechaFin = p.ProgFechaFin,
                                                       AulaItem = new AulaItem
                                                       {
                                                           AulId = a.AulId,

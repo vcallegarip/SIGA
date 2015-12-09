@@ -4,10 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Data.Linq;
+using System.Data.SqlClient;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using SIGA_Model.StoredProcContexts;
 
 namespace SIGA.Controllers.Api
 {
@@ -86,11 +89,13 @@ namespace SIGA.Controllers.Api
                 moduloDTO.ModCategroria = (from m in db.Modulo
                                            join mc in db.ModuloCategoria
                                            on m.ModCatId equals mc.ModCatId
+                                           where m.ModId == id
                                            select mc.ModCatNombre).FirstOrDefault().ToString();
 
                 moduloDTO.ModNivel = (from m in db.Modulo
                                       join mn in db.ModuloNivel
                                       on m.ModNivelId equals mn.ModNivelId
+                                      where m.ModId == id
                                       select mn.ModNivelNombre).FirstOrDefault().ToString();
 
                 moduloDTO.ModNombre = modulo.ModNombre;
@@ -101,6 +106,7 @@ namespace SIGA.Controllers.Api
                 moduloDTO.Cursos = (from m in db.ModuloCurso
                                     join c in db.Curso
                                     on m.CurId equals c.CurId
+                                    where m.ModId == id
                                     select new CursoDTO
                                     {
                                         CurId = c.CurId,
@@ -119,7 +125,7 @@ namespace SIGA.Controllers.Api
             }
 
             
-            if (modulo == null || id != 0)
+            if (modulo == null && id != 0)
             {
                 string message = string.Format("No se encontro el modulo con id = {0}.", id.ToString());
                 throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, message));
@@ -131,7 +137,7 @@ namespace SIGA.Controllers.Api
 
         // PUT: api/Modulo/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutModulo(int id, Modulo modulo)
+        public IHttpActionResult Put([FromBody] ModuloDTO moduloDTO)
         {
             string message = "Un error ocurrio mientras se actualizaba el modulo: ";
             if (!ModelState.IsValid)
@@ -140,29 +146,72 @@ namespace SIGA.Controllers.Api
                 return BadRequest(ModelState);
             }
 
-            if (id != modulo.ModId)
-            {
-                message += "El Id and Modulo.Id no son iguales.";
-                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, message));
-            }
+            //string[] moduloDTOToSave = moduloDTO.Cursos.Distinct().ToArray();
 
-            db.Entry(modulo).State = System.Data.Entity.EntityState.Modified;
-
-            try
+            using (var db = new SIGAEntities())
             {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                if (!ModuloExists(id))
+                try
                 {
-                    message = "An error ocurred while updating event: No event found with requested event id = " + id.ToString();
-                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, message + " " + ex));
+                    Modulo modulo = db.Modulo.First(m => m.ModId == moduloDTO.ModId);
+                    modulo.ModNivelId = (int)db.ModuloNivel.Where(mn => mn.ModNivelNombre == moduloDTO.ModNivel).Select(id => id.ModNivelId).FirstOrDefault();
+                    modulo.ModCatId = (int)db.ModuloCategoria.Where(mn => mn.ModCatNombre == moduloDTO.ModCategroria).Select(id => id.ModCatId).FirstOrDefault();
+                    modulo.ModNombre = moduloDTO.ModNombre;
+                    modulo.ModNumHoras = moduloDTO.ModNumHoras;
+                    modulo.ModNumMes = moduloDTO.ModNumMes;
+                    modulo.ModNumCursos = moduloDTO.ModNumCursos;
+
+                    if (moduloDTO.Cursos.Count() > 0)
+                    {
+
+                        DeleteModuloCursoInputParams deleteModuloCursoInputParams = new DeleteModuloCursoInputParams()
+                        {
+                            ModId = moduloDTO.ModId
+                        };
+
+                        ModuloCursoAllSpProcess ModuloCursoAllSPPRocess = new ModuloCursoAllSpProcess();
+                        ModuloCursoAllSPPRocess.EliminarModuloCurso(deleteModuloCursoInputParams);
+
+                        foreach (var moduloCursoItem in moduloDTO.Cursos)
+                        {
+                            if (!String.IsNullOrEmpty(moduloCursoItem.CurName))
+                            {
+                                var cursoFound = db.Curso.Where(c => c.CurName == moduloCursoItem.CurName).FirstOrDefault();
+
+                                Curso curso = new Curso();
+                                if (cursoFound == null)
+                                {
+                                    curso.CurName = moduloCursoItem.CurName;
+                                    curso.CurNumHoras = moduloCursoItem.CurNumHoras;
+                                    curso.CurPrecio = moduloCursoItem.CurPrecio;
+                                    db.Curso.Add(curso);
+                                    db.SaveChanges();
+                                }
+
+                                ModuloCurso moduloCurso = new ModuloCurso();
+                                moduloCurso.MCFechaRegistro = DateTime.UtcNow;
+                                moduloCurso.ModId = modulo.ModId;
+                                moduloCurso.CurId = curso.CurId == 0 ? cursoFound.CurId : curso.CurId;
+
+                                db.ModuloCurso.Add(moduloCurso);
+                                
+                            }
+                        }
+                    }
+
+                    db.SaveChanges();
                 }
-                else
+                catch (DbUpdateConcurrencyException ex)
                 {
-                    message = "Un error ocurrio mientras se actualizaba el modulo " + ex;
-                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, message));
+                    if (!ModuloExists(moduloDTO.ModId))
+                    {
+                        message = "An error ocurred while updating event: No event found with requested event id = " + moduloDTO.ModId.ToString();
+                        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, message + " " + ex));
+                    }
+                    else
+                    {
+                        message = "Un error ocurrio mientras se actualizaba el modulo " + ex;
+                        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, message));
+                    }
                 }
             }
 
@@ -171,7 +220,7 @@ namespace SIGA.Controllers.Api
 
 
         // POST: api/ModuloCurso
-        public IHttpActionResult PostModulo([FromBody] ModuloDTO moduloDTO)
+        public IHttpActionResult Post([FromBody] ModuloDTO moduloDTO)
         {
             string message = "Un error ocurrio cuando se estaba creando el modulo: ";
             if (!ModelState.IsValid)
@@ -249,20 +298,24 @@ namespace SIGA.Controllers.Api
         }
 
 
-        // DELETE: api/Events/5
-        [ResponseType(typeof(Modulo))]
-        public IHttpActionResult DeleteEvent(int id)
+        // DELETE: api/ModuloCurso/
+        public IHttpActionResult Delete([FromUri] int moduloid)
         {
-            Modulo modulo = db.Modulo.Find(id);
+            Modulo modulo = db.Modulo.Find(moduloid);
             if (modulo == null)
             {
-                string message = "An error ocurred while deleting event: No event found with requested event id = " + id.ToString();
+                string message = "Un Error ha ocurrido. No se encontro el modulo id = " + moduloid.ToString();
                 throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, message));
             }
             try
             {
-                db.Modulo.Remove(modulo);
-                db.SaveChanges();
+                DeleteModuloCursoInputParams deleteModuloCursoInputParams = new DeleteModuloCursoInputParams()
+                {
+                    ModId = moduloid
+                };
+
+                ModuloCursoAllSpProcess ModuloCursoAllSPPRocess = new ModuloCursoAllSpProcess();
+                ModuloCursoAllSPPRocess.EliminarModulo(deleteModuloCursoInputParams);
 
                 return Ok(modulo);
             }
@@ -272,6 +325,8 @@ namespace SIGA.Controllers.Api
                 throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, message));
 
             }
+
+            return CreatedAtRoute("DefaultApi", new { id = moduloid }, moduloid);
         }
 
 

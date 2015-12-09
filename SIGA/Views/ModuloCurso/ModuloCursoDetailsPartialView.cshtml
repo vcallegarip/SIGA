@@ -2,7 +2,6 @@
 <div id="ModuloCursoDetailsContainer">
 
     <form action="" method="get">
-
         <div class="row">
 
             <div class="col-lg-4">
@@ -22,8 +21,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="txtModuloNivel">Nivel del Modulo</label>
-                                    @Html.DropDownList(null,null, htmlAttributes: new { @class = "form-control", data_bind = "value: modulo().ModNivel" })
-                                    @*<input type="text" class="form-control" id="txtModuloNivel" name="txtModuloNivel" placeholder="Nivel del Modulo" data-bind="value: modulo().ModNivel">*@
+                                    @Html.DropDownList("Value", new SelectList(ViewBag.ModuloNivelList, "Value", "Value"), htmlAttributes: new { @class = "form-control", data_bind = "value: modulo().ModNivel", @disabled = "disabled", @readonly = "readonly" })
 
                                 </div>
                             </div>
@@ -32,8 +30,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="txtModuloCategoria">Categoria del Modulo</label>
-                                    @Html.DropDownList("Value", new SelectList(ViewBag.ModuloCategoriaList, "Value", "Value"), htmlAttributes: new { @class = "form-control", data_bind = "value: modulo().ModCategroria" })
-                                    @*<input type="text" class="form-control" id="txtModuloCategoria" name="txtModuloCategoria" placeholder="Categoria del Modulo" data-bind="value: modulo().ModCategroria">*@
+                                    @Html.DropDownList("Value", new SelectList(ViewBag.ModuloCategoriaList, "Value", "Value"), htmlAttributes: new { @class = "form-control", data_bind = "value: modulo().ModCategroria", @disabled = "disabled", @readonly = "readonly" })
                                 </div>
                             </div>
                         </div>
@@ -41,7 +38,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="txtModuloNombre">Nombre del Modulo</label>
-                                    <input type="text" class="form-control" id="txtModuloNombre" name="txtModuloNombre" placeholder="Nombre del Modulo" data-bind="value: modulo().ModNombre">
+                                    <input type="text" class="form-control" id="txtModuloNombre" name="txtModuloNombre" placeholder="Nombre del Modulo" data-bind="value: modulo().ModNombre" disabled>
                                 </div>
                             </div>
                         </div>
@@ -49,29 +46,24 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="txtModuloNumHoras"># Horas</label>
-                                    <input type="text" class="form-control" id="txtModuloNumHoras" name="txtModuloNumHoras" placeholder="Horas" data-bind="value: modulo().ModNumHoras">
+                                    <input type="text" class="form-control" id="txtModuloNumHoras" name="txtModuloNumHoras" placeholder="Horas" data-bind="value: modulo().ModNumHoras" disabled>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="txtModuloNumMeses"># Meses</label>
-                                    <input type="text" class="form-control" id="txtModuloNumMeses" name="txtModuloNumMeses" placeholder="Meses" data-bind="value: modulo().ModNumMes">
+                                    <input type="text" class="form-control" id="txtModuloNumMeses" name="txtModuloNumMeses" placeholder="Meses" data-bind="value: modulo().ModNumMes" disabled>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="txtModuloNumCursos"># Cursos</label>
-                                    <input type="text" class="form-control" id="txtModuloNumCursos" name="txtModuloNumCursos" placeholder="Cursos" data-bind="value: modulo().ModNumCursos">
+                                    <input type="text" class="form-control" id="txtModuloNumCursos" name="txtModuloNumCursos" placeholder="Cursos" data-bind="value: modulo().ModNumCursos" disabled>
                                 </div>
                             </div>
                         </div>
 
                         <br />
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <button class="btn btn-success pull-right" data-bind='click:  function () { guardarModulo() }'>Guardar</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -85,7 +77,6 @@
                             <div class="col-lg-12">
                                 <div class="bootstrapDataGrid">
                                     <div class="row bootstrapDataGridHeader cursoGridHeader marginBottomp5px">
-                                        @*<div class="col-lg-2 col-md-2"><span>Codigo</span></div>*@
                                         <div class="col-lg-6 col-md-6"><span>Nombre del Curso</span></div>
                                         <div class="col-lg-2 col-md-2"><span># Horas</span></div>
                                         <div class="col-lg-2 col-md-2"><span>Precio</span></div>
@@ -94,32 +85,13 @@
                                     <div data-bind="foreach: Cursos">
                                         <div class="bootstrapDataGridData">
                                             <div class="row paddingBottom5px paddingTop5px">
-                                                @*<div class="col-lg-2 col-md-2 noPaddingInColumn"><input class='form-control required' data-bind='value: CurId, uniqueName: true' /></div>*@
-
-                                                <div class="col-lg-6 col-md-6"><input id="txtCurName" class='form-control txtCurName required' data-bind='value: CurName, uniqueName: true' /></div>
-                                                <div class="col-lg-2 col-md-2"><input id="txtCurNumHoras" class='form-control required' data-bind='value: CurNumHoras, uniqueName: true' /></div>
-                                                <div class="col-lg-2 col-md-2"><input id="txtCurPrecio" class='form-control required' data-bind='value: CurPrecio, uniqueName: true' /></div>
-                                                <div class="col-lg-2 col-md-2 noPaddingInColumn">
-                                                    <div class="opcionesButtomGroup">
-                                                        <a class="btn btn-md btn-default fa fa-trash-o dangerColor pull-right" data-bind='click: $root.removeCurso'></a>
-                                                        <a class="btn btn-md btn-default fa fa-floppy-o infoColor pull-right"></a>
-                                                        <a class="btn btn-md btn-default fa fa-pencil-square-o warningColor pull-right"></a>
-                                                    </div>
-                                                </div>
+                                                <div class="col-lg-6 col-md-6"><input id="txtCurName" class='form-control txtCurName required' data-bind='value: CurName, uniqueName: true' disabled /></div>
+                                                <div class="col-lg-2 col-md-2"><input id="txtCurNumHoras" class='form-control required' data-bind='value: CurNumHoras, uniqueName: true' disabled /></div>
+                                                <div class="col-lg-2 col-md-2"><input id="txtCurPrecio" class='form-control required' data-bind='value: CurPrecio, uniqueName: true' disabled /></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        @*<div class="col-lg-6 col-md-6"><input id="nameCurso" name="nameCurso" class='form-control required' /></div>*@
-
-                        <br />
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <button class="btn btn-default pull-left" data-bind='click: function() { mcVM.addCurso() }'>Agregar Curso</button>
-                                <button class="btn btn-success pull-right" data-bind='click: function() { guardarModulo() }' type='submit'>Guardar</button>
                             </div>
                         </div>
 
@@ -129,9 +101,6 @@
 
         </div>
     </form>
-  
-        
-   
 
 </div>
 
@@ -143,7 +112,7 @@
     $(document).ready(function () {
 
         var mcVM = new modulocursoViewModel();
-        ko.applyBindings(mcVM, $('#ModuloCursoCreateEditContainer')[0]);
+        ko.applyBindings(mcVM, $('#ModuloCursoDetailsContainer')[0]);
  
     });
 

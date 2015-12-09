@@ -24,7 +24,7 @@
                     <div class="col-lg-1 col-md-1 alignDataWithButton"><span data-bind='html: linkLabelCount'></span><span>&nbsp;</span><a href="#" data-bind='click: toggle, html: linkLabelIcon'></a></div>
                     <div class="col-lg-2 col-md-2 noPaddingInColumn">
                         <div class="opcionesButtomGroup">
-                            <a class="btn btn-md btn-default fa fa-trash-o dangerColor pull-right" data-bind='click: $root.removeCurso'></a>
+                            <a class="btn btn-md btn-default fa fa-trash-o dangerColor pull-right" data-bind='click: function() { eliminarModuloCurso(ModId); }'></a>
                             <a class="btn btn-md btn-default fa fa-pencil-square-o infoColor pull-right" data-bind="click: function() {  editModuloCurso(ModId); }"></a>
                             <a class="btn btn-md btn-default fa fa-info-circle warningColor pull-right" data-bind="click: function() {  detailModuloCurso(ModId); }"></a>
                         </div>

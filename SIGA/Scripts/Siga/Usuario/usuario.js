@@ -194,7 +194,7 @@ function usuarioViewModel(usuario) {
 
     usuarioVM.showUsuarioDeleteModal = function (userid) {
         usuarioVM.userIdToDelete = userid;
-        showConfirmDialog(usuarioVM.usuarioDelete, "Confirmacion", "Estas seguro que quieres eliminar este usuario?", "Ok", "Cancel", null);
+        showConfirmDialog(usuarioVM.usuarioDelete, "Confirmacion", "Estas seguro que desea eliminar este usuario?", "Si", "Cancelar", null);
         return false;
     }
 

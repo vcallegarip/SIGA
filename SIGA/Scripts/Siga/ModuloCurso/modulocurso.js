@@ -6,8 +6,11 @@ function modulocursoViewModel() {
     mcVM.modulo = ko.observableArray([]);
     mcVM.modulos = ko.observableArray([]);
     mcVM.Cursos = ko.observableArray([]);
+    mcVM.moduloCursosNew = ko.observableArray([]);
     mcVM.cursoPushIndex = ko.observable(0);
     mcVM.lastPushedCursoName = ko.observable('');
+
+    mcVM.isCreating = ko.observable(0);
 
     mcVM.addCurso = function () {
         
@@ -35,15 +38,19 @@ function modulocursoViewModel() {
     };
 
     mcVM.getModulo = function (id) {
-        debugger
+        
         $.ajax({
             url: "/api/ModuloCurso?id=" + id,
             dataType: "Json",
             type: 'GET',
             data: '',
             success: function (data) {
-                debugger
                 mcVM.modulo(data);
+                mcVM.isCreating(data.ModId);
+                for (var i = 0; i < mcVM.modulo().Cursos.length; i++) {
+                    mcVM.Cursos.push(mcVM.modulo().Cursos[i]);
+                }
+
                 if (id == 0) {
                     mcVM.lastPushedCursoName("")
                 }
@@ -75,24 +82,28 @@ function modulocursoViewModel() {
 
     mcVM.guardarModulo = function () {
 
-        mcVM.modulo().Cursos.splice(0, 1);
+        //mcVM.modulo().Cursos.splice(0, 1);
+        //uniqueArray(mcVM.modulo().Cursos);
+
         var cursoObservableUnwrapped = ko.toJS(mcVM.Cursos());
-        mcVM.modulo().Cursos.push.apply(mcVM.modulo().Cursos, cursoObservableUnwrapped);
+        mcVM.modulo().Cursos = cursoObservableUnwrapped;
         var postData = mcVM.modulo();
 
         var url = "api/ModuloCurso";
         $.ajax({
             url: url,
-            type: 'POST',
+            type: mcVM.isCreating() < 1 ? 'Post' : 'Put',
             dataType: "Json",
             data: JSON.stringify(postData),
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                //var request = new Request(data.Request);
-                //crVM.request(request);
-                //crVM.LoggedInUser = data.UserName;
-                //crVM.modulePaneLoad(request.MappedRequestModules[0]); // load the first module for display
-                //crVM.step3ActiveModuleTab(request.MappedRequestModules[0]);
+                $('.body-content').prepend('<div class="alert alert-success"><strong>Exito!</strong> El Modulo fue guardado con exito.</div>');
+                setTimeout(function () {
+                    if (mcVM.isCreating() < 1)
+                        $("#mainContainer").load('/ModuloCurso');
+                    else
+                        editModuloCurso(mcVM.isCreating());
+                }, 3000);
             },
             error: function (xhr, result, status) {
                 alert(getAjaxErrorText(xhr));
@@ -100,29 +111,46 @@ function modulocursoViewModel() {
         });
     }
 
-    //crvm.crearcurso = function () {
-    //    var postdata = mcvm.modulos;
-    //    var url = "api/createmodulo";
-    //    $.ajax({
-    //        url: url,
-    //        type: 'post',
-    //        datatype: "json",
-    //        contenttype: 'application/json;charset=utf-8',
-    //        data: ko.tojson(postdata),
-    //        success: function (data) {
-    //            //var request = new request(data.request);
-    //            //crvm.request(request);
-    //            //crvm.loggedinuser = data.username;
-    //            //crvm.modulepaneload(request.mappedrequestmodules[0]); // load the first module for display
-    //            //crvm.step3activemoduletab(request.mappedrequestmodules[0]);
-    //        },
-    //        error: function (xhr, result, status) {
-    //            alert(getajaxerrortext(xhr));
-    //        }
-    //    });
-    //}
+    mcVM.moduloToDelete = 0;
+
+    mcVM.showModuloDeleteModal = function (moduloid) {
+        mcVM.moduloToDelete = moduloid;
+        showConfirmDialog(mcVM.moduloDelete, "Confirmacion", "Estas seguro que desea eliminar este modulo?", "Si", "Cancelar", null);
+        return false;
+    }
+
+    mcVM.moduloDelete = function () {
+        var URL = "ModuloCurso/Delete?moduloid=" + mcVM.moduloToDelete;
+        $.ajax(
+        {
+            url: URL,
+            type: "Delete",
+            data: '',
+            async: true,
+            success: function (data) {
+                if (data == "OK") {
+                    $('.body-content').prepend('<div class="alert alert-success"><strong>Exito!</strong> El Modulo fue eliminado con exito.</div>');
+                    $("#mainContainer").load('/ModuloCurso');
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('.body-content').prepend('<div class="alert alert-danger">' + jqXHR + '</div>');
+                //alert(getAjaxErrorText(xhr));
+            }
+        });
+    }
 
 }
+
+
+function uniqueArray(list) {
+    var result = [];
+    $.each(list, function (i, e) {
+        if ($.inArray(e, result) == -1) result.push(e);
+    });
+    return result;
+}
+
 
 function toggleCursoDiv(item) {
     var self = this;
@@ -209,12 +237,19 @@ function enableAutoComplete() {
 };
 
 function editModuloCurso(modulocursoid) {
-    $("#mainContainer").load('/ModuloCurso/Edit?modulocursoid=' + modulocursoid);
+    mcVM.getModulo(modulocursoid);
+    $("#mainContainer").load('/ModuloCurso/Edit');
     return;
 }
 
 function detailModuloCurso(modulocursoid) {
     mcVM.getModulo(modulocursoid);
-    $("#mainContainer").load('/ModuloCurso/GetModulo');
+    $("#mainContainer").load('/ModuloCurso/Details');
     return;
 }
+
+function eliminarModuloCurso(modulocursoid) {
+    mcVM.showModuloDeleteModal(modulocursoid);
+    return;
+}
+
