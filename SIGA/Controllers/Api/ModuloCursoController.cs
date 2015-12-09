@@ -299,35 +299,35 @@ namespace SIGA.Controllers.Api
 
 
         // DELETE: api/ModuloCurso/
-        public IHttpActionResult Delete([FromUri] int moduloid)
-        {
-            Modulo modulo = db.Modulo.Find(moduloid);
-            if (modulo == null)
-            {
-                string message = "Un Error ha ocurrido. No se encontro el modulo id = " + moduloid.ToString();
-                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, message));
-            }
-            try
-            {
-                DeleteModuloCursoInputParams deleteModuloCursoInputParams = new DeleteModuloCursoInputParams()
-                {
-                    ModId = moduloid
-                };
+        //public IHttpActionResult Delete([FromUri] int moduloid)
+        //{
+        //    Modulo modulo = db.Modulo.Find(moduloid);
+        //    if (modulo == null)
+        //    {
+        //        string message = "Un Error ha ocurrido. No se encontro el modulo id = " + moduloid.ToString();
+        //        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, message));
+        //    }
+        //    try
+        //    {
+        //        DeleteModuloCursoInputParams deleteModuloCursoInputParams = new DeleteModuloCursoInputParams()
+        //        {
+        //            ModId = moduloid
+        //        };
 
-                ModuloCursoAllSpProcess ModuloCursoAllSPPRocess = new ModuloCursoAllSpProcess();
-                ModuloCursoAllSPPRocess.EliminarModulo(deleteModuloCursoInputParams);
+        //        ModuloCursoAllSpProcess ModuloCursoAllSPPRocess = new ModuloCursoAllSpProcess();
+        //        ModuloCursoAllSPPRocess.EliminarModulo(deleteModuloCursoInputParams);
 
-                return Ok(modulo);
-            }
-            catch (Exception ex)
-            {
-                string message = "An error ocurred while deleting event: " + ex;
-                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, message));
+        //        return Ok(modulo);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string message = "An error ocurred while deleting event: " + ex;
+        //        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, message));
 
-            }
+        //    }
 
-            return CreatedAtRoute("DefaultApi", new { id = moduloid }, moduloid);
-        }
+        //    return CreatedAtRoute("DefaultApi", new { id = moduloid }, moduloid);
+        //}
 
 
         protected override void Dispose(bool disposing)
