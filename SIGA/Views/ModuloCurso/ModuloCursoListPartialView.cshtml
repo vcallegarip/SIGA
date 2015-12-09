@@ -25,8 +25,8 @@
                     <div class="col-lg-2 col-md-2 noPaddingInColumn">
                         <div class="opcionesButtomGroup">
                             <a class="btn btn-md btn-default fa fa-trash-o dangerColor pull-right" data-bind='click: $root.removeCurso'></a>
-                            <a class="btn btn-md btn-default fa fa-floppy-o infoColor pull-right"></a>
-                            <a class="btn btn-md btn-default fa fa-pencil-square-o warningColor pull-right"></a>
+                            <a class="btn btn-md btn-default fa fa-pencil-square-o infoColor pull-right" data-bind="click: function() {  editModuloCurso(ModId); }"></a>
+                            <a class="btn btn-md btn-default fa fa-info-circle warningColor pull-right" data-bind="click: function() {  detailModuloCurso(ModId); }"></a>
                         </div>
                     </div>
                     

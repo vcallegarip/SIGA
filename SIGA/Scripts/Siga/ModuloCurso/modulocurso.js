@@ -35,12 +35,14 @@ function modulocursoViewModel() {
     };
 
     mcVM.getModulo = function (id) {
+        debugger
         $.ajax({
             url: "/api/ModuloCurso?id=" + id,
             dataType: "Json",
             type: 'GET',
             data: '',
             success: function (data) {
+                debugger
                 mcVM.modulo(data);
                 if (id == 0) {
                     mcVM.lastPushedCursoName("")
@@ -205,3 +207,14 @@ function enableAutoComplete() {
     });
 
 };
+
+function editModuloCurso(modulocursoid) {
+    $("#mainContainer").load('/ModuloCurso/Edit?modulocursoid=' + modulocursoid);
+    return;
+}
+
+function detailModuloCurso(modulocursoid) {
+    mcVM.getModulo(modulocursoid);
+    $("#mainContainer").load('/ModuloCurso/GetModulo');
+    return;
+}

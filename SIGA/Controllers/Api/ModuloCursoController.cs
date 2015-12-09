@@ -76,7 +76,6 @@ namespace SIGA.Controllers.Api
         {
 
             ModuloDTO moduloDTO = new ModuloDTO();
-            
 
             Modulo modulo = db.Modulo.Find(id);
 
